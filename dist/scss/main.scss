@@ -1,0 +1,452 @@
+/*! main.scss | Vuero | Css ninja 2020-2021 */
+
+/* ==========================================================================
+SCSS Imports
+========================================================================== */
+@import '~nprogress/nprogress.css';
+
+@import '~gitart-vue-dialog/dist/style.css';
+@import '~@vueform/multiselect/themes/default.scss';
+
+
+
+// @import './bulma-generated/generated-fallback.css';
+@import './bulma-generated/generated-vars.sass';
+@import './css-variables/all';
+
+@import './abstracts/variables';
+@import './abstracts/mixins';
+
+@import '~bulma-css-vars/bulma-cv-lib';
+
+@import '~bulma/sass/base/_all.sass';
+@import '~bulma/sass/elements/_all.sass';
+@import '~bulma/sass/form/_all.sass';
+@import '~bulma/sass/components/_all.sass';
+@import '~bulma/sass/grid/_all.sass';
+@import '~bulma/sass/helpers/_all.sass';
+@import '~bulma/sass/layout/_all.sass';
+
+@import './extensions/all';
+
+@import './abstracts/typography';
+@import './abstracts/animations';
+@import './abstracts/transitions';
+@import './abstracts/helpers';
+
+@import './layout/layout';
+@import './layout/utilities';
+
+@import './elements/buttons';
+@import './elements/blocks';
+@import './elements/cards';
+@import './elements/content';
+@import './elements/forms-general';
+@import './elements/forms-combos';
+@import './elements/forms-checkboxes';
+@import './elements/forms-slider';
+@import './elements/forms-multiselect';
+@import './elements/icons';
+@import './elements/links';
+@import './elements/lists';
+@import './elements/tags';
+
+@import './components/nprogress';
+@import './components/accordion';
+@import './components/breadcrumbs';
+@import './components/datepicker';
+@import './components/dropdowns';
+@import './components/editors';
+@import './components/modals';
+@import './components/message';
+@import './components/media';
+//@import './components/charts';
+@import './components/loader';
+@import './components/toggles';
+//@import './components/video-player';
+@import './components/placeholders';
+@import './components/placeload';
+@import './components/popovers';
+@import './components/progress';
+@import './components/theme-switch';
+@import './components/avatar';
+@import './components/snacks';
+@import './components/switch-segment';
+@import './components/tabs';
+@import './components/table';
+@import './components/datatable';
+@import './components/toasts';
+@import './components/toolbar';
+@import './components/tooltips';
+//@import './components/circle-chart';
+@import './components/ckeditor';
+@import './components/color-picker';
+//@import './components/credit-card';
+
+@import './pages/demo/layout-selector';
+@import './pages/generic/widgets';
+
+@import './layout/responsive';
+
+@import './abstracts/dark';
+
+
+.modern-login .top-logo,
+.modern-login .dark-mode {
+    top: 0  !important;
+}
+.modern-login .is-form .form-text {
+    margin-top: 15px !important;
+}
+
+@media only screen and (max-width: 767px) {
+    .modern-login .top-logo,
+    .modern-login .dark-mode {
+        top: 30px !important;
+    }
+    .modern-login .is-form {
+        padding-top: 50px !important;
+    }
+}
+.sidebar-panel.is-generic .inner li > a {
+    font-size: 1.1rem;
+}
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap');
+html[dir="rtl"]{
+    body{
+        text-align: right;
+        direction: rtl;
+    }
+
+    span.language-span {
+        font-family: 'Cairo', serif;
+    }
+
+    input.input {
+        font-family: 'Cairo', serif;
+    }
+    .modern-login .underlay ,
+    .modern-login .is-form .login-wrapper .control .autv-icon {
+        right: 0;
+        left: auto;
+    }
+    .modern-login .is-form .login-wrapper .control .auth-label {
+        right: 55px;
+        left: auto;
+    }
+    .remember-toggle .toggler .active,
+    .remember-toggle .toggler .inactive {
+        right: 2px;
+        left: auto;
+    }
+    .remember-toggle input:checked~.toggler .active,
+    .remember-toggle input:checked~.toggler .inactive {
+        transform: translateX(-100%) rotate(360deg);
+    }
+
+    //
+
+    .main-sidebar {
+        right: 0;
+        left: auto;
+    }
+    .view-wrapper {
+        margin-right: 80px;
+        margin-left: 0;
+    }
+    .sidebar-panel {
+        right: 80px;
+        left: auto;
+    }
+    .view-wrapper.is-pushed-full {
+        margin-right: 320px;
+    }
+    .page-title .title-wrap {
+        margin-right: 1rem;
+        margin-left: 0;
+    }
+
+    .company-dashboard .company-header .header-item {
+        border-left: 1px solid var(--fade-grey-dark-3);
+        border-right: 0;
+    }
+
+    .company-dashboard .company-header .header-item:last-child {
+        border-left: none;
+    }
+    .media-flex .flex-end {
+        margin-right: auto;
+        margin-left: 0;
+    }
+    .circular-menu {
+        left: 1em;
+        right: auto;
+    }
+    .main-sidebar .sidebar-inner .bottom-menu .profile-dropdown .dropdown-menu{
+        right: 145%;
+        left: auto;
+        top: auto;
+    }
+    .ml-auto {
+        margin-right: auto !important;
+        margin-left: 0 !important;
+    }
+    .mr-auto {
+        margin-left: auto !important;
+        margin-right: 0 !important;
+    }
+    .menu-toggle .icon-box-toggle.active>span>i.icon-line-bottom {
+        transform: translate(0, 0) rotate(-135deg);
+    }
+    .menu-toggle .icon-box-toggle.active>span>i.icon-line-top {
+        transform: translate(0, 0) rotate(-45deg);
+    }
+    .circular-menu.active .menu-item:nth-child(1) {
+        transform: translate3d(7em, -0.5em, 0);
+    }
+    .circular-menu.active .menu-item:nth-child(2) {
+        transform: translate3d(6.25em, 3.25em, 0);
+    }
+    .circular-menu.active .menu-item:nth-child(3) {
+        transform: translate3d(3.45em, 6.25em, 0);
+    }
+    .circular-menu.active .menu-item:nth-child(4) {
+        transform: translate3d(-0.5em, 7em, 0);
+    }
+    .company-dashboard .dashboard-card.is-base-chart .content-box .revenue-stats .revenue-stat {
+        margin-left: 30px;
+        margin-right: 0;
+    }
+    .mobile-main-sidebar {
+        right: 0;
+        left: unset;
+        transform: translateX(100%);
+        border-left: 1px solid var(--fade-grey);
+        border-right: 0;
+    }
+    .mobile-main-sidebar.is-active {
+        transform: translateX(0);
+    }
+    .mobile-subsidebar {
+        right: 0;
+        left: auto;
+    }
+    .mobile-subsidebar .inner {
+        margin-left: 0;
+        margin-right: 60px;
+    }
+    @media (max-width: 767px)  {
+        .view-wrapper{
+            width: 100% !important;
+            margin-left: 0 !important;
+            margin-top: 60px !important;
+            margin-right: 0 !important;
+        }
+    }
+    .menu-toggle .icon-line-center {
+        margin: -1px 0 0 -2px;
+    }
+    .slide-x-enter-from {
+        transform: translateX(100%);
+    }
+
+    .slide-x-enter-to {
+        transform: translateX(0%);
+    }
+
+    .slide-x-leave-from {
+        transform: translateX(0);
+    }
+
+    .slide-x-leave-to {
+        transform: translateX(100%);
+    }
+    .dropdown.is-right .dropdown-menu {
+        right: auto;
+        left: 0;
+    }
+    .right-panel-wrapper .right-panel {
+        left: 0;
+        right: auto;
+        transform: translateX(-100%);
+    }
+    .right-panel-wrapper .right-panel .right-panel-head .close-panel svg {
+        color: var(--light-text);
+        height: 22px;
+        width: 22px;
+        transition: stroke 0.3s;
+        transform: rotate(180deg);
+    }
+    .right-panel-wrapper.is-active .right-panel {
+        transform: translateX(0);
+    }
+    .mobile-navbar .navbar-brand .user-dropdown .dropdown-menu {
+        left: 0;
+        right: unset;
+    }
+    .button .icon:first-child:not(:last-child) {
+        margin-right: calc(-0.5em - 1px);
+        margin-left: 0.25em;
+    }
+    @media (max-width: 767px){
+        .flex-table .flex-table-cell>span,
+        .flex-table .flex-table-cell>.is-pushed-mobile {
+            margin-right: auto;
+            margin-left: 0;
+        }
+         .flex-table .flex-table-cell::before {
+             margin-left: auto;
+         }
+        .navbar-brand .brand-end {
+            margin-left: 20px;
+            margin-right: 0;
+        }
+    }
+    .mobile-navbar .navbar-item.is-notification {
+        margin-right: 0;
+        margin-left: 12px;
+    }
+
+
+    .tabs.is-toggle.is-toggle-rounded li:first-child a {
+        border-bottom-right-radius: var(--radius-rounded);
+        border-top-right-radius: var(--radius-rounded);
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        padding-right: 1.25em;
+    }
+
+    span.crud-head-label {
+        font-family: 'Cairo', serif;
+        font-weight: 900 !important;
+    }
+
+
+    .tabs.is-toggle.is-toggle-rounded li:last-child a {
+        border-bottom-left-radius: var(--radius-rounded);
+        border-top-left-radius: var(--radius-rounded);
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+        padding-left: 1.25em;
+    }
+
+    .buttons .button:not(:last-child):not(.is-fullwidth) {
+        margin-left: 0.5rem;
+        margin-right: 0;
+    }
+    .lnir-arrow-left::before {
+        content: '\eb1e';
+    }
+
+    .toolbar .toolbar-notifications .dropdown .dropdown-menu .dropdown-content .notification-list .notification-item .img-left img {
+        margin: 0 0 0 0.5rem;
+    }
+    .toolbar .toolbar-notifications .dropdown .dropdown-menu .dropdown-content .notification-list .notification-item .user-content {
+        text-align: right;
+    }
+    .multiselect-multiple-label, .multiselect-single-label, .multiselect-placeholder {
+        right: 0;
+        padding-right: 2.5rem;
+        left: auto;
+    }
+    .control.has-icon .input {
+        padding-right: 38px;
+        padding-left: 8px;
+        height: auto;
+    }
+    .multiselect-caret {
+        position: absolute;
+        left: 10px;
+    }
+    .control.has-icon .form-icon {
+        right: 0;
+    }
+    .form-layout .form-outer .form-header.is-stuck {
+        padding-left: 80px;
+        padding-right: 20px;
+        border-right: 1px solid var(--fade-grey-dark-3);
+        border-left: 0;
+        @media(max-width:767px){
+            padding-left: 20px;
+        }
+    }
+    .view-wrapper .is-stuck {
+        margin-right: 80px;
+        margin-left: 0;
+    }
+    .multiselect-clear {
+        position: absolute;
+        left: 15px;
+    }
+    .floating-tabs {
+        float: left;
+    }
+    .pr-2 {
+        padding-left: 0.5rem !important;
+        padding-right: 0 !important;
+    }
+    .multiselect .multiselect-options .multiselect-option.is-selected:after{
+        left: 10px;
+        right: auto;
+    }
+
+    .validation-icon.is-error {
+        right: auto !important;
+        left: 0 !important;
+    }
+
+    span.flex-datatable-cell {
+        font-family: 'Cairo', serif;
+        font-weight: 700 !important;
+    }
+    .control.has-icon .field-container .multiselect.input{
+        padding-top: 2px;
+        padding-bottom: 2px;
+        height: auto;
+    }
+    .multiselect .multiselect-tags .multiselect-tag {
+        padding: 1px 8px 1px 0px;
+    }
+    .flex-table .flex-table-header span{
+        margin-top: -11px;
+        padding: 0 22px 10px 10px;
+    }
+}
+
+html[dir="ltr"]{
+    .multiselect-caret {
+        position: absolute;
+        right: 0;
+    }
+    .multiselect .multiselect-placeholder, .multiselect .multiselect-multiple-label {
+        padding-left: 2.5rem;
+    }
+    .multiselect-clear {
+        position: absolute;
+        right: 15px;
+    }
+    .multiselect-multiple-label, .multiselect-single-label, .multiselect-placeholder {
+        left: 0;
+        padding-left: 2.5rem;
+        right: auto;
+    }
+    .flex-table .flex-table-header span {
+        padding: 0 10px 5px 22px;
+        margin-top: -5px;
+    }
+}
+button.v-button.small {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    background-color: white !important;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    vertical-align: middle;
+    height: 100% !important;
+    flex-flow: column-reverse;
+}
+

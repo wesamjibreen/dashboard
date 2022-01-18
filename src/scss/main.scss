@@ -1,0 +1,134 @@
+/*! main.scss | Vuero | Css ninja 2020-2021 */
+
+/* ==========================================================================
+SCSS Imports
+========================================================================== */
+@import '~nprogress/nprogress.css';
+
+@import '~gitart-vue-dialog/dist/style.css';
+@import '~@vueform/multiselect/themes/default.scss';
+
+
+
+// @import './bulma-generated/generated-fallback.css';
+@import './bulma-generated/generated-vars.sass';
+@import './css-variables/all';
+
+@import './abstracts/variables';
+@import './abstracts/mixins';
+
+@import './bulma-css-vars/bulma-cv-lib';
+
+@import './bulma/sass/base/_all.sass';
+@import './bulma/sass/elements/_all.sass';
+@import './bulma/sass/form/_all.sass';
+@import './bulma/sass/components/_all.sass';
+@import './bulma/sass/grid/_all.sass';
+@import './bulma/sass/helpers/_all.sass';
+@import './bulma/sass/layout/_all.sass';
+
+@import './extensions/all';
+
+@import './abstracts/typography';
+@import './abstracts/animations';
+@import './abstracts/transitions';
+@import './abstracts/helpers';
+
+@import './layout/layout';
+@import './layout/utilities';
+
+@import './elements/buttons';
+@import './elements/blocks';
+@import './elements/cards';
+@import './elements/content';
+@import './elements/forms-general';
+@import './elements/forms-combos';
+@import './elements/forms-checkboxes';
+@import './elements/forms-slider';
+@import './elements/forms-multiselect';
+@import './elements/icons';
+@import './elements/links';
+@import './elements/lists';
+@import './elements/tags';
+
+@import './components/nprogress';
+@import './components/accordion';
+@import './components/breadcrumbs';
+@import './components/datepicker';
+@import './components/dropdowns';
+@import './components/editors';
+@import './components/modals';
+@import './components/message';
+@import './components/media';
+//@import './components/charts';
+@import './components/loader';
+@import './components/toggles';
+//@import './components/video-player';
+@import './components/placeholders';
+@import './components/placeload';
+@import './components/popovers';
+@import './components/progress';
+@import './components/theme-switch';
+@import './components/avatar';
+@import './components/snacks';
+@import './components/switch-segment';
+@import './components/tabs';
+@import './components/table';
+@import './components/datatable';
+@import './components/toasts';
+@import './components/toolbar';
+@import './components/tooltips';
+//@import './components/circle-chart';
+@import './components/ckeditor';
+@import './components/color-picker';
+//@import './components/credit-card';
+
+@import './pages/demo/layout-selector';
+@import './pages/generic/widgets';
+
+@import './layout/responsive';
+
+@import './abstracts/dark';
+
+
+.modern-login .top-logo,
+.modern-login .dark-mode {
+    top: 0  !important;
+}
+.modern-login .is-form .form-text {
+    margin-top: 15px !important;
+}
+@media only screen and (max-width: 767px) {
+    .modern-login .top-logo,
+    .modern-login .dark-mode {
+        top: 30px !important;
+    }
+    .modern-login .is-form {
+        padding-top: 50px !important;
+    }
+}
+
+html[dir="rtl"]{
+    body{
+        text-align: right;
+        direction: rtl;
+    }
+    .modern-login .underlay ,
+    .modern-login .is-form .login-wrapper .control .autv-icon {
+        right: 0;
+        left: auto;
+    }
+    .modern-login .is-form .login-wrapper .control .auth-label {
+        right: 55px;
+        left: auto;
+    }
+    .remember-toggle .toggler .active,
+    .remember-toggle .toggler .inactive {
+        right: 2px;
+        left: auto;
+    }
+    .remember-toggle input:checked~.toggler .active,
+    .remember-toggle input:checked~.toggler .inactive {
+        transform: translateX(-100%) rotate(360deg);
+    }
+}

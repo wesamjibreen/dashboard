@@ -1,0 +1,27 @@
+{
+  "name": "dashboard",
+  "version": "1.0.0",
+  "description": "Vue3 Functional Dashboard",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wesamjibreen/dashboard.git"
+  },
+  "keywords": [
+    "Vue3",
+    "Panel",
+    "Dashboard",
+    "Dynamic",
+    "Builder",
+    "List"
+  ],
+  "author": "WeSSaM",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wesamjibreen/dashboard/issues"
+  },
+  "homepage": "https://github.com/wesamjibreen/dashboard#readme"
+}

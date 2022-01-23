@@ -11,14 +11,14 @@
                    :name="model$"
                    :value="option[optionValue]"
                    type="checkbox">
-            {{ trans(option[optionName]) ?? option[optionName] }}
             <span></span>
+            {{ trans(option[optionName]) ?? option[optionName] }}
         </label>
 
         <label v-if="single" class="checkbox " :for="`check_box_${model$}`">
             <input :id="`check_box_${model$}`" v-model="input" :name="model$" :value="value" type="checkbox">
-            {{ trans(label$ )}}
             <span></span>
+            {{ trans(label$ )}}
         </label>
     </div>
 </template>

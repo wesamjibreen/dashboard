@@ -11,7 +11,7 @@
                 <li v-for="item in items" @click="$emit('close')">
                     <RouterLink v-bind="item">
                         <i aria-hidden="true" :class="`${item.icon} pr-2`"></i>
-                        {{ trans(item.label) }}
+                        <span>{{ trans(item.label) }}</span>
                     </RouterLink>
                 </li>
             </ul>

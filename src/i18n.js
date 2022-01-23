@@ -27,6 +27,7 @@ const common = {
             no_results_subtitle: "يبدو أننا لم نتمكن من العثور على أي نتائج مطابقة لمصطلحات البحث التي أدخلتها." +
                 "يرجى محاولة مصطلحات أو معايير بحث مختلفة."
         },
+        welcome: "مرحباً",
         sign_in: "تسجيل الدخول",
         select_country: "قم بإختيار الدولة",
         select_language: "قم بإختيار اللغة",
@@ -45,6 +46,7 @@ const common = {
         sure_to_delete: "هل أنت متأكد من الحذف ؟",
     },
     en: {
+        welcome: "Welcome",
         datatable: {
             no_results: "We couldn't find any matching results.",
             no_results_subtitle: "Too bad. Looks like we couldn't find any matching results for the search terms you've entered." +

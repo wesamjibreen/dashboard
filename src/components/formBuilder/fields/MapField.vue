@@ -14,19 +14,19 @@
                 ref="searchBoxInput" @place_changed="setPlace" :placeholder="trans('search')">
         </GMapAutocomplete>
 
-        <div class="operation-btn">
-            <vButton class="btn is-success" @click="addMarker"
+        <div class="operation-btn mt-3">
+            <vButton class="btn is-success mx-1 mb-2" @click="addMarker"
                      v-if="hasMarkers && ( multiple || this.markers.length === 0)">
                 {{ trans('add_marker')}}
             </vButton>
-            <vButton @click="resetMarkers" v-if="hasMarkers &&  ( multiple || this.markers.length !== 0)">
+            <vButton @click="resetMarkers" class="mx-1 mb-2" v-if="hasMarkers &&  ( multiple || this.markers.length !== 0)">
                 {{ trans('reset_markers')}}
             </vButton>
-            <vButton class="btn is-success" @click="addPolygon"
+            <vButton class="btn is-success mx-1 mb-2" @click="addPolygon"
                      v-if="hasPolygons && ( multiple || this.polygons.length === 0)">
                 {{ trans('add_polygon')}}
             </vButton>
-            <vButton @click="resetPolygons" v-if="hasPolygons && ( multiple || this.polygons.length !== 0)">
+            <vButton @click="resetPolygons" class="mx-1  mb-2" v-if="hasPolygons && ( multiple || this.polygons.length !== 0)">
                 {{ trans('reset_polygons')}}
             </vButton>
         </div>
@@ -525,8 +525,15 @@
 
     input.input.controls.seach-box-input {
         position: absolute;
-        top: 5%;
+        top: 3%;
         width: 30%;
         right: 10%;
+    }
+    @media(max-width:900px){
+        input.input.controls.seach-box-input {
+            top: 14%;
+            width: 94%;
+            right: 3%;
+        }
     }
 </style>

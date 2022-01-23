@@ -2,10 +2,11 @@ const form = {
     config: {
         resource: "form",
     },
-    data : [
+    data: [
         {
-            title : "Test 1",
-            inputs : [
+            title: "Test 1",
+            description: "This helps us to know you",
+            inputs: [
                 {
                     component: "repeater",
                     label: "repeater",
@@ -69,13 +70,15 @@ const form = {
             ]
         },
         {
-            title : "Test 2",
+            title: "Test 2",
+            description: "This helps us to know you",
+
             // show: function () {
             //     // alert('ok');
             //     // console.log('polygon input', form);
             //     return !this.form?.type
             // },
-            inputs : [
+            inputs: [
 
                 {
                     component: "file",
@@ -84,6 +87,11 @@ const form = {
                     crop: true,
                     ratio: 1
                 },
+                {
+                    component: "multiple-date",
+                    model: "multiple_date_picker",
+                    label: "datepicker",
+                },
 
                 {
                     component: "date",
@@ -91,7 +99,7 @@ const form = {
                     label: "datepicker",
                     // inline : true,
                     cols: 6,
-                    mode: 'date'
+                    mode: 'multiple'
                 },
 
                 {

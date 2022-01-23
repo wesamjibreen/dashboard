@@ -40,21 +40,17 @@
                             <h2>Recover Account</h2>
                             <p>Reset your account password.</p>
                         </div>
-                        <form
-                                :class="[step !== 'login' && 'is-hidden']"
-                                class="login-wrapper"
-                                @submit.prevent="handleLogin"
-                        >
-                            <VMessage color="primary">
-                                <div>
-                                    <strong class="pr-1">email:</strong
-                                    ><span>john.doe@cssninja.io</span>
-                                </div>
-                                <div>
-                                    <strong class="pr-1">password:</strong
-                                    ><span>ada.lovelace</span>
-                                </div>
-                            </VMessage>
+                        <form :class="[step !== 'login' && 'is-hidden']" class="login-wrapper" @submit.prevent="handleLogin">
+                            <!--<VMessage color="primary">-->
+                                <!--<div>-->
+                                    <!--<strong class="pr-1">email:</strong-->
+                                    <!--&gt;<span>john.doe@cssninja.io</span>-->
+                                <!--</div>-->
+                                <!--<div>-->
+                                    <!--<strong class="pr-1">password:</strong-->
+                                    <!--&gt;<span>ada.lovelace</span>-->
+                                <!--</div>-->
+                            <!--</VMessage>-->
 
                             <div class="control has-validation">
                                 <input
@@ -115,8 +111,7 @@
                                         size="big"
                                         rounded
                                         raised
-                                        bold
-                                >
+                                        bold>
                                     Confirm
                                 </VButton>
                                 <span>

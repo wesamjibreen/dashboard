@@ -9,31 +9,31 @@
                                 <!--Content-->
                             </div>
                             <cropper class="cropper"
-                                    :src="dialog.image"
-                                    :stencil-props="stencilProps"
-                                    @change="onCrop($event, dialog)">
+                                     :src="dialog.image"
+                                     :stencil-props="stencilProps"
+                                     @change="onCrop($event, dialog)">
 
                             </cropper>
                         </div>
 
                         <div class="getting-started-example-styled__actions">
                             <vButton @click="closeCropperDialog(dialog,i)"
-                                    color="danger"
-                                    size="big"
-                                    rounded
-                                    raised
-                                    bold>
+                                     color="danger"
+                                     size="big"
+                                     rounded
+                                     raised
+                                     bold>
                                 {{ trans("cancel") }}
                             </vButton>
                             <!--:loading="isLoading"-->
 
                             <VButton id="login-button"
-                                    @click="saveCropperImage(dialog)"
-                                    color="primary"
-                                    size="big"
-                                    rounded
-                                    raised
-                                    bold>
+                                     @click="saveCropperImage(dialog)"
+                                     color="primary"
+                                     size="big"
+                                     rounded
+                                     raised
+                                     bold>
                                 {{ trans("save") }}
                             </VButton>
                         </div>
@@ -71,13 +71,13 @@
                     />
                 </div>
             </div>
-            <div class="images-uploaded">
-                <viewer :images="images" class="columns">
+            <div class="images-uploaded" v-if="(images??[]).length > 0">
+                <viewer :images="images" class="columns flex-wrap">
                     <div v-for="(image,i) in images" class="column is-3">
                         <div class="widght-image">
                             <div class="btn-overlay">
                                 <a href="javascript:;" @click="deleteImage(image,i)" class="action-delete">
-                                    <i class="fa fa-trash"></i>
+                                    <i class="fas fa-times"></i>
                                 </a>
                             </div>
                             <img class="image-filepond" :src="`/image/${image.file_name}`"/>
@@ -120,9 +120,9 @@
         transition: color 0.3s;
     }
 
-    .btn-overlay {
+    /* .btn-overlay {
         position: absolute;
-    }
+    } */
 
     a.action-delete {
         color: #e91e63;
@@ -142,19 +142,20 @@
     /*}*/
 </style>
 <script>
-    import {GDialog} from 'gitart-vue-dialog'
-    import {Cropper} from "vue-advanced-cropper";
-    import "vue-advanced-cropper/dist/style.css"
 
     import 'viewerjs/dist/viewer.css';
+    import "vue-advanced-cropper/dist/style.css";
+    import 'filepond/dist/filepond.min.css';
+    import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
+    import 'filepond-plugin-image-edit/dist/filepond-plugin-image-edit.min.css';
 
+    import {GDialog} from 'gitart-vue-dialog'
+    import {Cropper} from "vue-advanced-cropper";
     import input from "../mixins/input"
+    import image from "../mixins/image"
     // Import Vue FilePond
     import vueFilePond from "vue-filepond";
-    // Import FilePond styles
-    import "filepond/dist/filepond.min.css";
-    // Import image preview plugin styles
-    import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
+
     import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size'
     import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
     import FilePondPluginImageExitOrientation from 'filepond-plugin-image-exif-orientation'
@@ -164,9 +165,9 @@
     import FilePondPluginImageResize from 'filepond-plugin-image-resize'
     import FilePondPluginImageTransform from 'filepond-plugin-image-transform'
 
-    import 'filepond/dist/filepond.min.css'
-    import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'
-    import 'filepond-plugin-image-edit/dist/filepond-plugin-image-edit.min.css'
+    // import 'viewerjs/dist/viewer.css';
+
+
     // Import image preview and file type validation plugins
     // import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
     // import FilePondPluginImagePreview from "filepond-plugin-image-preview";
@@ -187,7 +188,7 @@
 
     export default {
         name: "app",
-        mixins: [input],
+        mixins: [input, image],
         components: {
             FilePond,
             GDialog,
@@ -304,18 +305,7 @@
                 console.log('activatefile', ...args);
 
             },
-            fileToBase64(file) {
-                return new Promise((resolve, reject) => {
-                    let reader = new FileReader();
-                    reader.readAsDataURL(file);
-                    reader.onload = () => {
-                        resolve(reader.result);
-                    };
-                    reader.onerror = function (error) {
-                        reject(error);
-                    };
-                })
-            },
+
         },
 
         computed: {
@@ -355,49 +345,74 @@
 </script>
 
 <style>
-.filepond--drop-label.filepond--drop-label label {
-    cursor: pointer;
-}
-.getting-started-example-styled__actions{
-    justify-content: center;
-}
-.getting-started-example-styled__actions button {
-    margin:0px 2px
-}
+    .filepond--drop-label.filepond--drop-label label {
+        cursor: pointer;
+    }
 
-.widght-image{
-     position: relative;
-    border-radius: 8px;
-    box-shadow: 0px 0px 15px #a0a0a01c;
-    width: 180px;
-    height: 180px;
-    border: 1px solid #EEE;
-}
-.widght-image .btn-overlay .action-delete{
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    width: 22px;
-    height: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-    background-color: #ff0303ad;
-    border-radius: 3px;
-    color: #FFF;
-}
-.widght-image .btn-overlay i{
-     color: #FFF;
-}
-.widght-image .image-filepond{
-    width: 180px;
-    height: 180px;
-    border-radius:8px;
-}
-.images-uploaded{
-    padding: 15px;
-    border: 1px solid #EEE;
-    border-radius: 10px;
-}
+    .getting-started-example-styled__actions {
+        justify-content: center;
+    }
+
+    .getting-started-example-styled__actions button {
+        margin: 0px 2px
+    }
+
+    .widght-image {
+        position: relative;
+        border-radius: 8px;
+        box-shadow: 0px 0px 15px #a0a0a01c;
+        width: 100%;
+        height: 170px;
+        border: 1px solid #EEE;
+    }
+
+    @media (max-width: 800) {
+        .widght-image {
+            height: 140px;
+        }
+    }
+
+    .widght-image .btn-overlay .action-delete {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        width: 22px;
+        height: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+        background-color: #ff0303ad;
+        border-radius: 3px;
+        color: #FFF;
+    }
+
+    .widght-image .btn-overlay i {
+        color: #FFF;
+    }
+
+    .widght-image .image-filepond {
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+    }
+
+    .images-uploaded {
+        padding: 15px;
+        border: 1px solid #EEE;
+        border-radius: 10px;
+        background-color: #FFF;
+    }
+
+    .filepond--drop-label {
+        background: #FFF;
+        border: 1px solid #EEE;
+    }
+
+    .form-upload {
+        background: #fafafa;
+        padding: 20px;
+        border-radius: 8px;
+    }
+
 </style>

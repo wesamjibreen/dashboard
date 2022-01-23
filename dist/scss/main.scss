@@ -110,9 +110,28 @@ SCSS Imports
 }
 .sidebar-panel.is-generic .inner li > a {
     font-size: 1.1rem;
+    font-weight: 400
 }
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap');
+
+body input.input{
+    font-size: .8rem;
+}
+
+body input.input::placeholder{
+    color: #a2a5b9 !important;
+}
+body .field > label {
+    font-size: .9rem !important;
+    display: inline-block;
+    margin-bottom: 4px;
+}
+
+body .control.has-icon .input {
+    height: auto;
+    min-height: 38px;
+}
 html[dir="rtl"]{
+
     body{
         text-align: right;
         direction: rtl;
@@ -124,6 +143,7 @@ html[dir="rtl"]{
 
     input.input {
         font-family: 'Cairo', serif;
+
     }
     .modern-login .underlay ,
     .modern-login .is-form .login-wrapper .control .autv-icon {
@@ -346,13 +366,12 @@ html[dir="rtl"]{
     }
     .multiselect-multiple-label, .multiselect-single-label, .multiselect-placeholder {
         right: 0;
-        padding-right: 2.5rem;
+        padding-right: .7rem;
         left: auto;
     }
     .control.has-icon .input {
         padding-right: 38px;
         padding-left: 8px;
-        height: auto;
     }
     .multiselect-caret {
         position: absolute;
@@ -409,29 +428,53 @@ html[dir="rtl"]{
     }
     .flex-table .flex-table-header span{
         margin-top: -11px;
-        padding: 0 22px 10px 10px;
+        padding: 0 0 10px 10px;
+    }
+    .filters-form .multiselect .multiselect-placeholder,.filters-form .multiselect .multiselect-multiple-label,
+    .filters-form .multiselect .multiselect-single-label{
+        padding-right: 2.5rem;
+    }
+    .breadcrumb ul li:first-child .breadcrumb-item {
+        padding-left: 0.75em;
+        padding-right: 0;
+    }
+    .breadcrumb .icon:first-child {
+        margin-left: 0.5em;
+        margin-right: 0;
+    }
+    .radio input + span, .checkbox input + span {
+        margin: 0 0 0 0.2em;
     }
 }
 
 html[dir="ltr"]{
+    .radio input + span, .checkbox input + span {
+        margin: 0 0.2em 0 0;
+    }
+
     .multiselect-caret {
         position: absolute;
         right: 0;
     }
     .multiselect .multiselect-placeholder, .multiselect .multiselect-multiple-label {
+        padding-left: .7rem;
+    }
+    .filters-form .multiselect .multiselect-placeholder,.filters-form .multiselect .multiselect-multiple-label,
+    .filters-form .multiselect .multiselect-single-label{
         padding-left: 2.5rem;
     }
+
     .multiselect-clear {
         position: absolute;
         right: 15px;
     }
     .multiselect-multiple-label, .multiselect-single-label, .multiselect-placeholder {
         left: 0;
-        padding-left: 2.5rem;
+        padding-left: .7rem;
         right: auto;
     }
     .flex-table .flex-table-header span {
-        padding: 0 10px 5px 22px;
+        padding: 0 10px 5px 0px;
         margin-top: -5px;
     }
 }
@@ -449,4 +492,181 @@ button.v-button.small {
     height: 100% !important;
     flex-flow: column-reverse;
 }
+.sidebar-panel.is-generic .inner li > a{
+    font-weight: 400 !important;
+    font-size: 1rem !important;
+}
 
+.main-sidebar .sidebar-inner .bottom-menu .profile-dropdown .dropdown-menu {
+    bottom: 0;
+    top: auto;
+}
+
+.vue-advanced-cropper{
+    max-height: 400px !important;
+}
+
+.vue-advanced-cropper__stretcher{
+    height: 400px !important;
+}
+
+
+.flex-wrap{
+    flex-wrap: wrap;
+}
+
+
+.form-repeater{
+    background-color: #fafafa;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.form-repeater .flex-table .flex-table-item {
+    border: 1px solid #f0f0f0;
+    min-height: 50px;
+}
+
+.form-repeater .multiselect .multiselect-placeholder,.form-repeater .multiselect .multiselect-multiple-label {
+    padding: 0.5rem !important;
+    font-size: .8rem;
+}
+
+
+.form-repeater img.file-icon.file-icon1.on-boarding-screen {
+    width: 100px !important;
+    max-height: 70px !important;
+    min-height: 70px !important;
+    border-radius: 5px;
+    object-fit: cover;
+}
+.multiselect .multiselect-clear .multiselect-clear-icon {
+    margin-top: 0.4rem;
+    margin-top: 0.4rem;
+}
+.breadcrumb ul li .breadcrumb-item {
+    display: flex;
+    font-size: .8rem;
+    align-items: center;
+}
+
+@media(max-width:769px){
+    .multiselect.input{
+        height: auto;
+    }
+    .breadcrumb ul li .breadcrumb-item {
+        font-size: 0.8rem;
+    }
+    .page-title {
+        height: auto;
+        flex-wrap: wrap;
+    }
+    .page-title .toolbar.desktop-toolbar{
+        margin: 0 !important;
+        margin-top: 10px!important;
+    }
+    .form-layout .form-outer .form-body {
+        padding: 20px 15px 40px 15px !important;
+    }
+    .radio input + span, .checkbox input + span {
+        margin: 0;
+    }
+    .flex-table .flex-table-cell::before {
+        margin-bottom: 2px;
+    }
+    .flex-table .flex-table-cell .field-container {
+        width: 100%;
+    }
+    .flex-table .flex-table-item {
+        padding: 15px 10px;
+    }
+    .form-repeater {
+        padding: 15px;
+    }
+    .flex-table .flex-table-item .flex-table-cell {
+        flex-wrap: wrap;
+    }
+    .mobile-navbar .navbar-brand .is-brand img {
+        width: auto;
+    }
+    .flex-table .flex-table-item .flex-table-cell .file-icon{
+        margin: 0;
+    }
+    body .field > label {
+        font-size: .8rem !important;
+        margin-bottom: 4px;
+        display: inline-block;
+    }
+    .flex-table .flex-table-cell::before {
+        font-weight: 400;
+        color: #a2a5b9;
+        font-size: 1em;
+    }
+    html[dir="ltr"]{
+        .flex-table .flex-table-cell::before {
+            margin-right: auto;
+        }
+    }
+    html[dir="rtl"]{
+        .flex-table .flex-table-cell::before {
+            margin-left: auto;
+        }
+        .control.has-icon .input {
+            min-height: 40px;
+            font-size: .9rem;
+        }
+        .button.v-button {
+            font-size: 0.8rem;
+        }
+    }
+    body{
+        font-size: .9rem;
+    }
+    .filters-form {
+        padding: 20px 15px;
+    }
+    body .input{
+        font-size: .80rem !important;;
+    }
+    .multiselect .multiselect-placeholder, .multiselect .multiselect-multiple-label {
+        font-size: 0.8rem;
+    }
+    body .form-layout .form-outer .form-header .left h3 {
+        font-size: 1rem;
+    }
+    body .tabs {
+        font-size: .8rem;
+    }
+    body .control {
+        font-size: .85rem;
+    }
+}
+.is-dark .filters-form{
+    background: #313135;
+    border: 1px solid #323232;
+}
+
+.is-dark .form-repeater {
+    background: #27272a;
+    border: 1px solid #323232;
+}
+
+.set-container.form-fieldset {
+    border: 1px solid #EEE;
+    padding: 0px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    overflow: hidden;
+}
+.set-container.form-fieldset .fieldset-heading {
+    margin-bottom: 20px;
+    padding: 5px 10px 3px;
+    border-bottom: 1px solid #EEE;
+    background: #fafafa;
+    margin: 0 !important;
+}
+
+.set-container.form-fieldset > .columns.is-multiline{
+    padding: 15px 18px  ;
+    margin-bottom: 0;
+}

@@ -41,7 +41,7 @@
                                                       v-html="getRowValue(element, column)"></span>
                                             </div>
                                             <div class="flex-table-cell cell-end" :data-th="trans('actions')">
-                                                <VButton light raised color="success" class="small"
+                                                <VButton light raised color="primary" class="small ml-2"
                                                          @click="editRow(element,index)">
                                                     <i class="fa fa-edit"></i>
                                                 </VButton>
@@ -62,7 +62,7 @@
             </div>
             <div class="column is-12">
                 <div class="btn-container">
-                    <VButton light raised color="success" @click="addNew">
+                    <VButton raised color="primary" @click="addNew">
                         <i class="fa fa-plus"></i>
                         {{ trans('add_new') }}
                     </VButton>

@@ -1,10 +1,10 @@
 <template>
     <div class="sidebar-layout">
         <div class="app-overlay"></div>
-
+        <AlertDialog/>
         <!-- Mobile navigation -->
         <MobileNavbar :is-open="isMobileSidebarOpen"
-                @toggle="isMobileSidebarOpen = !isMobileSidebarOpen">
+                      @toggle="isMobileSidebarOpen = !isMobileSidebarOpen">
             <template #brand>
                 <RouterLink :to="{ name: 'dashboard' }" class="navbar-item is-brand">
                     <AnimatedLogo width="38px" height="38px"/>
@@ -16,8 +16,6 @@
                 </div>
             </template>
         </MobileNavbar>
-
-        <AlertDialog/>
         <!-- Mobile sidebar links -->
         <MobileSidebar :is-open="isMobileSidebarOpen" @toggle="isMobileSidebarOpen = !isMobileSidebarOpen">
             <template #links>
@@ -41,16 +39,22 @@
                 </li>
             </template>
         </MobileSidebar>
-
         <!-- Mobile subsidebar links -->
         <transition name="slide-x">
-            <DashboardsMobileSubsidebar :active-sub-sidebar="activeMobileSubsidebar"
-                                        @close="isDesktopSidebarOpen = false" v-if="isMobileSidebarOpen"/>
+            <DashboardsMobileSubsidebar
+                    v-if="isMobileSidebarOpen"
+                    :active-sub-sidebar="activeMobileSubsidebar"
+                    @close="isDesktopSidebarOpen = false"/>
         </transition>
 
         <Sidebar :theme="props.theme" :is-open="isDesktopSidebarOpen">
             <template #links>
                 <li v-for="item in menu">
+                    <!--<RouterLink :to="item.to" @click.prevent="switchSidebar(item.key,item)">-->
+                    <!--<Icon class="sidebar-icon" :icon="item.icon"/>-->
+                    <!--</RouterLink>-->
+
+                    <!---->
                     <a :class="[activeMobileSubsidebar === item.key && 'is-active']"
                        :data-content="trans(item.label??item.key)"
                        :aria-label="trans(item.label??item.key)"
@@ -145,11 +149,14 @@
                         </div>
 
                         <div class="title-wrap">
-                            <h1 class="title is-4">
-                                <!--<VBreadcrumb :items="breadcrumb" with-icons />-->
-
+                            <!--<VBreadcrumb :items="breadcrumb" with-icons/>-->
+                            <h4 class="title is-6">
+                                {{ trans('welcome')  }},
+                                <span class="title is-5">
+                                    {{user?.name}}
+                                </span>
                                 <!--{{ pageTitle }}-->
-                            </h1>
+                            </h4>
                         </div>
 
                         <Toolbar class="desktop-toolbar">
@@ -180,12 +187,13 @@
     </div>
 </template>
 <script>
-    import {ref, watch, watchPostEffect} from 'vue'
+    import {computed, inject, reactive, ref, watch, watchPostEffect} from 'vue'
     import {useRoute, useRouter} from 'vue-router'
     import {Icon} from '@iconify/vue';
     import {activePanel} from '../state/activePanelState'
     import {pageTitle} from '../state/sidebarLayoutState'
     import AlertDialog from "../components/dialog/AlertDialog";
+    import {mapState} from "vuex";
 
     export default {
         components: {
@@ -193,13 +201,15 @@
             Icon
         },
         setup(props) {
-            let menuItems = ref([
-                {
-                    key: "dashboard",
-                    label: "dashboard",
-                    icon: "feather:activity",
-                }
-            ]);
+            // let menuItems = ref([
+            //     {
+            //         key: "dashboard",
+            //         label: "dashboard",
+            //         icon: "feather:activity",
+            //     }
+            // ]);
+
+
             // let props = withDefaults(
             //     defineProps(),
             //     {
@@ -219,6 +229,28 @@
             let isDesktopSidebarOpen = ref((props && props.openOnMounted ? props.openOnMounted : false))
             let activeMobileSubsidebar = ref(props && props.defaultSidebar ? props.defaultSidebar : "dashboard")
             let router = useRouter();
+
+            let $instance = inject('$instance');
+            let menuItems = ref(_.get($instance, 'config.menu', []));
+
+
+            let activeItem = computed(() => {
+                return route.name;
+            });
+
+            const breadcrumb = reactive([
+                {
+                    // label: 'Vuero',
+                    // hideLabel: true,
+                    to: {
+                        name: "dashboard"
+                    },
+                    icon: 'feather:home',
+                    // use external links
+                    // link: 'https://vuero.cssninja.io/',
+                },
+
+            ]);
 
             function switchSidebar(id, item) {
                 if (item.to)
@@ -250,6 +282,35 @@
             watch(
                 () => route.fullPath,
                 () => {
+                    console.log('$instance', menuItems.value, activeItem.value, $instance);
+                    // menuItems.value = [];
+                    let splits = route.name?.split(".");
+
+                    let currentPath = "";
+                    let array = _.map(splits, (split) => {
+                        currentPath += `${split}.`;
+                        return {
+                            to: {
+                                name: currentPath,
+                            },
+                            label: currentPath,
+                            icon: 'feather:home',
+                        }
+                    });
+
+                    breadcrumb.value = [
+                        {
+                            // label: 'Vuero',
+                            // hideLabel: true,
+                            to: {
+                                name: "dashboards"
+                            },
+                            icon: 'feather:home',
+                            // use external links
+                            // link: 'https://vuero.cssninja.io/',
+                        },
+                        ...array
+                    ];
                     isMobileSidebarOpen.value = false
 
                     if (props.closeOnChange && isDesktopSidebarOpen.value) {
@@ -257,26 +318,48 @@
                     }
                 }
             );
-          const  breadcrumb = [
-                {
-                    label: 'Vuero',
-                    // hideLabel: true,
-                    icon: 'feather:home',
-                    // use external links
-                    link: 'https://vuero.cssninja.io/',
-                },
-                {
-                    label: 'Components',
-                    icon: 'feather:cpu',
-                    // or generate a router link with 'to' props
-                    // to: {
-                    //     name: 'components',
-                    // },
-                },
-                {
-                    label: 'VBreadcrumb',
-                },
-            ]
+            //
+            // const breadcrumb = computed(() => {
+            //     console.log('route.name', route.name.split("."))
+            //
+            //     let array = [
+            //         {
+            //             to: {
+            //                 name: "dashboard"
+            //             },
+            //             icon: 'feather:home',
+            //         }
+            //     ];
+            //
+            //
+            //     return array;
+            // });
+
+            // const breadcrumb = [
+            //     {
+            //         // label: 'Vuero',
+            //         // hideLabel: true,
+            //         to: {
+            //             name: "dashboard"
+            //         },
+            //         icon: 'feather:home',
+            //         // use external links
+            //         // link: 'https://vuero.cssninja.io/',
+            //     },
+            //     {
+            //         label: 'Components',
+            //         icon: 'feather:cpu',
+            //         // or generate a router link with 'to' props
+            //         // to: {
+            //         //     name: 'components',
+            //         // },
+            //     },
+            //     {
+            //         label: 'VBreadcrumb',
+            //         icon: 'feather:cpu',
+            //
+            //     },
+            // ];
 
             return {
                 breadcrumb,
@@ -299,8 +382,12 @@
             nestedMenu() {
                 console.log('nestedMenu', _.filter(this.menu, (item) => item.children.length > 0));
                 return _.filter(this.menu, (item) => item.children.length > 0)
-            }
-        }
+            },
+            ...mapState({
+                user: (state) => state.auth.user
+            })
+        },
+
     }
 </script>
 <style>
@@ -311,4 +398,8 @@
         height: 20px !important;
         width: 20px !important;
     }
+
+    /*.title {*/
+        /*color: var(--primary) !important;*/
+    /*}*/
 </style>

@@ -25,6 +25,7 @@ const components = {
     TextareaField: "./TextareaField.vue",
     DateRangeField: "./DateRangeField.vue",
     DateField: "./DateField.vue",
+    MultipleDateField: "./MultipleDateField.vue",
     EditorField: "./EditorField.vue",
     MapField: "./MapField.vue",
     CrudField: "./Crud/Index.vue",

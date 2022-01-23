@@ -1,5 +1,5 @@
 <template>
-    <div class="radio-list">
+    <div class="radio-list p-0">
         <label v-for="option in optionsData"
                class="radio"
                :class="[
@@ -13,8 +13,9 @@
                    v-model="input"
                    :name="model$"
                    :value="option[optionValue]"/>
+                   <span></span>
             {{ option[optionName] }}
-            <span></span>
+
         </label>
     </div>
 </template>

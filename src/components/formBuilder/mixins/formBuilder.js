@@ -94,7 +94,7 @@ export default {
         setTimeout(() => {
             if (this.values)
                 this.setForm(this.values);
-        }, 500)
+        }, 400)
     },
 
     methods: {
@@ -170,8 +170,6 @@ export default {
 
 
         $emitEvent(eventName, ...args) {
-            console.log('requesttttttttt',`on-${eventName}-${this.formModule$}` )
-
             Bus.emit(`on-${eventName}-${this.formModule$}`, ...args);
             this.$emit(eventName, ...args);
         },

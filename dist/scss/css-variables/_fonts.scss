@@ -1,8 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 :root {
-  --font: "Cairo",  sans-serif;
-  --font-alt: "Cairo",  sans-serif;
-  --font-monospace: "Cairo",  sans-serif;
-  --font-size: 14px;
+    --font: 'Roboto', Cairo;
+    --font-alt: 'Roboto', Cairo;
+    --font-monospace: 'Roboto', Cairo;
 }
+// html[dir="rtl"]{
+//     :root {
+//         --font: 'Cairo', serif;
+//         --font-alt: 'Cairo', serif;
+//         --font-monospace: 'Cairo', serif;
+//     }
+
+// }
+// html[dir="ltr"]{
+//     :root {
+//   --font: "Roboto", sans-serif;
+//   --font-alt: "Roboto", sans-serif;
+//   --font-monospace: "Roboto", sans-serif;
+//   --font-size: 14px;
+// }
+
+
+// }

@@ -3,7 +3,7 @@
         props: {
             items: Array,
             separator: {
-                default: "succeeds",
+                default: "dot",
                 type: String
             },
             align: {
@@ -44,6 +44,8 @@
                           class="icon is-small"
                           :class="[item.hideLabel && props.withIcons && !!item.icon && 'is-solo']">
                         <i aria-hidden="true" class="iconify" :data-icon="item.icon"></i>
+                                    <Icon aria-hidden="true" class="iconify" :icon="item.icon"></Icon>
+
                     </span>
                     <meta v-if="item.hideLabel && props.withIcons && !!item.icon"
                             itemprop="name"
@@ -85,6 +87,7 @@
             ]"
           >
             <i aria-hidden="true" class="iconify" :data-icon="item.icon"></i>
+            <Icon aria-hidden="true" class="iconify" :icon="item.icon"></Icon>
           </span>
           <meta
                   v-if="item.hideLabel && props.withIcons && item.icon"

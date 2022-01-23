@@ -22,6 +22,11 @@
             grouped: Boolean,
             multiline: Boolean,
             horizontal: Boolean,
+            component: String,
+            classes: String
+        },
+        created() {
+            // alert(this.classes);
         }
     }
 </script>
@@ -30,6 +35,7 @@
     <div
             class="field"
             :class="[
+      classes,
       addons && 'has-addons',
       textaddon && 'has-textarea-addon',
       grouped && 'is-grouped',

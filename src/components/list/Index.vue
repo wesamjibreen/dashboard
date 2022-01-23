@@ -20,11 +20,11 @@
                     <div class=" columns is-multiline">
                         <div v-for="filterInput in filters" :class="`column is-${filterInput.cols ??3}`">
                             <VField>
-                                <label class="filter-label">
+                                <label>
                                     {{ trans('filter_by')}}
                                     {{trans(filterInput.label??filterInput.model)}}
                                 </label>
-                                <VControl icon="feather:search">
+                                <VControl icon="feather:search" class="mt-1">
 
                                     <component :is="`${filterInput.component}-field`"
                                             v-bind="filterInput"
@@ -143,6 +143,16 @@
     }
 
     .filters-form {
-        padding-bottom: 25px;
+        background: #FFF;
+        padding: 20px 25px;
+        margin-bottom: 40px;
+        border: 1px solid #EEE;
+        border-radius: 8px;
+    }
+    @media screen and (max-width: 1000px) and (min-width:769px){
+       .filters-form .column.is-3{
+            flex: none;
+            width: 33.33333337%;
+        }
     }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="py-3">
         <div class="columns  is-multiline">
             <div class="column is-12 mt-2" v-if="rows$ && rows$.length > 0">
                 <div class="flex-list-wrapper flex-list-v1">
@@ -44,9 +44,9 @@
 
                 </div>
             </div>
-            <div class="column is-12 mt-2">
+            <div class="column is-12">
                 <div class="btn-container">
-                    <VButton light raised color="success" class="-repeater" @click="addRow">
+                    <VButton raised color="primary" class="-repeater" @click="addRow">
                         <i class="fa fa-plus"></i>
                         {{ trans('add_new') }}
                     </VButton>
@@ -115,5 +115,8 @@
     span.repeater-cell {
         font-family: 'Cairo', serif;
         font-weight: 700 !important;
+    }
+    .field-container{
+        width: 100%;
     }
 </style>

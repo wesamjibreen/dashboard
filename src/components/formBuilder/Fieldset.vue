@@ -1,5 +1,6 @@
 <template>
-    <div class="form-fieldset" v-show="isDisplayed({show})">
+    <!--set-container-->
+    <div class="form-fieldset " v-show="isDisplayed({show})">
         <div class="fieldset-heading columns">
             <div class="column is-6">
                 <h4>{{ translatedTitle }}</h4>
@@ -17,7 +18,7 @@
         </div>
         <div class="columns is-multiline">
             <div v-for="input in multiLangInputs" :class="`column is-${input.cols ?? 12}`" v-show="isDisplayed(input)">
-                <VField>
+                <VField :classes="getFieldClass(input.component)">
                     <label> {{ getInputLabel(input) }} ({{ currentLanguage.toUpperCase() }})</label>
                     <VControl icon="feather:user" :model="input.model">
                         <component :is="`${input.component}-field`" :formModule="formModule" :locale="currentLanguage"
@@ -29,7 +30,7 @@
         <div class="columns is-multiline">
             <div v-for="input in nonMultiLangInputs" :class="`column is-${input.cols ?? 12}`"
                  v-show="isDisplayed(input)">
-                <VField>
+                <VField  :classes="getFieldClass(input.component)">
                     <label>{{ getInputLabel(input) }} </label>
                     <VControl :icon="input.icon" :model="input.model">
                         <component :is="`${input.component}-field`" :formModule="formModule" v-bind="input"/>
@@ -73,6 +74,17 @@
                 this.currentLanguage = _.get(this, 'languages.0.value', "ar");
         },
         methods: {
+            getFieldClass(component) {
+                switch (component) {
+                    case "repeater":
+                    case "crud":
+                        return 'form-repeater';
+                    case "file" :
+                        return "form-upload";
+                    default :
+                        return ""
+                }
+            },
             getInputLabel(input) {
                 return this.trans(input.label ?? input.model);
             },

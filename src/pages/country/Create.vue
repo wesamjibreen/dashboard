@@ -9,6 +9,9 @@
             return {
                 form
             }
-        }
+        },
+        created(){
+            alert('FormLayout')
+        },
     }
 </script>

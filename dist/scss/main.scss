@@ -670,3 +670,20 @@ button.v-button.small {
     padding: 15px 18px  ;
     margin-bottom: 0;
 }
+
+
+.flex-table.flex-table-custom{
+    background-color: #FFF;
+}
+.flex-table.flex-table-custom .flex-table-header {
+    border-bottom: 1px solid #ccc;
+    padding: 25px 25px 15px;
+    background-color: #fafafa;
+}
+.flex-table.flex-table-custom .flex-list-inner .flex-table-item {
+    border-radius: 0;
+    border:0;
+    border-bottom: 1px solid var(--fade-grey-dark-3);
+    padding: 8px 12px;
+    margin-bottom: 0;
+}

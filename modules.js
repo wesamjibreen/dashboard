@@ -1,6 +1,6 @@
 import BaseLayout from "./src/layouts/BaseLayout";
 import initI18n from "./src/i18n";
-import initRouter from "./src/router";
+import {generateRoutes, initRouter} from "./src/router";
 import initStore from "./src/store";
 import {createHead as initHead} from "@vueuse/head";
 import EndPoints from "./src/endPoints";
@@ -17,5 +17,6 @@ export {
     EndPoints,
     initI18n,
     BaseLayout,
-    common
+    common,
+    generateRoutes
 }

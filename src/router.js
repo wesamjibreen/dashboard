@@ -26,29 +26,29 @@ const initRouter = function (routes, base = "/") {
                     name: "setting",
                     component: () => import('./pages/setting/Index.vue'),
                 },
-                {
-                    path: "/form",
-                    redirect: "/form/all",
-                    component: () => import('./pages/form/Index.vue'),
-                    children: [
-                        {
-                            path: "create",
-                            name: "form.create",
-                            component: () => import('./pages/form/Create.vue'),
-                        },
-                        {
-                            path: "all",
-                            name: "form.all",
-                            component: () => import('./pages/form/List.vue'),
-                        },
-                        {
-                            path: ":id/edit",
-                            name: "form.edit",
-                            component: () => import('./pages/form/Create.vue'),
-                        },
-
-                    ]
-                },
+                // {
+                //     path: "/form",
+                //     redirect: "/form/all",
+                //     component: () => import('./pages/form/Index.vue'),
+                //     children: [
+                //         {
+                //             path: "create",
+                //             name: "form.create",
+                //             component: () => import('./pages/form/Create.vue'),
+                //         },
+                //         {
+                //             path: "all",
+                //             name: "form.all",
+                //             component: () => import('./pages/form/List.vue'),
+                //         },
+                //         {
+                //             path: ":id/edit",
+                //             name: "form.edit",
+                //             component: () => import('./pages/form/Create.vue'),
+                //         },
+                //
+                //     ]
+                // },
                 // {
                 //     path: "/country",
                 //     redirect: "/country/all",
@@ -86,16 +86,56 @@ const initRouter = function (routes, base = "/") {
      * Handle NProgress display on page changes
      */
 
-    router.beforeEach((to , from) => {
+    router.beforeEach((to, from) => {
         NProgress.start();
 
     });
-    router.afterEach((to , from) => {
+    router.afterEach((to, from) => {
         NProgress.done();
 
     });
     return router;
 };
+
+
+const generateRoutes = ({resource, folderName = null, path}, routes = []) => {
+    folderName = folderName || _.camelCase(resource);
+    console.log('path', path);
+    // console.log('path',path.resolve(`/pages/${folderName}/Index.vue`));
+
+    return {
+        path: `${resource}`,
+        name: resource,
+        redirect: `${resource}/all`,
+        // component :  import(path.resolve(`/pages/${folderName}/Index.vue`)),
+        component: () => import(`./pages/${folderName}/Index.vue`),
+        children: [
+            {
+                path: "all",
+                name: `${resource}.all`,
+                component: () => import(`./pages/${folderName}/List.vue`),
+            },
+            {
+                path: "create",
+                name: `${resource}.create`,
+                component: () => import(`./pages/${folderName}/Create.vue`),
+                // component : () => import(path.resolve(`/pages/${folderName}/Create.vue`)),
+            },
+            {
+                path: ":id/edit",
+                name: `${resource}.edit`,
+                // component : () => import(path.resolve(`/pages/${folderName}/Create.vue`)),
+                component: () => import(`./pages/${folderName}/Create.vue`),
+            },
+            ...routes
+        ]
+    };
+};
+
+
+// const importViewModule = function (folderName, viewName, module = "") {
+//     return import(`${module}/${folderName}/${viewName}`);
+// };
 
 
 const checkAuth = (base) => {
@@ -118,4 +158,7 @@ const checkAuth = (base) => {
         }
     }
 };
-export default initRouter;
+export {
+    initRouter,
+    generateRoutes
+};

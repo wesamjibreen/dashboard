@@ -1,6 +1,6 @@
 {
   "name": "nawadash",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Vue3 Functional Dashboard",
   "main": "index.js",
   "scripts": {
@@ -30,9 +30,13 @@
     "cross-env": "^7.0.3",
     "laravel-mix": "^6.0.39",
     "laravel-mix-merge-manifest": "^0.1.2",
+    "naive-ui": "^2.24.5",
     "resolve-url-loader": "4.0.0",
     "sass": "^1.43.4",
-    "sass-loader": "12.1.0"
+    "sass-loader": "12.1.0",
+    "unplugin-auto-import": "^0.5.11",
+    "unplugin-element-plus": "^0.2.0",
+    "unplugin-vue-components": "^0.17.14"
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^31.0.0",
@@ -49,6 +53,7 @@
     "bulma": "^0.9.3",
     "bulma-css-vars": "^0.7.0",
     "dropzone-vue": "^0.1.11",
+    "element-plus": "^1.3.0-beta.9",
     "filepond": "^4.30.3",
     "filepond-plugin-file-validate-size": "^2.2.5",
     "filepond-plugin-file-validate-type": "^1.2.6",
@@ -58,9 +63,11 @@
     "filepond-plugin-image-preview": "^4.6.10",
     "filepond-plugin-image-resize": "^2.0.10",
     "filepond-plugin-image-transform": "^3.8.7",
+    "fs": "^0.0.2",
     "gitart-vue-dialog": "^1.1.0",
     "notyf": "^3.10.0",
     "nprogress": "^0.2.0",
+    "path": "^0.12.7",
     "simple-datatables": "^3.2.0",
     "smart-tagz": "^0.3.1",
     "tiny-emitter": "^2.1.0",
@@ -69,6 +76,7 @@
     "vee-validate": "^4.5.6",
     "vue": "^3.2.4",
     "vue-advanced-cropper": "^2.7.1",
+    "vue-color-kit": "^1.0.5",
     "vue-filepond": "^7.0.2",
     "vue-i18n": "^9.2.0-beta.22",
     "vue-loader": "^16.0.0-beta.8",

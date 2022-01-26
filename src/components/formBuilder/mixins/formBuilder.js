@@ -36,6 +36,7 @@ export default {
             loading: false,
         }
     },
+
     created() {
         /**
          * registering form module in vuex

@@ -4,7 +4,7 @@
             <div class="list-flex-toolbar flex-list-v1">
                 <VField>
                     <VControl icon="feather:search">
-                        <input class="input custom-text-filter" v-model="filter.search"
+                        <input class="input custom-text-filter search-top" v-model="filter.search"
                                :placeholder="trans('search_text')"/>
                     </VControl>
                 </VField>
@@ -41,7 +41,7 @@
 
             <!--</div>-->
             <VLoader size="small" :active="loading">
-                <div class="flex-table" v-if="!isEmpty">
+                <div class="flex-table flex-table-custom" v-if="!isEmpty">
                     <!--Table header-->
                     <div class="flex-table-header">
                         <slot name="table_header" :column="column">
@@ -145,14 +145,20 @@
     .filters-form {
         background: #FFF;
         padding: 20px 25px;
-        margin-bottom: 40px;
+        margin-bottom: 25px;
         border: 1px solid #EEE;
-        border-radius: 8px;
+        border-radius: 0px;
+        margin-top: 30px;
     }
     @media screen and (max-width: 1000px) and (min-width:769px){
        .filters-form .column.is-3{
             flex: none;
             width: 33.33333337%;
+        }
+    }
+    @media(min-width:1000px){
+        .search-top{
+            width:275px
         }
     }
 </style>

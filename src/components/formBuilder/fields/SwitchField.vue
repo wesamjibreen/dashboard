@@ -1,5 +1,5 @@
 <template>
-    <VSwitchBlock color="success" thin :checked="input"/>
+    <VSwitchBlock  v-model="input" :color="color" thin/>
 </template>
 
 <script>
@@ -8,6 +8,11 @@
     export default {
         name: "SwitchField",
         mixins: [input],
+        props : {
+          color : {
+              default : "success"
+          }
+        },
         computed: {
             defaultValue() {
                 /**

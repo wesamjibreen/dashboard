@@ -43,10 +43,12 @@ const common = {
         filter_by: "فلترة حسب",
         confirm: "تأكيد",
         title: "العنوان",
+        add_date: "إضافة تاريخ",
         sure_to_delete: "هل أنت متأكد من الحذف ؟",
     },
     en: {
         welcome: "Welcome",
+        add_date: "Add Date",
         datatable: {
             no_results: "We couldn't find any matching results.",
             no_results_subtitle: "Too bad. Looks like we couldn't find any matching results for the search terms you've entered." +

@@ -5,6 +5,12 @@ import initRequests from "./src/axios";
 import VueGoogleMaps from '@fawmi/vue-google-maps'
 
 import VueViewer from 'v-viewer'
+import {
+    // create naive ui
+    create,
+    // component
+    NDynamicTags,
+NColorPicker} from 'naive-ui'
 
 export default class App {
     mixins = mixins;
@@ -46,6 +52,10 @@ export default class App {
     }
 
     boot() {
+
+
+
+
         this.useModules();
         this.useMixins();
         this.resolveComponents();
@@ -78,6 +88,10 @@ export default class App {
         this.app.use(VueViewer);
         console.log('useeeeeee', this.config?.app?.map ?? {});
         this.app.use(VueGoogleMaps , this.config?.app?.map ?? {});
+        const naive = create({
+            components: [NDynamicTags,NColorPicker]
+        });
+        this.app.use(naive);
     }
 
     resolveComponents() {

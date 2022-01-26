@@ -51,6 +51,9 @@ export default {
         VeeField: VeeValidate.Field,
         ErrorMessage: VeeValidate.ErrorMessage,
     },
+    ready(){
+      // alert(this.model$);
+    },
     data() {
         return {
             // input: null

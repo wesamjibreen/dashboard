@@ -20,7 +20,7 @@
             <div v-for="input in multiLangInputs" :class="`column is-${input.cols ?? 12}`" v-show="isDisplayed(input)">
                 <VField :classes="getFieldClass(input.component)">
                     <label> {{ getInputLabel(input) }} ({{ currentLanguage.toUpperCase() }})</label>
-                    <VControl icon="feather:user" :model="input.model">
+                    <VControl :icon="input.icon" :model="input.model">
                         <component :is="`${input.component}-field`" :formModule="formModule" :locale="currentLanguage"
                                    v-bind="input"/>
                     </VControl>

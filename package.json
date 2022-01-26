@@ -1,6 +1,6 @@
 {
   "name": "nawadash",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Vue3 Functional Dashboard",
   "main": "index.js",
   "scripts": {
@@ -39,6 +39,7 @@
     "unplugin-vue-components": "^0.17.14"
   },
   "dependencies": {
+    "naive-ui": "^2.24.5",
     "@ckeditor/ckeditor5-build-classic": "^31.0.0",
     "@ckeditor/ckeditor5-vue": "^2.0.1",
     "@fawmi/vue-google-maps": "^0.9.4",

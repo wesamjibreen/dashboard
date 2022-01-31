@@ -10,7 +10,7 @@ const { locale } = useI18n()
 const dropdownElement = ref()
 const dropdown = useDropdown(dropdownElement)
 import  useCountry from "../../../composable/useCountry";
-const {countries, country,defaultCountry ,countryObject,flagUrl} = useCountry();
+const {countries, country,defaultCountry ,countryObject,flagUrl,providerConfig} = useCountry();
 const localFlagSrc = computed(() => {
   switch (locale.value) {
     case 'fr':
@@ -43,7 +43,7 @@ const localFlagSrc = computed(() => {
       </label>
     </div>
 
-    <a class="toolbar-link right-panel-trigger"
+    <a  v-if="!!providerConfig" class="toolbar-link right-panel-trigger"
       @click="activePanel = 'countries'">
 
       <img :src="flagUrl" alt="" />

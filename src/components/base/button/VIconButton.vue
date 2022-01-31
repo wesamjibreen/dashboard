@@ -128,10 +128,10 @@ export default defineComponent({
     return () => {
       let icon
       if (isIconify.value) {
-        icon = h('i', {
+        icon = h('Icon', {
           'aria-hidden': true,
           class: 'iconify',
-          'data-icon': props.icon,
+          'icon': props.icon,
         })
       } else {
         icon = h('i', { 'aria-hidden': true, class: props.icon })

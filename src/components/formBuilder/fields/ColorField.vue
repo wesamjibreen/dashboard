@@ -20,31 +20,40 @@
     <!--<div :style="{background: color}">-->
     <!---->
     <!--</div>-->
-    <div>
-        <ColorPicker
-                theme="light"
-                :color="input"
-                :sucker-hide="true"
-                :sucker-canvas="suckerCanvas"
-                :sucker-area="suckerArea"
-                @openSucker="openSucker"
+    <div class="field-container">
+        <ColorPicker class="input --color-input" format="hex" v-model:pureColor="input" :isWidget="inline"/>
 
-                @changeColor="changeColor"
-        />
+        <!--<ColorPicker-->
+        <!--theme="light"-->
+        <!--:color="input"-->
+        <!--:sucker-hide="true"-->
+        <!--:sucker-canvas="suckerCanvas"-->
+        <!--:sucker-area="suckerArea"-->
+        <!--@openSucker="openSucker"-->
+        <!--@changeColor="changeColor"-->
+        <!--/>-->
     </div>
     <!--<h1> color filed</h1>-->
 </template>
 
 <script>
-    import {ColorPicker} from 'vue-color-kit'
+    // import {ColorPicker} from 'vue-color-kit'
     import input from "../mixins/input";
+    import {ColorPicker} from "vue3-colorpicker";
+    import "vue3-colorpicker/style.css";
 
+    // import Vue3ColorPicker from "vue3-colorpicker";
+    // import "vue3-colorpicker/style.css";
     export default {
         name: "ColorField",
         components: {
+            // ColorPicker,
             ColorPicker,
         },
         mixins: [input],
+        props: {
+            inline: Boolean
+        },
         data() {
             return {
                 color: '#59c7f9',
@@ -94,23 +103,29 @@
 </script>
 
 <style>
-    @import '~vue-color-kit/dist/vue-color-kit.css';
-    /*.hu-color-picker.light {*/
-    /*width: 100% !important;*/
-    /*}*/
-    ul.colors {
-        display: none;
-    }
-
-    .color-type {
-        display: none;
-    }
-
-    .color-show canvas {
+    .vc-color-wrap.transparent {
+        background-image: none !important;
         width: 100% !important;
-    }
 
-    .hu-color-picker.light {
-        width: 54% !important;
+
+        background-color: white !important;
+        color: white;
+
+        -webkit-appearance: none;
+        align-items: center;
+        border: 1px solid transparent;
+        border-radius: var(--radius);
+        box-shadow: none;
+        display: inline-flex;
+        font-size: 1rem;
+        height: 2.5em;
+        justify-content: flex-start;
+        line-height: 1.5;
+        padding-bottom: calc(0.5em - 1px);
+        padding-left: calc(0.75em - 1px);
+        padding-right: calc(0.75em - 1px);
+        padding-top: calc(0.5em - 1px);
+        position: relative;
+        vertical-align: top;
     }
 </style>

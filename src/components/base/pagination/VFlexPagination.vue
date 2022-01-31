@@ -1,47 +1,48 @@
+<template>
+    <div class="--pagination">
+        <o-pagination
+                v-if="hasPagination"
+                iconPack="fa"
+                :total="totalItems"
+                :current.sync="currentPage"
+                @change="paginatedLink"
+                order="centered"
+                :rounded="true"
+                :per-page="itemsPerPage"
+                :range-before="3"
+                :range-after="3"
+                aria-next-label="Next page"
+                aria-previous-label="Previous page"
+                aria-page-label="Page"
+                aria-current-label="Current page">
+
+        </o-pagination>
+    </div>
+</template>
+
 <script>
-    // import {withDefaults} from 'vue'
-    // import {useRoute} from 'vue-router'
-    // import {useI18n} from 'vue-i18n'
+    import {useRoute} from "vue-router";
 
     export default {
         props: {
-            paginator: {},
-            resource: {
-                required: false,
-                default: null
-            },
-            maxLinksDisplayed: {
-                default: 4
-            }
+            paginator: Object,
+            resource: String
         },
         methods: {
             paginatedLink(page = 1) {
-                const _page = Math.min(page, this.lastPage);
+                // const route = useRoute();
+                console.log('paginatedLink', this.$route.query, this.queryParams);
 
-                const query = {
-                    ...this.$route.query,
-                    // page: _page <= 1 ? undefined : _page,
-                };
-                query[this.pageKey] = _page;
-
-
+                const query = this.queryParams ?? {};
+                query[this.pageKey] = page;
                 this.$router.push({query});
-                this.$emit('handle-pagination', _page);
-
-                // let route = Object.assign({}, this.$route);
-                // let route = this.$route;
-                // route.query.page = _page;
-                // console.log('paginatedLink',this.$route, route);
-                // return route;
-                // return {
-                //     name: this.$route.name,
-                //     params: this.$route.params,
-                //     query,
-                // }
+                this.$emit('handle-pagination', page);
             }
         },
-
         computed: {
+            queryParams() {
+                return Object.fromEntries(new URLSearchParams(window.location.search));
+            },
             hasPagination() {
                 return this.lastPage > 1;
             },
@@ -55,45 +56,11 @@
                 return _.get(this, 'paginator.per_page', 10);
             },
             totalItems() {
-                return _.get(this, 'paginator.total', 10);
+                return _.get(this, 'paginator.total', 0);
             },
             lastPage() {
                 return _.get(this, 'paginator.last_page', 1);
             },
-            totalPageDisplayed() {
-                return this.lastPage > this.maxLinksDisplayed - 2
-                    ? this.maxLinksDisplayed - 2 : this.lastPage
-            },
-            pages() {
-                const _pages = []
-                let firstButton = this.currentPage - Math.floor(this.totalPageDisplayed / 2)
-                let lastButton = firstButton + (this.totalPageDisplayed - Math.ceil(this.totalPageDisplayed % 2));
-
-                if (firstButton < 1) {
-                    firstButton = 1;
-                    lastButton = firstButton + (this.totalPageDisplayed - 1)
-                }
-
-                if (lastButton > this.lastPage) {
-                    lastButton = this.lastPage
-                    firstButton = lastButton - (this.totalPageDisplayed - 1)
-                }
-
-                for (let page = firstButton; page <= lastButton; page += 1) {
-                    if (page === firstButton || page === lastButton) {
-                        continue
-                    }
-                    _pages.push(page)
-                }
-                return _pages
-
-            },
-            showFirstLink() {
-                return this.pages[0] > 1
-            },
-            showLastLink() {
-                return this.pages[this.pages.length - 1] < this.lastPage
-            }
         },
 
     }
@@ -116,77 +83,9 @@
     goto-page-title: '转到第{page}页'
 </i18n>
 
-<template>
-    <nav
-            v-if="hasPagination"
-            role="navigation"
-            class="flex-pagination pagination is-rounded"
-            aria-label="pagination"
-            data-filter-hide
-    >
-        <a v-if="lastPage > 1"
-           @click="paginatedLink(currentPage - 1)"
-           class="pagination-previous has-chevron">
-            <Icon icon="feather:chevron-left"/>
-            <!--<i-->
-            <!--aria-hidden="true"-->
-            <!--class="iconify"-->
-            <!--data-icon="feather:chevron-left"-->
-            <!--&gt;</i>-->
-        </a>
-        <a
-                v-if="lastPage > 1"
-                @click="paginatedLink(currentPage + 1)"
-                class="pagination-next has-chevron"
-        >
-            <Icon icon="feather:chevron-right"/>
 
-            <!--<i-->
-            <!--aria-hidden="true"-->
-            <!--class="iconify"-->
-            <!--data-icon="feather:chevron-right"-->
-            <!--&gt;</i>-->
-        </a>
-
-        <ul class="pagination-list">
-            <li>
-                <a
-                        @click="paginatedLink(1)"
-                        class="pagination-link"
-                        :aria-label="trans('goto-page-title', { page: 1 })"
-                        :class="[currentPage === 1 && 'is-current']">
-                    1
-                </a>
-            </li>
-
-            <li v-if="pages.length === 0 || pages[0] > 2">
-                <span class="pagination-ellipsis">…</span>
-            </li>
-
-            <li v-for="page in pages" :key="page">
-                <a
-                        @click="paginatedLink(page)"
-                        class="pagination-link"
-                        :aria-label="trans('goto-page-title', { page: page })"
-                        :aria-current="currentPage === page ? 'page' : undefined"
-                        :class="[currentPage === page && 'is-current']"
-                >
-                    {{ page }}
-                </a>
-            </li>
-
-            <li v-if="pages[pages.length - 1] < lastPage - 1">
-                <span class="pagination-ellipsis">…</span>
-            </li>
-
-            <li>
-                <a @click="paginatedLink(lastPage)"
-                   class="pagination-link"
-                   :aria-label="trans('goto-page-title', { page: lastPage })"
-                   :class="[currentPage === lastPage && 'is-current']">
-                    {{ lastPage }}
-                </a>
-            </li>
-        </ul>
-    </nav>
-</template>
+<style>
+    .--pagination {
+        padding: 15px 5px;
+    }
+</style>

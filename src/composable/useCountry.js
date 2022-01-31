@@ -7,11 +7,19 @@ export default function useCountry() {
     const base = inject('$base');
     const config = inject('$config');
 
-   const defaultCountryConfig =  _.get(config,'app.countries.default',null);
+    const providerConfig =   _.get(config, 'app.countries', null);
+    const notificationsConfig =   _.get(config, 'app.notifications', null);
+
+    const isNotificationDisplayed = !!notificationsConfig?.display;
+
+    const defaultCountryConfig = _.get(providerConfig, 'default', null);
     const country = ref();
     const defaultCountry = useStorage(`${base}_country`, defaultCountryConfig);
     const store = useStore();
 
+    const isChecked = function (item) {
+        return country.value == item.value || defaultCountry.value == item.value ;
+    };
     /**
      * We use the same storage key as we use in the /src/i18n.ts file
      * so if user reload the page, the selected language will be the same
@@ -26,7 +34,7 @@ export default function useCountry() {
     });
 
     const flagUrl = computed(() => {
-        return countryObject.value.icon_url ?? `https://country-tools.com/flags/cercle/512x512/${defaultCountry.value?.toLowerCase()}.png`
+        return countryObject?.value?.icon_url ?? `https://country-tools.com/flags/cercle/512x512/${defaultCountry.value?.toLowerCase()}.png`
     });
 
 
@@ -41,11 +49,14 @@ export default function useCountry() {
     });
 
     return {
+        providerConfig,
         countries,
         defaultCountry,
         base,
         countryObject,
         flagUrl,
+        isChecked,
+        isNotificationDisplayed,
         country
     }
 }

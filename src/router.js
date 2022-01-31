@@ -76,7 +76,6 @@ const initRouter = function (routes, base = "/") {
             ]
         },
     ];
-    console.log('routes', routes);
     const router = createRouter({
         base: `/${base}`,
         history: createWebHistory(`/${base}`),

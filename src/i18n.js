@@ -43,8 +43,15 @@ const common = {
         filter_by: "فلترة حسب",
         confirm: "تأكيد",
         title: "العنوان",
+        logout: "تسجيل الخروج",
         add_date: "إضافة تاريخ",
+        welcome_back_to_account: "آهلا بعودتك .. قم بتسجيل الدخول",
         sure_to_delete: "هل أنت متأكد من الحذف ؟",
+        email : "البريد الإلكتروني",
+        password : "كلمة المرور",
+        remember_me : "تذكرني؟",
+        login : "دخول",
+
     },
     en: {
         welcome: "Welcome",
@@ -65,11 +72,18 @@ const common = {
         text: "Text",
         image: "Image",
         select: "Select",
+        logout: "Logout",
         actions: "Actions",
         filter_by: "Filter by",
         title: "Title",
         sure_to_delete: "Are you sure to delete?",
         confirm: "Confirm",
+        email : "E-mail",
+        password : "Password",
+        welcome_back_to_account: "Welcome back to your account.",
+        remember_me : "Remember Me?",
+        login : "Login",
+
     },
     tr: {
         datatable: {
@@ -84,6 +98,12 @@ const common = {
         cancel: "Cancel",
         enter: "Enter",
         select: "Select",
-        title: "Title"
+        title: "Title",
+        logout: "Logout",
+        password : "Password",
+        email : "E-mail",
+        welcome_back_to_account: "Welcome back to your account.",
+        login : "Login",
+        remember_me : "Remember Me?",
     }
 };

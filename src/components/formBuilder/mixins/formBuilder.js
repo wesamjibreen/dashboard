@@ -34,6 +34,7 @@ export default {
         return {
             find_loading: false,
             loading: false,
+            renderLoading: true
         }
     },
 
@@ -95,7 +96,17 @@ export default {
         setTimeout(() => {
             if (this.values)
                 this.setForm(this.values);
-        }, 400)
+        }, 100)
+
+        this.$nextTick(() => {
+            this.renderLoading = false;
+            //  setTimeout(()=>{
+            // },500);
+        })
+    },
+
+    updated() {
+        alert('ok')
     },
 
     methods: {
@@ -357,6 +368,14 @@ export default {
         }
     },
     computed: {
+
+        isLoading() {
+            /**
+             * computed property returns if form loading
+             * @author WeSSaM
+             */
+            return (this.find_loading && !this.isCrud) || this.renderLoading
+        },
 
         formModule() {
             /**

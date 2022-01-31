@@ -1,59 +1,41 @@
 <template>
     <div class="field-container">
-        <v-date-picker v-model="input" mode="time" :model-config="modelConfig">
-            <template v-if="!inline" #default="{ inputValue, inputEvents }">
-                <input class="input"
-                       :class="{'is-invalid' : errorMessage && meta.touched}"
-                       type="text"
-                       :placeholder="placeholder$"
-                       :value="input"
-                       v-on="inputEvents"/>
-            </template>
-        </v-date-picker>
-        <span class="invalid" v-if="errorMessage && meta.touched">
-            {{ errorMessage }}
-        </span>
+        <o-timepicker :placeholder="placeholder$"
+                      class="input"
+                      icon="clock"
+                      @update:modelValue="onSelect"
+                      :modelValue="computedInput"
+                      :enable-seconds="enableSeconds"
+                      :hour-format="hourFormat"
+                      :locale="locale"></o-timepicker>
     </div>
 </template>
-
 <script>
     import input from "../mixins/input";
-    import {DatePicker} from 'v-calendar';
-    import {useInputField} from "../composable/useInputField";
 
     export default {
         name: "TimeField",
         mixins: [input],
-        components: {
-            "v-date-picker": DatePicker
-        },
-        props: {
-            inline: {
-                default: false
-            }
-        },
         data() {
             return {
-                modelConfig: {
-                    type: 'string',
-                    mask: 'HH:mm:ss', // Uses 'iso' if missing
-                },
+                hourFormat: undefined, // Browser locale
+                enableSeconds: false,
+                locale: undefined // Browser locale
             }
         },
-        setup(props) {
-            return {
-                ...useInputField(props)
-            };
+        methods: {
+            timeFormatter(date) {
+                return date ? (new Date(date)).toString().substr(16, 8) : null;
+            },
+            onSelect(value) {
+                let time = value ?? null;
+                this.$commit(this.timeFormatter(time));
+            }
         },
         computed: {
-            defaultValue() {
-                return "00:00:00"
+            computedInput() {
+                return this.input ? new Date(`1970-01-01 ${this.input}`) : null;
             }
         }
-
     }
 </script>
-
-<style>
-
-</style>

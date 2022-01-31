@@ -29,27 +29,28 @@
                 <div class="is-form">
                     <div class="hero-body">
                         <div class="form-text" :class="[step !== 'login' && 'is-hidden']">
-                            <h2>
+                            <h2 class="-login-title">
                                 {{ trans('sign_in')}}
                             </h2>
-                            <p>
-                                Welcome back to your account.
+                            <p class="-login-text">
+                                {{ trans('welcome_back_to_account') }}
                             </p>
                         </div>
                         <div class="form-text" :class="[step === 'login' && 'is-hidden']">
                             <h2>Recover Account</h2>
                             <p>Reset your account password.</p>
                         </div>
-                        <form :class="[step !== 'login' && 'is-hidden']" class="login-wrapper" @submit.prevent="handleLogin">
+                        <form :class="[step !== 'login' && 'is-hidden']" class="login-wrapper"
+                              @submit.prevent="handleLogin">
                             <!--<VMessage color="primary">-->
-                                <!--<div>-->
-                                    <!--<strong class="pr-1">email:</strong-->
-                                    <!--&gt;<span>john.doe@cssninja.io</span>-->
-                                <!--</div>-->
-                                <!--<div>-->
-                                    <!--<strong class="pr-1">password:</strong-->
-                                    <!--&gt;<span>ada.lovelace</span>-->
-                                <!--</div>-->
+                            <!--<div>-->
+                            <!--<strong class="pr-1">email:</strong-->
+                            <!--&gt;<span>john.doe@cssninja.io</span>-->
+                            <!--</div>-->
+                            <!--<div>-->
+                            <!--<strong class="pr-1">password:</strong-->
+                            <!--&gt;<span>ada.lovelace</span>-->
+                            <!--</div>-->
                             <!--</VMessage>-->
 
                             <div class="control has-validation">
@@ -62,7 +63,7 @@
                                         autocomplete="email"
                                 />
                                 <small class="error-text">This is a required field</small>
-                                <div class="auth-label">Email Address</div>
+                                <div class="auth-label">{{ trans('email') }}</div>
                                 <div class="autv-icon">
                                     <i aria-hidden="true" class="lnil lnil-envelope"></i>
                                 </div>
@@ -81,7 +82,7 @@
                                         class="input"
                                         autocomplete="current-password"
                                 />
-                                <div class="auth-label">Password</div>
+                                <div class="auth-label"> {{ trans('password') }}</div>
                                 <div class="autv-icon">
                                     <i aria-hidden="true" class="lnil lnil-lock-alt"></i>
                                 </div>
@@ -89,7 +90,7 @@
 
                             <div class="control is-flex">
                                 <label class="remember-toggle">
-                                    <input type="checkbox"/>
+                                    <input type="checkbox" checked/>
                                     <span class="toggler">
                                         <span class="active">
                                             <Icon class="iconify" icon="feather:check"></Icon>
@@ -99,8 +100,9 @@
                                         </span>
                                     </span>
                                 </label>
-                                <div class="remember-me">Remember Me</div>
-                                <a @click="step = 'forgot-password'">Forgot Password?</a>
+
+                                <div class="remember-me"> {{ trans('remember_me')}}</div>
+                                <!--<a @click="step = 'forgot-password'">Forgot Password?</a>-->
                             </div>
                             <div class="button-wrap has-help">
                                 <VButton
@@ -112,51 +114,51 @@
                                         rounded
                                         raised
                                         bold>
-                                    Confirm
+                                    {{ trans('login') }}
                                 </VButton>
-                                <span>
-                  Or
-                  <RouterLink :to="{ name: 'dashboard' }">
-                    Create
-                  </RouterLink>
-                  an account.
-                </span>
+                                <!--<span>-->
+                                <!--Or-->
+                                <!--<RouterLink :to="{ name: 'dashboard' }">-->
+                                <!--Create-->
+                                <!--</RouterLink>-->
+                                <!--an account.-->
+                                <!--</span>-->
                             </div>
                         </form>
 
-                        <form
-                                :class="[step !== 'forgot-password' && 'is-hidden']"
-                                class="login-wrapper"
-                                @submit.prevent
-                        >
-                            <p class="recover-text">
-                                Enter your email and click on the confirm button to reset your
-                                password. We'll send you an email detailing the steps to
-                                complete the procedure.
-                            </p>
-                            <div class="control has-validation">
-                                <input type="text" class="input" autocomplete="email"/>
-                                <small class="error-text">This is a required field</small>
-                                <div class="auth-label">Email Address</div>
-                                <div class="autv-icon">
-                                    <i aria-hidden="true" class="lnil lnil-envelope"></i>
-                                </div>
-                                <div class="validation-icon is-success">
-                                    <VIconWrap icon="feather:check"/>
-                                </div>
-                                <div class="validation-icon is-error">
-                                    <VIconWrap icon="feather:x"/>
-                                </div>
-                            </div>
-                            <div class="button-wrap">
-                                <VButton color="white" size="big" lower rounded>
-                                    Cancel
-                                </VButton>
-                                <VButton color="primary" size="big" type="submit" lower rounded solid>
-                                    Confirm
-                                </VButton>
-                            </div>
-                        </form>
+                        <!--<form-->
+                        <!--:class="[step !== 'forgot-password' && 'is-hidden']"-->
+                        <!--class="login-wrapper"-->
+                        <!--@submit.prevent-->
+                        <!--&gt;-->
+                        <!--<p class="recover-text">-->
+                        <!--Enter your email and click on the confirm button to reset your-->
+                        <!--password. We'll send you an email detailing the steps to-->
+                        <!--complete the procedure.-->
+                        <!--</p>-->
+                        <!--<div class="control has-validation">-->
+                        <!--<input type="text" class="input" autocomplete="email"/>-->
+                        <!--<small class="error-text">This is a required field</small>-->
+                        <!--<div class="auth-label">Email Address</div>-->
+                        <!--<div class="autv-icon">-->
+                        <!--<i aria-hidden="true" class="lnil lnil-envelope"></i>-->
+                        <!--</div>-->
+                        <!--<div class="validation-icon is-success">-->
+                        <!--<VIconWrap icon="feather:check"/>-->
+                        <!--</div>-->
+                        <!--<div class="validation-icon is-error">-->
+                        <!--<VIconWrap icon="feather:x"/>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="button-wrap">-->
+                        <!--<VButton color="white" size="big" lower rounded>-->
+                        <!--Cancel-->
+                        <!--</VButton>-->
+                        <!--<VButton color="primary" size="big" type="submit" lower rounded solid>-->
+                        <!--Confirm-->
+                        <!--</VButton>-->
+                        <!--</div>-->
+                        <!--</form>-->
                     </div>
                 </div>
             </div>
@@ -844,6 +846,17 @@
                     background: var(--dark-sidebar-light-12);
                 }
             }
+        }
+    }
+
+
+    html[dir="rtl"] {
+        .remember-me {
+            font-family: 'Cairo', serif !important;
+        }
+
+        .auth-label {
+            font-family: 'Cairo', serif !important;
         }
     }
 </style>

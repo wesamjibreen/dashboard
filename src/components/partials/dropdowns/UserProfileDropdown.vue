@@ -20,51 +20,51 @@
                 </div>
             </div>
 
-            <a href="#" role="menuitem" class="dropdown-item is-media">
-                <div class="icon">
-                    <i aria-hidden="true" class="lnil lnil-user-alt"></i>
-                </div>
-                <div class="meta">
-                    <span>Profile</span>
-                    <span>View your profile</span>
-                </div>
-            </a>
+            <!--<a href="#" role="menuitem" class="dropdown-item is-media">-->
+                <!--<div class="icon">-->
+                    <!--<i aria-hidden="true" class="lnil lnil-user-alt"></i>-->
+                <!--</div>-->
+                <!--<div class="meta">-->
+                    <!--<span>Profile</span>-->
+                    <!--<span>View your profile</span>-->
+                <!--</div>-->
+            <!--</a>-->
 
-            <hr class="dropdown-divider"/>
+            <!--<hr class="dropdown-divider"/>-->
 
-            <a href="#" role="menuitem" class="dropdown-item is-media">
-                <div class="icon">
-                    <i aria-hidden="true" class="lnil lnil-briefcase"></i>
-                </div>
-                <div class="meta">
-                    <span>Projects</span>
-                    <span>All my projects</span>
-                </div>
-            </a>
+            <!--<a href="#" role="menuitem" class="dropdown-item is-media">-->
+                <!--<div class="icon">-->
+                    <!--<i aria-hidden="true" class="lnil lnil-briefcase"></i>-->
+                <!--</div>-->
+                <!--<div class="meta">-->
+                    <!--<span>Projects</span>-->
+                    <!--<span>All my projects</span>-->
+                <!--</div>-->
+            <!--</a>-->
 
-            <a href="#" role="menuitem" class="dropdown-item is-media">
-                <div class="icon">
-                    <i aria-hidden="true" class="lnil lnil-users-alt"></i>
-                </div>
-                <div class="meta">
-                    <span>Team</span>
-                    <span>Manage your team</span>
-                </div>
-            </a>
+            <!--<a href="#" role="menuitem" class="dropdown-item is-media">-->
+                <!--<div class="icon">-->
+                    <!--<i aria-hidden="true" class="lnil lnil-users-alt"></i>-->
+                <!--</div>-->
+                <!--<div class="meta">-->
+                    <!--<span>Team</span>-->
+                    <!--<span>Manage your team</span>-->
+                <!--</div>-->
+            <!--</a>-->
 
-            <hr class="dropdown-divider"/>
+            <!--<hr class="dropdown-divider"/>-->
 
-            <a href="#" role="menuitem" class="dropdown-item is-media">
-                <div class="icon">
-                    <i aria-hidden="true" class="lnil lnil-cog"></i>
-                </div>
-                <div class="meta">
-                    <span>Settings</span>
-                    <span>Account settings</span>
-                </div>
-            </a>
+            <!--<a href="#" role="menuitem" class="dropdown-item is-media">-->
+                <!--<div class="icon">-->
+                    <!--<i aria-hidden="true" class="lnil lnil-cog"></i>-->
+                <!--</div>-->
+                <!--<div class="meta">-->
+                    <!--<span>Settings</span>-->
+                    <!--<span>Account settings</span>-->
+                <!--</div>-->
+            <!--</a>-->
 
-            <hr class="dropdown-divider"/>
+            <!--<hr class="dropdown-divider"/>-->
 
             <div class="dropdown-item is-button">
                 <VButton class="logout-button"
@@ -73,7 +73,7 @@
                          role="menuitem"
                          raised
                          @click="logout" fullwidth>
-                    Logout
+                    {{ trans('logout') }}
                 </VButton>
             </div>
         </template>

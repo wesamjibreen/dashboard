@@ -3,10 +3,13 @@
         <div v-if="icon" :class="classes">
             <i aria-hidden="true" :class="icon"></i>
         </div>
+        <div v-else :class="classes" v-html="SVGIcon"></div>
     </a>
 </template>
 
 <script>
+    import svg from "../../../data/icons/svg";
+
     export default {
         name: "Action",
         props: {
@@ -40,6 +43,9 @@
             }
         },
         computed: {
+            SVGIcon() {
+                return _.get(svg, this.slug, this.slug)
+            },
             classes() {
                 return [
                     'icon',

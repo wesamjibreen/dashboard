@@ -56,7 +56,7 @@ export default {
     },
     data() {
         return {
-            // input: null
+            // input: this.defaultValue,
             repeaterFieldValue: this.defaultValue,
             // repeaterFieldValue: null
             detectChanges: false,
@@ -237,7 +237,7 @@ export default {
                 if (this.locale$)
                     return _.get(this.inputValue, this.locale$, this.defaultValue);
 
-                return this.inputValue;
+                return this.inputValue ?? this.defaultValue;
             },
             set(newVal) {
                 this.$commit(newVal);

@@ -50,11 +50,6 @@
         <Sidebar :theme="props.theme" :is-open="isDesktopSidebarOpen">
             <template #links>
                 <li v-for="item in menu">
-                    <!--<RouterLink :to="item.to" @click.prevent="switchSidebar(item.key,item)">-->
-                    <!--<Icon class="sidebar-icon" :icon="item.icon"/>-->
-                    <!--</RouterLink>-->
-
-                    <!---->
                     <a :class="[activeMobileSubsidebar === item.key && 'is-active']"
                        :data-content="trans(item.label??item.key)"
                        :aria-label="trans(item.label??item.key)"
@@ -67,41 +62,40 @@
             <template #bottom-links>
 
                 <!-- Search -->
-                <li class="right-panel-trigger is-hidden-touch">
-                    <a
-                            aria-label="Display search panel"
-                            data-content="Search"
-                            @click="activePanel = 'search'"
-                    >
-                        <Icon class="sidebar-icon" icon="feather-search"/>
+                <!--<li class="right-panel-trigger is-hidden-touch">-->
+                    <!--<a-->
+                            <!--aria-label="Display search panel"-->
+                            <!--data-content="Search"-->
+                            <!--@click="activePanel = 'search'"-->
+                    <!--&gt;-->
+                        <!--<Icon class="sidebar-icon" icon="feather-search"/>-->
 
-                        <!--<i-->
-                        <!--aria-hidden="true"-->
-                        <!--class="iconify sidebar-svg"-->
-                        <!--data-icon="feather-search"-->
-                        <!--/>-->
-                    </a>
-                    <a
-                            aria-label="Close all panels"
-                            class="is-hidden is-inactive"
-                            @click="activePanel = 'none'"
-                    >
-                        <Icon class="sidebar-icon" icon="feather-x"/>
+                        <!--&lt;!&ndash;<i&ndash;&gt;-->
+                        <!--&lt;!&ndash;aria-hidden="true"&ndash;&gt;-->
+                        <!--&lt;!&ndash;class="iconify sidebar-svg"&ndash;&gt;-->
+                        <!--&lt;!&ndash;data-icon="feather-search"&ndash;&gt;-->
+                        <!--&lt;!&ndash;/>&ndash;&gt;-->
+                    <!--</a>-->
+                    <!--<a-->
+                            <!--aria-label="Close all panels"-->
+                            <!--class="is-hidden is-inactive"-->
+                            <!--@click="activePanel = 'none'">-->
+                        <!--<Icon class="sidebar-icon" icon="feather-x"/>-->
 
-                        <!--<i-->
-                        <!--aria-hidden="true"-->
-                        <!--class="iconify sidebar-svg"-->
-                        <!--data-icon="feather-x"-->
-                        <!--/>-->
-                    </a>
-                </li>
+                        <!--&lt;!&ndash;<i&ndash;&gt;-->
+                        <!--&lt;!&ndash;aria-hidden="true"&ndash;&gt;-->
+                        <!--&lt;!&ndash;class="iconify sidebar-svg"&ndash;&gt;-->
+                        <!--&lt;!&ndash;data-icon="feather-x"&ndash;&gt;-->
+                        <!--&lt;!&ndash;/>&ndash;&gt;-->
+                    <!--</a>-->
+                <!--</li>-->
 
                 <!-- Settings -->
-                <li class="is-hidden-touch">
-                    <RouterLink id="open-settings" :to="{ name: 'setting' }" data-content="Settings">
-                        <Icon class="sidebar-icon" icon="feather:settings"/>
-                    </RouterLink>
-                </li>
+                <!--<li class="is-hidden-touch">-->
+                    <!--<RouterLink id="open-settings" :to="{ name: 'setting' }" data-content="Settings">-->
+                        <!--<Icon class="sidebar-icon" icon="feather:settings"/>-->
+                    <!--</RouterLink>-->
+                <!--</li>-->
 
                 <!-- Profile Dropdown -->
                 <li>
@@ -163,14 +157,9 @@
                             <a class="toolbar-link right-panel-trigger"
                                aria-label="View activity panel"
                                @click="activePanel = 'languages'">
-                                <!--<i-->
-                                <!--aria-hidden="true"-->
-                                <!--class="iconify"-->
-                                <!--data-icon="feather:grid"-->
-                                <!--&gt;</i>-->
                                 <Icon icon="grommet-icons:language"/>
                             </a>
-                            <ToolbarNotification/>
+                            <ToolbarNotification v-if="isNotificationDisplayed"/>
 
                         </Toolbar>
                     </div>
@@ -192,6 +181,7 @@
     import {Icon} from '@iconify/vue';
     import {activePanel} from '../state/activePanelState'
     import {pageTitle} from '../state/sidebarLayoutState'
+    import useCountry from '../composable/useCountry'
     import AlertDialog from "../components/dialog/AlertDialog";
     import {mapState} from "vuex";
 
@@ -229,7 +219,7 @@
             let isDesktopSidebarOpen = ref((props && props.openOnMounted ? props.openOnMounted : false))
             let activeMobileSubsidebar = ref(props && props.defaultSidebar ? props.defaultSidebar : "dashboard")
             let router = useRouter();
-
+            const {isNotificationDisplayed}  = useCountry();
             let $instance = inject('$instance');
             let menuItems = ref(_.get($instance, 'config.menu', []));
 

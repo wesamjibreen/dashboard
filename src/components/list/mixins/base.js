@@ -27,18 +27,20 @@ export default {
     },
     methods: {
         init() {
-            const route = useRoute();
-            if (!route.query[this.pageKey]) {
-                let query = Object.assign({}, route.query);
-                query[this.pageKey] = 1;
-                this.$router.push({query})
-            }
+            // const route = useRoute();
+            // if (!route.query[this.pageKey]) {
+            //     let query = Object.assign({}, route.query);
+            //     query[this.pageKey] = 1;
+            //     this.$router.push({query})
+            // }
 
             this.onReload(() => {
                 this.fetch();
             });
 
             this.initAction();
+
+            this.fetch();
         },
 
         initAction() {
@@ -118,7 +120,9 @@ export default {
         }
     },
     computed: {
-
+        pageTitle() {
+            return this.trans(`${this.resource}.all`);
+        },
         fetchEndPoint() {
             return this.defaultEndPoint;
         },
@@ -144,21 +148,22 @@ export default {
     },
 
     watch: {
-        queryPage: {
-            immediate: true,
-            deep: true,
-            handler(newVal) {
-                this.fetch();
-            }
-        },
+        // queryPage: {
+        //     immediate: true,
+        //     deep: true,
+        //     handler(newVal) {
+        //         this.fetch();
+        //     }
+        // },
         filter: {
-            immediate: true,
+            // immediate: true,
             deep: true,
             handler: _.debounce(function (newVal) {
-                this.$router.push({query: {...this.$route.query, ...newVal}});
-                this.fetch()
+                let query = {...this.$route.query, ...newVal};
+                query[this.pageKey] = 1;
+                this.$router.push({query});
+                this.fetch();
                 console.log('filters', newVal);
-                // this.fetch();
             }, 500)
         }
     }

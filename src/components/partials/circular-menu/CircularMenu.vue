@@ -2,13 +2,15 @@
     import {useWindowScroll} from '@vueuse/core'
     import {computed, ref, watchEffect} from 'vue'
     import {useI18n} from 'vue-i18n'
+    import useCountry from "../../../composable/useCountry";
 
     const {locale} = useI18n()
     const {y} = useWindowScroll()
     const isOpen = ref(false)
     const isScrolling = ref(false)
+    import {activePanel} from '../../../state/activePanelState';
     import { isDark, toggleDarkModeHandler } from '../../../state/darkModeState'
-
+    const {flagUrl ,providerConfig , isNotificationDisplayed} = useCountry();
     watchEffect(() => {
         if (y.value <= 30) {
             isOpen.value = false
@@ -52,15 +54,20 @@
                     <span></span>
                 </label>
             </div>
-            <a class="menu-item is-flex right-panel-trigger" @click="activePanel = 'languages'">
-                <img :src="localFlagSrc" alt=""/>
+
+            <a class="menu-item is-flex" @click="activePanel = 'languages'">
+                <Icon icon="grommet-icons:language"/>
             </a>
-            <RouterLink :to="{ name: 'dashboard' }" class="menu-item is-flex">
+
+            <a v-if="!!providerConfig" class="menu-item is-flex right-panel-trigger" @click="activePanel = 'countries'">
+                <img :src="flagUrl" alt=""/>
+            </a>
+
+            <RouterLink v-if="isNotificationDisplayed" :to="{ name: 'dashboard' }" class="menu-item is-flex">
                 <Icon class="iconify" icon="feather:bell"></Icon>
             </RouterLink>
-            <a class="menu-item is-flex" @click="activePanel = 'activity'">
-                <Icon class="iconify" icon="feather:grid"></Icon>
-            </a>
+
+
         </div>
     </div>
 </template>

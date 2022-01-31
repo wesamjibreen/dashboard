@@ -1,16 +1,20 @@
 <template>
     <div class="field-container">
-        <v-date-picker v-model="input" :model-config="modelConfig">
-            <template v-if="!inline" #default="{ inputValue, inputEvents }">
-                <input class="input"
-                       :class="{'is-invalid' : errorMessage && meta.touched}"
-                       type="text"
-                       :placeholder="placeholder$"
-                       :value="input"
-                       v-on="inputEvents"
-                />
-            </template>
-        </v-date-picker>
+        <o-datepicker @update:modelValue="onChange"
+                      :modelValue="computedInput"
+                      class="input"
+                      type="string"
+                      :multiple="multiple"
+                      :range="range"
+                      icon="calendar"
+                      :placeholder="placeholder$"
+                      trap-focus>
+        </o-datepicker>
+
+        <!--:dateFormatter="dateFormatter"-->
+        <!--:dateParser="dateParser"-->
+        <!--:dateCreator="dateCreator"-->
+
         <span class="invalid" v-if="errorMessage && meta.touched">
             {{ errorMessage }}
         </span>
@@ -19,19 +23,26 @@
 
 <script>
     import input from "../mixins/input";
-    import {DatePicker} from 'v-calendar';
     import {useInputField} from "../composable/useInputField";
 
     export default {
         name: "DateField",
         mixins: [input],
-        components: {
-            "v-date-picker": DatePicker
-        },
         props: {
             inline: {
                 default: false
+            },
+            multiple: {
+                default: false
+            },
+            range: {
+                default: false
             }
+        },
+        setup(props) {
+            return {
+                ...useInputField(props)
+            };
         },
         data() {
             return {
@@ -41,15 +52,40 @@
                 },
             }
         },
-        setup(props) {
-            return {
-                ...useInputField(props)
-            };
+        methods: {
+            onChange(value) {
+                if (this.isMultiple)
+                    this.$commit(_.map(value ?? [], (date) => {
+                        return this.dateParser(date);
+                    }));
+                else
+                    this.$commit(this.dateParser(value));
+            },
+            dateCreator() {
+                return new Date();
+            },
+            dateFormatter(date) {
+                return (date || new Date()).toLocaleDateString('en-GB').split('/').reverse().join('-');
+            },
+            dateParser(date) {
+                return (date || new Date()).toLocaleDateString('en-GB').split('/').reverse().join('-'); // '20211124'
+            }
         },
-
+        computed: {
+            defaultValue() {
+                return this.isMultiple ? [] : null;
+            },
+            computedInput() {
+                if (this.isMultiple)
+                    return _.map(this.input ?? [], (date) => {
+                        return new Date(date);
+                    });
+                return this.input ? new Date(this.input) : null;
+            },
+            isMultiple() {
+                return this.range || this.multiple
+            }
+        }
     }
 </script>
 
-<style>
-
-</style>

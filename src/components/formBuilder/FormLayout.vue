@@ -1,50 +1,35 @@
 <template>
     <!--<form class="form-layout" @submit.prevent>-->
     <v-form v-slot="{ handleSubmit ,values}" as="div">
-        <form class="form-layout" @submit="handleSubmit($event, onSubmit)">
-
+        <form :class="['form-layout', isLoading && '--loading']" @submit="handleSubmit($event, onSubmit)">
             <!--<v-form class="form-layout" :validation-schema="schema" @submit="onSubmit" v-slot="{values}">-->
             <div class="form-outer">
                 <div :class="[isStuck && 'is-stuck']" class="form-header stuck-header">
                     <div class="form-header-inner">
                         <div class="left">
-                            <h3>
-                                <!--Request a Demo-->
-                                {{ formTitle }}
-                            </h3>
+                            <h3>{{ formTitle }}</h3>
                         </div>
                         <div class="right">
                             <div class="buttons">
-                                <VButton icon="lnir lnir-arrow-left rem-100" @click.prevent="onCancel" light
-                                         dark-outlined>
-                                    <!--Cancel-->
+                                <VButton icon="lnir lnir-arrow-left rem-100" @click.prevent="onCancel" light dark-outlined>
                                     {{ trans('cancel') }}
                                 </VButton>
                                 <VButton color="primary" type="submit" raised :loading="loading">
-                                    <!--@click.prevent="submit"-->
-                                    <!--Submit-->
                                     {{ trans('save') }}
                                 </VButton>
-
-                                <!--<button>Submit</button>-->
-
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="form-body">
-                    <!--<v-field name="name" type="input" value=""></v-field>-->
-                    <!--<error-message name="name"></error-message>-->
-
-
-                    <VLoader size="small" :active="find_loading">
+                <VLoader size="small" :active="isLoading" class="loading-overlay">
+                    <div class="form-body">
                         <Fieldset v-for="fieldset in fieldSets$" v-bind="fieldset" :formModule="formModule$"/>
-                    </VLoader>
-                </div>
+                    </div>
+                </VLoader>
             </div>
-
         </form>
     </v-form>
+
 </template>
 
 
@@ -91,7 +76,7 @@
     // });
     export default {
         name: "FormLayout",
-        provide()  {
+        provide() {
             return {formModule: this.formModule}
         },
 
@@ -177,5 +162,10 @@
 
     .field > label {
         font-size: 1.0rem !important;
+    }
+
+    .v-loader-wrapper.is-active {
+        background-color: white;
+        z-index: 999;
     }
 </style>

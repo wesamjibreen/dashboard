@@ -5,6 +5,14 @@
     --font-alt: 'Roboto', Cairo;
     --font-monospace: 'Roboto', Cairo;
 }
+body,
+button,
+input,
+optgroup,
+select,
+textarea{
+    font-family: 'Roboto', Cairo;
+}
 // html[dir="rtl"]{
 //     :root {
 //         --font: 'Cairo', serif;

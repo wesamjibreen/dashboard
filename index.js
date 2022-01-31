@@ -3,14 +3,8 @@ import {components, EndPoints, initHead, initI18n, initRouter, initStore, mixins
 import RootApp from "./src/RootApp.vue";
 import initRequests from "./src/axios";
 import VueGoogleMaps from '@fawmi/vue-google-maps'
-
+import { Datepicker ,Timepicker ,Inputitems , Pagination, Sidebar } from '@oruga-ui/oruga-next'
 import VueViewer from 'v-viewer'
-import {
-    // create naive ui
-    create,
-    // component
-    NDynamicTags,
-NColorPicker} from 'naive-ui'
 
 export default class App {
     mixins = mixins;
@@ -52,10 +46,6 @@ export default class App {
     }
 
     boot() {
-
-
-
-
         this.useModules();
         this.useMixins();
         this.resolveComponents();
@@ -84,14 +74,15 @@ export default class App {
 
     useModules() {
         this.modules.forEach((module) => this.instance().use(module));
-        // this.instance().use(import( 'v-viewer'))
         this.app.use(VueViewer);
-        console.log('useeeeeee', this.config?.app?.map ?? {});
         this.app.use(VueGoogleMaps , this.config?.app?.map ?? {});
-        const naive = create({
-            components: [NDynamicTags,NColorPicker]
+        this.app.use(Datepicker);
+        this.app.use(Inputitems,{
+            iconPack : "fa"
         });
-        this.app.use(naive);
+        this.app.use(Timepicker);
+        this.app.use(Pagination);
+        this.app.use(Sidebar);
     }
 
     resolveComponents() {

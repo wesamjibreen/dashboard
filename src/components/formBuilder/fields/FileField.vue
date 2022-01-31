@@ -200,6 +200,9 @@
             },
             ratio: {
                 default: null
+            },
+            endPoint: {
+                default: null
             }
         },
         data: function () {
@@ -208,42 +211,46 @@
                 dialogs: [],
                 files: [],
                 images: [],
-                server: {
-                    url: '/image/upload',
-                    process: {
-                        method: 'POST',
-                        withCredentials: false,
-                        headers: {
-                            _token: document.querySelector("meta[name=csrf-token]").getAttribute('content')
-                        },
-                        timeout: 7000,
-                        onload: (response, data) => {
-                            let file = JSON.parse(response).data;
-                            this.addImageToInput(file);
-                            this.files = [];
-                            console.log('onload', file, data, this.files);
-                        },
-                        onerror: null,
-                        ondata: (data) => {
-                            data.append('_token', document.querySelector("meta[name=csrf-token]").getAttribute('content'));
-                            return data;
-                        },
-                        remove: (source, load, error) => {
-                            // alert('remove')
-                            // Should somehow send `source` to server so server can remove the file with this source
-
-                            // Can call the error method if something is wrong, should exit after
-                            error('oh my goodness');
-
-                            // Should call the load method when done, no parameters required
-                            load();
-                        },
-                    },
-                },
+                // server: {
+                //     url: this.endPoint$?.url ?? '/image/upload',
+                //     // url: '/image/upload',
+                //     process: {
+                //         method: this.endPoint$?.method ?? 'POST',
+                //         withCredentials: false,
+                //         headers: {
+                //             _token: document.querySelector("meta[name=csrf-token]").getAttribute('content')
+                //         },
+                //         timeout: 7000,
+                //         onload: (response, data) => {
+                //             let file = JSON.parse(response).data;
+                //             this.addImageToInput(file);
+                //             this.files = [];
+                //             console.log('onload', file, data, this.files);
+                //         },
+                //         onerror: null,
+                //         ondata: (data) => {
+                //             data.append('_token', document.querySelector("meta[name=csrf-token]").getAttribute('content'));
+                //             return data;
+                //         },
+                //         remove: (source, load, error) => {
+                //             // alert('remove')
+                //             // Should somehow send `source` to server so server can remove the file with this source
+                //
+                //             // Can call the error method if something is wrong, should exit after
+                //             error('oh my goodness');
+                //
+                //             // Should call the load method when done, no parameters required
+                //             load();
+                //         },
+                //     },
+                // },
 
             };
         },
         methods: {
+            onInputCreated() {
+
+            },
             addImageToInput(file) {
                 if (!this.input)
                     this.input = [];
@@ -319,7 +326,45 @@
             },
             images() {
                 return this.input instanceof Array ? this.input : [];
-            }
+            },
+            endPoint$() {
+                return this.$endPoint(this.endPoint ?? "upload.image") ?? {};
+            },
+            server() {
+                return {
+                    url: this.endPoint$?.url ?? '/image/upload',
+                    process: {
+                        method: this.endPoint$?.method ?? 'POST',
+                        withCredentials: false,
+                        headers: {
+                            _token: document.querySelector("meta[name=csrf-token]").getAttribute('content')
+                        },
+                        timeout: 7000,
+                        onload: (response, data) => {
+                            let file = JSON.parse(response).data;
+                            this.addImageToInput(file);
+                            this.files = [];
+                            console.log('onload', file, data, this.files);
+                        },
+                        onerror: null,
+                        ondata: (data) => {
+                            data.append('_token', document.querySelector("meta[name=csrf-token]").getAttribute('content'));
+                            return data;
+                        },
+                        remove: (source, load, error) => {
+                            // alert('remove')
+                            // Should somehow send `source` to server so server can remove the file with this source
+
+                            // Can call the error method if something is wrong, should exit after
+                            error('oh my goodness');
+
+                            // Should call the load method when done, no parameters required
+                            load();
+                        },
+                    },
+                }
+            },
+
             // files: {
             //     get() {
             //         return _.map(this.inputValue ?? [], (file) => {

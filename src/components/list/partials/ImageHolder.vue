@@ -34,12 +34,12 @@
 
 <style>
     .file-icon1 {
-        height: 45px;
-        width: 45px;
+        height: 40px;
+        width: 40px;
     }
 
     img.file-icon.file-icon1 {
-        border-radius: 25px;
+        border-radius: 5px;
     }
 
     img.file-icon.file-icon1.on-boarding-screen {

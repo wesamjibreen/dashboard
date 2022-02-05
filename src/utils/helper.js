@@ -1,4 +1,6 @@
 const DEFAULT_LOCALE = "ar";
+ import  {common} from "../i18n"
+
 
 const getValueByLocale = (value, locale = DEFAULT_LOCALE) => {
     if (!(value instanceof Object))
@@ -7,12 +9,17 @@ const getValueByLocale = (value, locale = DEFAULT_LOCALE) => {
 };
 
 
-const generateCrudTrans = (key, translation) => {
+const generateCrudTrans = (key, translation, locale = DEFAULT_LOCALE) => {
     let trans = {};
-    trans['create'] = ` إضافة ${translation}`;
-    trans['edit'] = ` تعديل ${translation}`;
-    trans['show'] = ` عرض ${translation}`;
-    trans['all'] = ` عرض ${translation}`;
+ console.log("common" , common , _.get(common, `${locale}.show`   , null)) ;
+
+    trans['create'] = _.get(common, `${locale}.create`, null)  + ` ${translation}`;
+    trans['edit'] = _.get(common, `${locale}.edit`, null)  + ` ${translation}`;
+    trans['show'] = _.get(common, `${locale}.show`, null)  + ` ${translation}`;
+    trans['all'] = _.get(common, `${locale}.all`, null)  + ` ${translation}`;
+    // trans['edit'] = ` تعديل ${translation}`;
+    // trans['show'] = ` عرض ${translation}`;
+    // trans['all'] = ` عرض ${translation}`;
     return trans;
 };
 

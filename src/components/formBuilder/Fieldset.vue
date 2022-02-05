@@ -1,6 +1,6 @@
 <template>
     <!--set-container-->
-    <div class="form-fieldset form-separator" v-show="isDisplayed({show})">
+    <div class="form-fieldset" v-show="isDisplayed({show})">
         <div class="fieldset-heading columns">
             <div class="column is-6">
                 <h4>{{ translatedTitle }}</h4>

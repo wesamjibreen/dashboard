@@ -47,78 +47,43 @@
                     @close="isDesktopSidebarOpen = false"/>
         </transition>
 
-        <Sidebar :theme="props.theme" :is-open="isDesktopSidebarOpen">
-            <template #links>
-                <li v-for="item in menu">
-                    <a :class="[activeMobileSubsidebar === item.key && 'is-active']"
-                       :data-content="trans(item.label??item.key)"
-                       :aria-label="trans(item.label??item.key)"
-                       @click="switchSidebar(item.key,item)">
-                        <Icon class="sidebar-icon" :icon="item.icon"/>
-                    </a>
-                </li>
-            </template>
-
-            <template #bottom-links>
-
-                <!-- Search -->
-                <!--<li class="right-panel-trigger is-hidden-touch">-->
-                    <!--<a-->
-                            <!--aria-label="Display search panel"-->
-                            <!--data-content="Search"-->
-                            <!--@click="activePanel = 'search'"-->
-                    <!--&gt;-->
-                        <!--<Icon class="sidebar-icon" icon="feather-search"/>-->
-
-                        <!--&lt;!&ndash;<i&ndash;&gt;-->
-                        <!--&lt;!&ndash;aria-hidden="true"&ndash;&gt;-->
-                        <!--&lt;!&ndash;class="iconify sidebar-svg"&ndash;&gt;-->
-                        <!--&lt;!&ndash;data-icon="feather-search"&ndash;&gt;-->
-                        <!--&lt;!&ndash;/>&ndash;&gt;-->
-                    <!--</a>-->
-                    <!--<a-->
-                            <!--aria-label="Close all panels"-->
-                            <!--class="is-hidden is-inactive"-->
-                            <!--@click="activePanel = 'none'">-->
-                        <!--<Icon class="sidebar-icon" icon="feather-x"/>-->
-
-                        <!--&lt;!&ndash;<i&ndash;&gt;-->
-                        <!--&lt;!&ndash;aria-hidden="true"&ndash;&gt;-->
-                        <!--&lt;!&ndash;class="iconify sidebar-svg"&ndash;&gt;-->
-                        <!--&lt;!&ndash;data-icon="feather-x"&ndash;&gt;-->
-                        <!--&lt;!&ndash;/>&ndash;&gt;-->
-                    <!--</a>-->
-                <!--</li>-->
-
-                <!-- Settings -->
-                <!--<li class="is-hidden-touch">-->
-                    <!--<RouterLink id="open-settings" :to="{ name: 'setting' }" data-content="Settings">-->
-                        <!--<Icon class="sidebar-icon" icon="feather:settings"/>-->
-                    <!--</RouterLink>-->
-                <!--</li>-->
-
-                <!-- Profile Dropdown -->
-                <li>
-                    <UserProfileDropdown up/>
-                </li>
-            </template>
-        </Sidebar>
-
         <!-- Desktop navigation -->
         <CircularMenu/>
 
-        <transition name="slide-x">
+        <!-- <transition name="slide-x"> -->
             <DashboardsSubsidebar
                     v-if="isDesktopSidebarOpen"
                     :desktop-opened="isDesktopSidebarOpen"
                     :active-sub-sidebar="activeMobileSubsidebar"
                     @close="isDesktopSidebarOpen = false">
             </DashboardsSubsidebar>
-        </transition>
+        <!-- </transition> -->
 
         <CountriesPanel/>
 
         <LanguagesPanel/>
+
+
+
+<!--<Sidebar :theme="props.theme" :is-open="isDesktopSidebarOpen">-->
+<!--            <template #links>-->
+<!--                <li v-for="item in menu">-->
+<!--                    <a :class="[activeMobileSubsidebar === item.key && 'is-active']"-->
+<!--                       :data-content="trans(item.label??item.key)"-->
+<!--                       :aria-label="trans(item.label??item.key)"-->
+<!--                       @click="switchSidebar(item.key,item)">-->
+<!--                        <Icon class="sidebar-icon" :icon="item.icon"/>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--            </template>-->
+
+<!--            <template #bottom-links>-->
+
+<!--                <li>-->
+<!--                    <UserProfileDropdown up/>-->
+<!--                </li>-->
+<!--            </template>-->
+<!--        </Sidebar>-->
 
 
         <div class="view-wrapper">
@@ -129,8 +94,8 @@
                 <div v-else class="page-content is-relative">
                     <div class="page-title has-text-centered">
                         <!-- Sidebar Trigger -->
-                        <div class="vuero-hamburger nav-trigger push-resize"
-                             @click="isDesktopSidebarOpen = !isDesktopSidebarOpen">
+                        <!-- <div class="vuero-hamburger nav-trigger push-resize"
+                             @click="isDesktopSidebarOpen == !isDesktopSidebarOpen">
                             <span class="menu-toggle has-chevron">
                                 <span :class="[isDesktopSidebarOpen && 'active']" class="icon-box-toggle">
                                     <span class="rotate">
@@ -140,7 +105,7 @@
                                     </span>
                                 </span>
                             </span>
-                        </div>
+                        </div> -->
 
                         <div class="title-wrap">
                             <!--<VBreadcrumb :items="breadcrumb" with-icons/>-->
@@ -160,6 +125,8 @@
                                 <Icon icon="grommet-icons:language"/>
                             </a>
                             <ToolbarNotification v-if="isNotificationDisplayed"/>
+
+                            <UserProfileDropdown up/>
 
                         </Toolbar>
                     </div>
@@ -216,7 +183,7 @@
                 };
             let route = useRoute();
             let isMobileSidebarOpen = ref(false);
-            let isDesktopSidebarOpen = ref((props && props.openOnMounted ? props.openOnMounted : false))
+            let isDesktopSidebarOpen = ref((props && props.openOnMounted ? props.openOnMounted : true))
             let activeMobileSubsidebar = ref(props && props.defaultSidebar ? props.defaultSidebar : "dashboard")
             let router = useRouter();
             const {isNotificationDisplayed}  = useCountry();

@@ -14,8 +14,10 @@
                         <template #item="{ element, index }">
                             <div class="flex-table-item" :class="{active : activeIndex == element.id }"
                                  @click="selectItem( element, index)">
+                                <slot name="item" :element="element" :index="index" :label="element.name ">
+                                    {{ element.name }}
+                                </slot>
                                 <!--{{ activeItem}}-->
-                                {{ element.name }}
                             </div>
                         </template>
                     </draggable>

@@ -20,7 +20,7 @@ const initI18n = function (i18n = {}, config = {}) {
 
 export default initI18n;
 
-const common = {
+export const common = {
     ar: {
         datatable: {
             no_results: "لم نتمكن من العثور على أي نتائج مطابقة.",
@@ -51,7 +51,10 @@ const common = {
         password : "كلمة المرور",
         remember_me : "تذكرني؟",
         login : "دخول",
-
+        create : "اضافة",
+        edit : "تعديل",
+        show : "عرض",
+        all : "عرض",
     },
     en: {
         welcome: "Welcome",
@@ -83,6 +86,10 @@ const common = {
         welcome_back_to_account: "Welcome back to your account.",
         remember_me : "Remember Me?",
         login : "Login",
+        create : "Create",
+        edit : "Edit",
+        show : "Show",
+        all : "Show",
 
     },
     tr: {
@@ -105,5 +112,9 @@ const common = {
         welcome_back_to_account: "Welcome back to your account.",
         login : "Login",
         remember_me : "Remember Me?",
+        create : "Create",
+        edit : "Edit",
+        show : "Show",
+        all : "Show",
     }
 };

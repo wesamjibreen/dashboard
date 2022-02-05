@@ -9,8 +9,8 @@
         </template>
 
         <template #content>
-            <div class="dropdown-head">
-                <VAvatar size="large" picture="/panel/images/avatars/svg/vuero-1.svg"/>
+            <div class="dropdown-head py-2">
+                <VAvatar size="medium" picture="/panel/images/avatars/svg/vuero-1.svg"/>
 
                 <div class="meta">
                     <span>

@@ -1,0 +1,13 @@
+{
+    "version": 3,
+    "mappings": "AAOA,AAAA,QAAQ,CAAC;EACP,OAAO,EANS,IAAI,CAAC,MAAM;CAce;;AC6F1C,MAAM,CAAC,MAAM,MAAM,SAAS,EAAE,MAAM;EDtGtC,AAAA,QAAQ,CAAC;IAIL,OAAO,EARe,IAAI,CAAC,IAAI;GAaS;EAT5C,AAMI,QANI,AAMH,UAAU,CAAC;IACV,OAAO,EAVY,IAAI,CAAC,MAAM;GAUK;EAPzC,AAQI,QARI,AAQH,SAAS,CAAC;IACT,OAAO,EAXW,KAAK,CAAC,IAAI;GAWM",
+    "sources": [
+        "section.sass",
+        "../utilities/mixins.sass",
+        "../utilities/derived-variables.sass",
+        "../utilities/initial-variables.sass",
+        "../utilities/functions.sass"
+    ],
+    "names": [],
+    "file": "section.css"
+}

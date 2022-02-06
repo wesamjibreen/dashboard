@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "mappings": "AAMA,AAAA,OAAO,CAAC;EACN,gBAAgB,EEOH,OAAe;EFN5B,OAAO,EAJQ,IAAI,CAAC,MAAM,CAAC,IAAI;CAMJ",
+    "sources": [
+        "footer.sass",
+        "../utilities/derived-variables.sass",
+        "../utilities/initial-variables.sass",
+        "../utilities/functions.sass"
+    ],
+    "names": [],
+    "file": "footer.css"
+}

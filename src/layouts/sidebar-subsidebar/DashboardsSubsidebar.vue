@@ -43,7 +43,7 @@
                 </li>
             </ul>
         </div>
-        
+
     </div>
 </template>
 <script>
@@ -98,6 +98,11 @@
 
     .sidebar-panel {
         background-color: var(--body-color);
+        overflow-y: scroll;
+        &::-webkit-scrollbar{
+            width: 0;
+            background: transparent;
+        }
 
         .menu {
             .menu-item {

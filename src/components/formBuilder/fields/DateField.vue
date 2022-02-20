@@ -6,7 +6,7 @@
                       type="string"
                       :multiple="multiple"
                       :range="range"
-                      icon="calendar"
+                      icon=" fa fa-calendar"
                       :placeholder="placeholder$"
                       trap-focus>
         </o-datepicker>
@@ -65,10 +65,12 @@
                 return new Date();
             },
             dateFormatter(date) {
-                return (date || new Date()).toLocaleDateString('en-GB').split('/').reverse().join('-');
+                date = date || new Date();
+                return date && date.hasOwnProperty('toLocaleDateString') ? date.toLocaleDateString('en-GB').split('/').reverse().join('-') : null;
             },
             dateParser(date) {
-                return (date || new Date()).toLocaleDateString('en-GB').split('/').reverse().join('-'); // '20211124'
+                date = date || new Date();
+                return date && date.hasOwnProperty('toLocaleDateString') ? date.toLocaleDateString('en-GB').split('/').reverse().join('-') : null;
             }
         },
         computed: {

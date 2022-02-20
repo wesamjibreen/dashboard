@@ -43,9 +43,11 @@ export default function useCountry() {
     /**
      * Each time we change the locale, we persit it in the storage
      */
-    watch(country, () => {
+    watch(country, (newVal) => {
         defaultCountry.value = country.value;
         store.commit(`setting/${SET_CURRENT_COUNTRY}`, _.find(countries.value, {value: defaultCountry.value}) ?? {})
+        window.Bus.emit('on-country-change', newVal);
+
     });
 
     return {

@@ -4,6 +4,7 @@ import useNotyfy from '../composable/useNotyf.js'
 export default {
 
     methods: {
+
         appConfig(key, defaultVal = "") {
             /**
              *  return config key from form's config object
@@ -20,7 +21,7 @@ export default {
 
         },
         showNotify(type, message) {
-            this.notify[type](message);
+            this.notify?.[type](message);
         },
         successNotify(message = "") {
             this.showNotify("success", message);

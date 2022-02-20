@@ -8,6 +8,11 @@
                       :enable-seconds="enableSeconds"
                       :hour-format="hourFormat"
                       :locale="locale"></o-timepicker>
+
+
+        <span class="invalid" v-if="hasError">
+            {{ trans($error?.$message) }}
+        </span>
     </div>
 </template>
 <script>

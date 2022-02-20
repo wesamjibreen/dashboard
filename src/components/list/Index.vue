@@ -1,46 +1,5 @@
 <template>
     <div>
-        <!-- <div class="card">
-            <div class="form-layout is-separate mb-4 ">
-                <div class="form-outer">
-                    <div class="form-body p-0">
-                        <div class="form-section p-0">
-                            <div class="form-section-inner p-5 border-0">
-                                <div class="columns is-multiline">
-                                    <div class="column is-12">
-                                        <VField>
-                                            <VControl>
-                                                <div class="radio-boxes">
-                                                    <div class="radio-box radio-box-custom">
-                                                        <input type="radio" name="delivery_type" />
-                                                        <div class="radio-box-inner">
-                                                            <div class="fee">
-                                                                <span>0</span>
-                                                            </div>
-                                                            <p>3-4 weeks</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="radio-box">
-                                                        <input type="radio" name="delivery_type" checked />
-                                                        <div class="radio-box-inner">
-                                                            <div class="fee">
-                                                                <span>0</span>
-                                                            </div>
-                                                            <p>2-5 days</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </VControl>
-                                        </VField>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
         <div class="card">
             <div class="card-head py-4 px-5">
                 <div class="list-flex-toolbar flex-list-v1 mb-0">
@@ -85,14 +44,33 @@
                 </div>
                 <!--</div>-->
                 <VLoader size="small" :active="loading">
+                    <div v-if="selected.length > 0 && hasActionGroups" class="columns">
+                        <div class="column is-8">
+                            <ActionGroup v-for="(actionGroup, index) in  actionGroups"
+                                         v-bind="actionGroup" :resource="resource"
+                                         :key="`action_group_${actionGroup.slug}_${index}`" />
+                        </div>
+                        <div class="column is-4">
+                            تم تحديد
+                            {{ selected.length }}
+                            عنصر
+                        </div>
+                    </div>
                     <div class="flex-table flex-table-custom" v-if="!isEmpty">
                         <!--Table header-->
                         <div class="flex-table-header">
                             <slot name="table_header" :column="column">
-                            <span class="flex-datatable-cell" v-for="column in computedColumns">
+                                <span v-if="hasSelect  && hasActionGroups" class="flex-datatable-cell cell-start checkbox-selector">
+                                    <label class="checkbox is-primary is-outlined is-circle">
+                                        <input id="head-checkbox" type="checkbox" v-model="isAllSelected"
+                                               @input="onSelectAllChange"/>
+                                        <span></span>
+                                    </label>
+                                </span>
+                                <span class="flex-datatable-cell" v-for="column in computedColumns">
                                 {{ column.text }}
-                            </span>
-                                <span class="flex-datatable-cell cell-end">{{ trans('actions') }}</span>
+                                </span>
+                                <span class="flex-datatable-cell cell-end"> {{ trans('actions') }} </span>
                             </slot>
                         </div>
                         <div class="flex-list-inner">
@@ -100,17 +78,28 @@
                                 <div v-for="(row,index) in rows" :key="`repeater_item_${index}`"
                                      class="flex-table-item">
                                     <slot name="row" :row="row">
+                                        <div v-if="hasSelect  && hasActionGroups " class="flex-table-cell">
+                                            <span class="flex-datatable-cell cell-start checkbox-selector">
+                                                <label class="checkbox is-primary is-outlined is-circle">
+                                                    <input :id="`head-checkbox-${row.id}`" v-model="selected"
+                                                           name="selected[]" :value="row.id" type="checkbox">
+                                                    <span></span>
+                                                </label>
+                                            </span>
+                                        </div>
                                         <div v-for="column in computedColumns" class="flex-table-cell"
                                              :data-th="column.text">
                                             <slot :name="`column.${column.value}`" :row="row" :column="column"
                                                   :label="getRowValue(column, row)">
                                                 <component v-if="column.component" :is="`${column.component}`"
+                                                           :resource="resource"
+                                                           :slug="column.value"
                                                            :column="column"
                                                            :row="row"/>
-                                                <span v-else :class="[ column.bold && 'has-dark-text dark-inverted is-font-alt is-weight-600 rem-90',
-                                        !column.bold && 'light-text' ]">
-                                            {{ getRowValue(column, row) }}
-                                        </span>
+                                                <span v-else
+                                                      :class="[ column.bold && 'has-dark-text dark-inverted is-font-alt is-weight-600 rem-90',  !column.bold && 'light-text' ]">
+                                                    {{ getRowValue(column, row) }}
+                                                </span>
                                             </slot>
                                         </div>
                                         <div class="flex-table-cell flex-table-action cell-end"
@@ -155,12 +144,22 @@
 <script>
     import base from "./mixins/base";
     import ImageHolder from "./partials/ImageHolder";
+    import EditableInput from "./partials/EditableInput";
+    import SwitchStatus from "./partials/SwitchStatus";
+    import StatusLabel from "./partials/StatusLabel";
     import Action from "./partials/Action";
+    import ActionGroup from "./partials/ActionGroup";
+    import CheckboxField from "../formBuilder/fields/CheckboxField";
 
     export default {
         name: "Index",
         components: {
+            CheckboxField,
+            StatusLabel,
+            SwitchStatus,
+            EditableInput,
             ImageHolder,
+            ActionGroup,
             Action
         },
         mixins: [base],

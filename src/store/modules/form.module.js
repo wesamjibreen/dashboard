@@ -1,9 +1,12 @@
 const state = () => ({
-    errors: {}
+    isSubmitted : false,
+    validator : {}
 });
 export const BUSY_FIELDS = "busyFields";
 
+export const UPDATE_VALIDATOR = "updateValidator";
 // mutation types
+export const SET_SUBMITTED = "setSubmitted";
 export const SET_INPUT = "setInput";
 export const SET_FORM = "setForm";
 export const SET_ERRORS = "setErrors";
@@ -65,6 +68,13 @@ const mutations = {
 
     [SET_ERRORS](state, errors) {
         state.errors = errors ?? {};
+    },
+
+    [UPDATE_VALIDATOR](state, validator) {
+        state.validator = validator ?? [];
+    },
+    [SET_SUBMITTED](state, newVal) {
+        state.isSubmitted = !!newVal;
     },
 
     [EMPTY_FORM](state, _this) {

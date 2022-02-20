@@ -25,6 +25,7 @@ export default {
         multiple: Boolean,
         async: Boolean
     },
+
     data() {
         return {
             options: []
@@ -224,7 +225,7 @@ export default {
             // this.__setDefaultOption(options);
 
             if (this.filter instanceof Function)
-                options = this.filter(options, this);
+                options = this.filter.bind(this)(options, this);
 
 
             if (this.translated_labels)
@@ -267,6 +268,11 @@ export default {
              */
             setting(state) {
                 return state.setting;
+            },
+
+
+            form(state) {
+                return state?.[this.formModule] ?? {}
             }
 
             // options$$: state => state.setting[`${this.endPoint.name.split(".")[0]}Options`],

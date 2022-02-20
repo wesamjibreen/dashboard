@@ -55,6 +55,8 @@ export const common = {
         edit : "تعديل",
         show : "عرض",
         all : "عرض",
+        enter_valid_data: "قم بالتأكد من البيانات المدخلة !",
+        "Value is required" : "هذا الحقل مطلوب",
     },
     en: {
         welcome: "Welcome",
@@ -90,6 +92,8 @@ export const common = {
         edit : "Edit",
         show : "Show",
         all : "Show",
+        "Value is required" : "Value is required",
+        enter_valid_data: "Make sure that you've entered valid data",
 
     },
     tr: {

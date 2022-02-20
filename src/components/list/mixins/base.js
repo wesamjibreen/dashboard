@@ -10,6 +10,13 @@ export default {
         columns: Array,
         actions: Array,
         filters: Array,
+        actionGroups: {
+            default: [],
+            type: Array
+        },
+        hasSelect: {
+            default: true
+        }
     },
     data() {
         return {
@@ -19,13 +26,27 @@ export default {
             loading: true,
             mounted: false,
             rows: [],
-            paginator: null
+            paginator: null,
+            isAllSelected: null,
+            selected: []
         }
     },
     created() {
         this.init();
     },
     methods: {
+        onActionGroupClick(actionGroup) {
+
+        },
+        onSelectAllChange($event) {
+            if (!this.isAllSelected)
+                this.selected = _.map(this.rows, (row) => {
+                    return row.id
+                });
+            else
+                this.selected = [];
+        },
+
         init() {
             // const route = useRoute();
             // if (!route.query[this.pageKey]) {
@@ -39,6 +60,7 @@ export default {
             });
 
             this.initAction();
+            this.initActionGroup();
 
             this.fetch();
         },
@@ -48,6 +70,38 @@ export default {
                 this.$router.push({name: `${this.resource}.edit`, params: {id: row.id}});
             });
             this.initActionEvent('delete', (row, data = {}) => {
+                this.$bus.emit('confirmation-dialog',
+                    true,
+                    {
+                        title: this.trans("sure_to_delete"),
+                        // message: this.trans("sure_to_delete_text"),
+                        type: "warning",
+                        callback: () => {
+                            this.loading = true;
+                            this.request(
+                                this.$endPoint(`${this.resource}.delete`, row.id),
+                                {},
+                                ({data}) => {
+                                    this.value = false;
+                                    window.Bus.emit('confirmation-dialog', false);
+                                    window.Bus.emit(`reload-table-${this.resource}`);
+                                    this.successNotify(data.message);
+                                },
+                                (data) => {
+                                    this.successNotify(data.message);
+                                },
+                                () => {
+                                    this.loading = false;
+                                }
+                            )
+                        }
+                    },
+                );
+            });
+        },
+
+        initActionGroup() {
+            this.initActionGroupEvent('delete', (row, data = {}) => {
                 this.$bus.emit('confirmation-dialog',
                     true,
                     {
@@ -114,12 +168,21 @@ export default {
             this.$bus.off(`${slug}-${this.resource}-action-clicked`);
             this.$bus.on(`${slug}-${this.resource}-action-clicked`, callback);
         },
+        initActionGroupEvent(slug, callback = Function) {
+            this.$bus.off(`${slug}-${this.resource}-action-group-clicked`);
+            this.$bus.on(`${slug}-${this.resource}-action-group-clicked`, callback);
+        },
         onReload(callable = Function) {
             this.$bus.off(`reload-table-${this.resource}`);
             this.$bus.on(`reload-table-${this.resource}`, callable);
+
+            this.$bus.on('on-country-change', callable)
         }
     },
     computed: {
+        hasActionGroups() {
+            return (this.actionGroups ?? []).length > 0;
+        },
         pageTitle() {
             return this.trans(`${this.resource}.all`);
         },
@@ -145,6 +208,11 @@ export default {
         pageKey() {
             return this.resource ? `${this.resource}_page` : 'page';
         },
+        rowsValue() {
+            return _.map(this.rows, (row) => {
+                return row.id;
+            })
+        }
     },
 
     watch: {

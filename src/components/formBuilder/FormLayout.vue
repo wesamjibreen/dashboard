@@ -1,34 +1,33 @@
 <template>
     <!--<form class="form-layout" @submit.prevent>-->
-    <v-form v-slot="{ handleSubmit ,values}" as="div">
-        <form :class="['form-layout', isLoading && '--loading']" @submit="handleSubmit($event, onSubmit)">
-            <!--<v-form class="form-layout" :validation-schema="schema" @submit="onSubmit" v-slot="{values}">-->
-            <div class="form-outer">
-                <div :class="[isStuck && 'is-stuck']" class="form-header stuck-header">
-                    <div class="form-header-inner">
-                        <div class="left">
-                            <h3>{{ formTitle }}</h3>
-                        </div>
-                        <div class="right">
-                            <div class="buttons">
-                                <VButton icon="lnir lnir-arrow-left rem-100" @click.prevent="onCancel" light dark-outlined>
-                                    {{ trans('cancel') }}
-                                </VButton>
-                                <VButton color="primary" type="submit" raised :loading="loading">
-                                    {{ trans('save') }}
-                                </VButton>
-                            </div>
+    <form :class="['form-layout', isLoading && '--loading']" @submit.prevent="onSubmit">
+        <!--<v-form class="form-layout" :validation-schema="schema" @submit="onSubmit" v-slot="{values}">-->
+        <div class="form-outer">
+            <div :class="[isStuck && 'is-stuck']" class="form-header stuck-header">
+                <div class="form-header-inner">
+                    <div class="left">
+                        <h3>{{ formTitle }}</h3>
+                    </div>
+                    <div class="right">
+                        <div class="buttons">
+                            <VButton icon="lnir lnir-arrow-left rem-100" @click.prevent="onCancel" light
+                                     dark-outlined>
+                                {{ trans('cancel') }}
+                            </VButton>
+                            <VButton color="primary" type="submit" raised :loading="loading">
+                                {{ trans('save') }}
+                            </VButton>
                         </div>
                     </div>
                 </div>
-                <VLoader size="small" :active="isLoading" class="loading-overlay">
-                    <div class="form-body form-separator">
-                        <Fieldset v-for="fieldset in fieldSets$" v-bind="fieldset" :formModule="formModule$"/>
-                    </div>
-                </VLoader>
             </div>
-        </form>
-    </v-form>
+            <VLoader size="small" :active="isLoading" class="loading-overlay">
+                <div class="form-body form-separator">
+                    <Fieldset v-for="fieldset in fieldSets$" v-bind="fieldset" :formModule="formModule$"/>
+                </div>
+            </VLoader>
+        </div>
+    </form>
 
 </template>
 
@@ -37,86 +36,97 @@
     import {useWindowScroll} from '@vueuse/core'
     import Fieldset from "./Fieldset";
     import formBuilder from "./mixins/formBuilder";
-    import * as VeeValidate from "vee-validate";
-    // import {defineRule} from "vee-validate";
-    // import * as yup from 'yup';
-
-
-    // import * as rules from '../../utils/rules';
-    // Object.keys(rules).forEach(rule => {
-    //     console.log('rule',rule);
-    //     defineRule(rule, rules[rule]);
-    // });
+    import {useVuelidate} from "@vuelidate/core";
+    import {required} from "@vuelidate/validators";
+    import {SET_SUBMITTED, UPDATE_VALIDATOR} from "../../store/modules/form.module";
     // import {mapState} from "vuex";
     // import formModule, {BUSY_FIELDS, SUBMIT_FORM,} from "../../store/modules/form.module";
     const {y} = useWindowScroll();
-    // defineRule('required', value => {
-    //     console.log('defineRule', value);
-    //
-    //     if (value) {
-    //         return true;
-    //     }
-    //
-    //     return 'This field is required';
-    //     // if (!value || !value.length) {
-    //     //     return 'This field is required';
-    //     // }
-    //     // return true;
-    // });
-    // defineRule('email', value => {
-    //     // Field is empty, should pass
-    //     if (!value || !value.length) {
-    //         return true;
-    //     }
-    //     // Check if email
-    //     if (!/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/.test(value)) {
-    //         return 'This field must be a valid email';
-    //     }
-    //     return true;
-    // });
+
     export default {
         name: "FormLayout",
         provide() {
             return {formModule: this.formModule}
         },
-
-        // provide : [']
-        // components: {Fieldset},
-        mixins: [formBuilder],
-        // setup() {
-        //     const { handleSubmit } = useForm();
-        //     function onInvalidSubmit({ values, errors, results }) {
-        //         console.log(values); // current form values
-        //         console.log(errors); // a map of field names and their first error message
-        //         console.log(results); // a detailed map of field names and their validation results
-        //     }
-        //     const onSubmit = handleSubmit(values => {
-        //         alert(JSON.stringify(values, null, 2));
-        //     }, onInvalidSubmit);
-        //     return {
-        //         onSubmit,
-        //     };
-        // },
-        components: {
-            // Components were renamed to avoid conflicts of HTML form element without a vue compiler
-            Fieldset,
-            VForm: VeeValidate.Form,
-            VField: VeeValidate.Field,
-            ErrorMessage: VeeValidate.ErrorMessage,
+        setup() {
+            return {v$: useVuelidate()}
         },
-        data() {
-            return {}
+        mixins: [formBuilder],
+        components: {
+            Fieldset,
+        },
+        data: () => ({
+            validations: {},
+        }),
+        created() {
+            this.validations = this.prepareValidations();
         },
         methods: {
-//             onError() {
-// alert('onError')
-//             },
-            onSubmit(values, actions) {
-                console.log('onSubmit', values, actions);
-                this.submit()
-                // alert('submitted');
-                // console.log(JSON.stringify(values, null, 2));
-                // actions.setFieldError('name', 'this field is already been taken !! ');
+            prepareValidations() {
+                let result = {};
+                _.forEach(this.fieldSets$, (fieldSet) => {
+                    _.forEach(fieldSet.inputs, (input) => {
+                        let rules = {};
+                        _.forEach(input.rules, (value, key) => {
+                            if (value)
+                                rules[key] = this.rules[key];
+                        });
+                        result[input.model] = rules;
+                    });
+                    // inputs = [...inputs, ...fieldSet.inputs];
+                    // return [...JSON.parse(JSON.stringify(result)), ...value.inputs];
+                });
+
+                // let result = {};
+
+
+                console.log('validations', result);
+
+                return {
+                    form: result
+                };
+            },
+            onSubmit() {
+                this.isSubmitted = true;
+
+                if (this.v$.$silentErrors.length > 0)
+                    return this.errorNotify(this.trans('enter_valid_data'));
+                else
+                    this.submit();
+                // this.loading = true;
+                // this.$emitEvent('before-submit', this.form);
+                //
+                // this.request(
+                //     this.submitEndPoint(),
+                //     this.form,
+                //     ({data}) => {
+                //         // this.$emitEvent('form-success', data);
+                //         // this.successNotify(data.message);
+                //         // this.onSubmitSuccess(data);
+                //         // if (!this.isCrud)
+                //         //     this.redirect();
+                //
+                //         // resolve(data);
+                //     },
+                //     (xhr) => {
+                //         // this.loading = false;
+                //         // let errors = _.get(xhr, 'data.data', {});
+                //         // this.attachErrors(errors);
+                //         // this.$emitEvent('form-error', xhr);
+                //         // let message = _.get(
+                //         //     xhr,
+                //         //     "data.message",
+                //         //     this.trans("error_while_processing")
+                //         // );
+                //         // this.errorNotify("error", message);
+                //         // this.onSubmitError(xhr);
+                //
+                //         // reject(xhr);
+                //     },
+                //     () => {
+                //         // this.loading = false;
+                //     });
+
             },
             onCancel() {
                 this.$emit('cancel');
@@ -129,7 +139,74 @@
             isStuck() {
                 return y.value > 30;
             },
+
+            rules() {
+                return {
+                    required,
+                }
+            },
+            isSubmitted: {
+                set(newVal) {
+                    this.$store.commit(`${this.formModule}/${SET_SUBMITTED}`, newVal);
+                },
+
+
+                get() {
+                    return this.form?.isSubmitted
+                }
+            }
+        },
+        watch: {
+            "v$.$silentErrors": {
+                deep: true,
+                // immediate: true,
+                // handler: _.debounce(function(newVal)  {
+                //     // if (this.$store.hasModule(this.formModule))
+                //     //     this.$store.commit(`${this.formModule}/${UPDATE_VALIDATOR}`, newVal)
+                // }, 1000),
+
+                handler: function (newVal) {
+                    if (this.$store.hasModule(this.formModule))
+                        this.$store.commit(`${this.formModule}/${UPDATE_VALIDATOR}`, newVal)
+                }
+            }
+        },
+        validations() {
+            // return {
+            //
+            // };
+
+            return this.validations;
+            // let inputs = [];
+            // let result = {};
+            //
+            // _.forEach(this.fieldSets$, (fieldSet) => {
+            //     _.forEach(fieldSet.inputs, (input) => {
+            //         let rules = {};
+            //         _.forEach(input.rules, (value, key) => {
+            //             if (value)
+            //                 rules[key] = this.rules[key];
+            //         });
+            //         result[input.model] = rules;
+            //     });
+            //     // inputs = [...inputs, ...fieldSet.inputs];
+            //     // return [...JSON.parse(JSON.stringify(result)), ...value.inputs];
+            // });
+            //
+            // // let result = {};
+            //
+            //
+            // console.log('validations', result);
+            //
+            // return {
+            //     form: result
+            // };
+
+            // return {
+            //     form: result
+            // }
         }
+
 
     }
 </script>

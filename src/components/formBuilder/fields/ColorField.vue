@@ -1,49 +1,16 @@
-<!--<template>-->
-<!--<div>-->
-<!--<n-color-picker />-->
-
-<!--</div>-->
-
-<!--</template>-->
-<!--<script>-->
-<!--import input from "../mixins/input"-->
-
-<!--export default {-->
-<!--mixins : [input],-->
-<!--components : {-->
-
-<!--}-->
-<!--}-->
-<!--</script>-->
-
 <template>
-    <!--<div :style="{background: color}">-->
-    <!---->
-    <!--</div>-->
     <div class="field-container">
         <ColorPicker class="input --color-input" format="hex" v-model:pureColor="input" :isWidget="inline"/>
-
-        <!--<ColorPicker-->
-        <!--theme="light"-->
-        <!--:color="input"-->
-        <!--:sucker-hide="true"-->
-        <!--:sucker-canvas="suckerCanvas"-->
-        <!--:sucker-area="suckerArea"-->
-        <!--@openSucker="openSucker"-->
-        <!--@changeColor="changeColor"-->
-        <!--/>-->
+        <span class="invalid" v-if="hasError">
+            {{ trans($error?.$message) }}
+        </span>
     </div>
-    <!--<h1> color filed</h1>-->
 </template>
 
 <script>
-    // import {ColorPicker} from 'vue-color-kit'
     import input from "../mixins/input";
     import {ColorPicker} from "vue3-colorpicker";
     import "vue3-colorpicker/style.css";
-
-    // import Vue3ColorPicker from "vue3-colorpicker";
-    // import "vue3-colorpicker/style.css";
     export default {
         name: "ColorField",
         components: {

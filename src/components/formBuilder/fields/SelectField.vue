@@ -1,33 +1,30 @@
 <template>
     <div class="field-container">
-        <VeeField v-model="input" :name="model$" v-slot="{ field  }">
-            <Multiselect :class="{'input' : true, 'is-invalid' : errorMessage && meta.touched}"
-                         v-bind="getAttributes({})"
-                         v-model="input"
-                         :close-on-select="!multiple"
-                         :searchable="true"
-                         :valueProp="optionValue"
-                         :trackBy="optionValue"
-                         :label="optionName"
-                         :placeholder="placeholder$"
-                         :multiple="multiple"
-                         :options="optionsData">
-                <template #multiplelabel="{ values }">
-                    <div class="multiple-label">
+
+        <Multiselect v-model="input" :class="{'input' : true}"
+                     v-bind="getAttributes({})"
+                     :close-on-select="!multiple"
+                     :searchable="true"
+                     :valueProp="optionValue"
+                     :trackBy="optionValue"
+                     :label="optionName"
+                     :placeholder="placeholder$"
+                     :multiple="multiple"
+                     :options="optionsData">
+            <template #multiplelabel="{ values }">
+                <div class="multiple-label">
                         <span class="value-label" v-for="(value , index) in  values">
                             {{ value[optionName] }}
                             <i class="close-label fas fa-times" @click="removeItem(value,index)"></i>
                         </span>
-                    </div>
-                </template>
+                </div>
+            </template>
+        </Multiselect>
 
-
-            </Multiselect>
-        </VeeField>
-
-        <span class="invalid" v-if="invalid">
-        {{ errorMessage }}
+        <span class="invalid" v-if="hasError">
+            {{ trans($error?.$message) }}
         </span>
+
     </div>
 </template>
 
@@ -36,17 +33,11 @@
     import input from "../mixins/input";
     import options from "../mixins/options";
     import Multiselect from '@vueform/multiselect'
-    import {useInputField} from "../composable/useInputField";
 
     export default {
         name: "SelectField",
         components: {
             Multiselect,
-        },
-        setup(props) {
-            return {
-                ...useInputField(props)
-            };
         },
         mixins: [input, options],
         methods: {
@@ -82,6 +73,12 @@
 
     i.close-label {
         margin: 0 5px;
+    }
+
+    span.invalid {
+        color: var(--danger) !important;
+        font-size: 14px !important;
+        font-family: 'Cairo', serif !important;
     }
 
 </style>

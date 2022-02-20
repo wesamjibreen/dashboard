@@ -13,24 +13,24 @@ const resolveComponents = function (components) {
 
 
 const components = {
-    ImageField:  "./ImageField.vue",
-    TimeField: "./TimeField.vue",
-    FileField: "./FileField.vue",
-    InputField: "./InputField.vue",
-    CheckboxField: "./CheckboxField.vue",
-    RadioField: "./RadioField.vue",
-    SelectField: "./SelectField.vue",
-    TagsField: "./TagsField.vue",
-    SwitchField: "./SwitchField.vue",
-    TextareaField: "./TextareaField.vue",
-    DateRangeField: "./DateRangeField.vue",
-    DateField: "./DateField.vue",
-    ColorField: "./ColorField.vue",
-    MultipleDateField: "./MultipleDateField.vue",
-    EditorField: "./EditorField.vue",
-    MapField: "./MapField.vue",
-    CrudField: "./Crud/Index.vue",
-    RepeaterField: "./Repeater/Index.vue",
+    // ImageField:  "./ImageField.vue",
+    // TimeField: "./TimeField.vue",
+    // FileField: "./FileField.vue",
+    // InputField: "./InputField.vue",
+    // CheckboxField: "./CheckboxField.vue",
+    // RadioField: "./RadioField.vue",
+    // SelectField: "./SelectField.vue",
+    // TagsField: "./TagsField.vue",
+    // SwitchField: "./SwitchField.vue",
+    // TextareaField: "./TextareaField.vue",
+    // DateRangeField: "./DateRangeField.vue",
+    // DateField: "./DateField.vue",
+    // ColorField: "./ColorField.vue",
+    // MultipleDateField: "./MultipleDateField.vue",
+    // EditorField: "./EditorField.vue",
+    // MapField: "./MapField.vue",
+    // CrudField: "./Crud/Index.vue",
+    // RepeaterField: "./Repeater/Index.vue",
 };
 export default resolveComponents(components);
 
@@ -72,3 +72,5 @@ export default resolveComponents(components);
 //     CrudField,
 //     RepeaterField,
 // };
+//
+// export default components;

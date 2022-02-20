@@ -11,8 +11,6 @@
 <script>
     import AuthLayout from "./AuthLayout";
     import AppLayout from "./AppLayout";
-    import {useStorage} from "@vueuse/core";
-    import {getTokenKey} from "../utils/storage";
     import {computed, inject, reactive} from "vue";
     import {useHead} from "@vueuse/head";
     import {useRoute} from "vue-router";
@@ -132,10 +130,18 @@
                         return this.$store.commit(`setting/${SET_COUNTRIES}`, data$);
                 }
             }
+        },
+        watch: {
+            layout(newVal) {
+                if (newVal !== "AppLayout")
+                    return;
+
+                this.initCountries();
+            }
         }
     }
 </script>
 
-<style scoped>
-
+<style>
+    @import '~notyf/notyf.min.css';
 </style>

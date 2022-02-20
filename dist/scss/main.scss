@@ -2018,6 +2018,9 @@ html[dir="rtl"] {
         text-align: right;
         direction: rtl;
     }
+    span {
+        font-family: 'CAIRO', serif !important;
+    }
     .dropdown.user-dropdown.profile-dropdown {
         .dropdown-menu {
             left: 0;
@@ -2025,7 +2028,7 @@ html[dir="rtl"] {
         }
     }
     .view-wrapper.is-pushed-full .is-stuck {
-        width: calc(100% - 260px);
+        width: calc(100% - 240px);
     }
     .vc-pane-container .vc-arrows-container .vc-arrow.is-right,
     .vc-pane-container .vc-arrows-container .vc-arrow.is-left {

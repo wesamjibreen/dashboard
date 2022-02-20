@@ -13,10 +13,15 @@
                    v-model="input"
                    :name="model$"
                    :value="option[optionValue]"/>
-                   <span></span>
+            <span></span>
             {{ option[optionName] }}
 
         </label>
+
+
+        <span class="invalid" v-if="hasError">
+            {{ trans($error?.$message) }}
+        </span>
     </div>
 </template>
 

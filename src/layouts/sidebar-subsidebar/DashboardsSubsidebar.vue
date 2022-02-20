@@ -5,13 +5,17 @@
             <div class="panel-close" @click="$emit('close')">
                 <i aria-hidden="true" class="iconify" data-icon="feather:x"></i>
             </div> -->
+
             <div class="logo">
-                <img src="/panel/images/logo-header.png">
+                <AnimatedLogo/>
+                <!--<img src="/panel/images/logo-header.png">-->
+                <!--<img :src="logo">-->
             </div>
         </div>
         <div data-simplebar>
             <ul class="menu">
-                <li v-for="(item,index) in menu" class="menu-item" @click="setActive(item, index)" :class="{ 'is-open': activeIndex === index }">
+                <li v-for="(item,index) in menu" class="menu-item" @click="setActive(item, index)"
+                    :class="{ 'is-open': activeIndex === index }">
                     <div class="menu-link" @click="mainGo(item)">
                         <span class="menu-arrow" v-if="hasChildren(item)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="11.061" height="6.28"
@@ -22,20 +26,26 @@
                             </svg>
                         </span>
                         <span class="menu-title">{{ trans(item.label) }}</span>
-                        <span class="menu-icon" ><i aria-hidden="true" :class="`${item.icon}`"></i></span>
+                        <span class="menu-icon"><Icon aria-hidden="true" :icon="`${item.icon}`"></Icon></span>
                     </div>
                     <div class="menu-sub" v-if="hasChildren(item)">
                         <div class="menu-item" v-for=" child in item?.children ">
-                            <RouterLink v-bind="child" class="menu-link" >
+                            <RouterLink v-bind="child" class="menu-link">
                                 <span class="menu-title">{{ trans(child.label) }}</span>
-                                <span class="menu-arrow">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="5.28" height="9.061"
-                                         viewBox="0 0 5.28 9.061">
-                                        <path id="Path_2192" data-name="Path 2192" d="M1320,150l4,4,4-4"
-                                              transform="translate(154.75 -1319.47) rotate(90)" fill="none"
-                                              stroke="#19324b" stroke-linejoin="round" stroke-width="1.5"/>
-                                    </svg>
+
+                                <span class="menu-icon">
+                                    <Icon aria-hidden="true" :icon="`${child.icon}`"></Icon>
+                                    <i aria-hidden="true" :class="`${child.icon}`"></i>
                                 </span>
+
+                                <!--<span class="menu-arrow">-->
+                                <!--<svg xmlns="http://www.w3.org/2000/svg" width="5.28" height="9.061"-->
+                                <!--viewBox="0 0 5.28 9.061">-->
+                                <!--<path id="Path_2192" data-name="Path 2192" d="M1320,150l4,4,4-4"-->
+                                <!--transform="translate(154.75 -1319.47) rotate(90)" fill="none"-->
+                                <!--stroke="#19324b" stroke-linejoin="round" stroke-width="1.5"/>-->
+                                <!--</svg>-->
+                                <!--</span>-->
                             </RouterLink>
                         </div>
 
@@ -48,39 +58,44 @@
 </template>
 <script>
     import {sidebar} from "../../mixins"
-    import {mapState} from "vuex";
 
     export default {
         mixins: [sidebar],
         data() {
             return {
-            activeIndex: undefined
+                activeIndex: undefined
             }
         },
         created() {
-            console.log('menu', this.menu);
+            // console.log('menu', this.menu);
 
         },
         methods: {
-            setActive(ss,index) {
+            setActive(ss, index) {
                 this.activeIndex = index;
             },
             hasChildren(item) {
                 return item.children?.length > 0;
-            } ,
+            },
             children(item) {
                 return _.get(item, 'children', [])
             },
-            mainGo(item){
-                  if (item.to)
-                      this.$router.push(item.to)
+            mainGo(item) {
+                if (item.to)
+                    this.$router.push(item.to)
 
+            },
+            isActive(item) {
+                // let route = useRoute();
             }
         },
         computed: {
             menu() {
                 return _.get(this.$instance, 'config.menu', [])
             },
+            logo() {
+                return this.appConfig('logo.light')
+            }
 
         },
     }
@@ -99,7 +114,8 @@
     .sidebar-panel {
         background-color: var(--body-color);
         overflow-y: scroll;
-        &::-webkit-scrollbar{
+
+        &::-webkit-scrollbar {
             width: 0;
             background: transparent;
         }
@@ -185,7 +201,8 @@
                         right: 20px;
                         width: 1px;
                         background-color: #A0B4C8;
-                        height: 85%;
+                        height: 100%;
+                        top: 0;
                     }
 
                     .menu-item {
@@ -215,7 +232,7 @@
                                 transition: all .2s ease-in-out !important;
                             }
 
-                            &:hover, &.active , &.router-link-active.router-link-exact-active {
+                            &:hover, &.active, &.router-link-active.router-link-exact-active {
                                 background-color: #E1EBF5;
                                 box-shadow: none;
 
@@ -230,6 +247,10 @@
                                 }
 
                                 .menu-title {
+                                    color: var(--primary);
+                                }
+
+                                .menu-icon {
                                     color: var(--primary);
                                 }
                             }
@@ -256,13 +277,14 @@
                     }
 
 
-                    .router-link-exact-active{
-                        color:var(--primary);
+                    .router-link-exact-active {
+                        color: var(--primary);
                         background-color: #E1EBF5;
                         box-shadow: none;
 
                     }
-                    .router-link-exact-active   .menu-arrow {
+
+                    .router-link-exact-active .menu-arrow {
                         opacity: 1;
 
                         svg {
@@ -272,7 +294,8 @@
                         }
                     }
                 }
-                &.is-open{
+
+                &.is-open {
                     .menu-sub {
                         max-height: fit-content;
                         opacity: 1;
@@ -282,33 +305,40 @@
         }
 
     }
-    html[dir="ltr"]{
-        .sidebar-panel  {
+
+    html[dir="ltr"] {
+        .sidebar-panel {
             .menu {
                 .menu-item {
-                    .menu-link{
+                    .menu-link {
                         padding: 10px 20px 10px 15px;
-                        .menu-arrow{
+
+                        .menu-arrow {
                             margin-right: 0.5rem;
-                            margin-left:0
+                            margin-left: 0
                         }
                     }
+
                     .menu-sub {
                         padding-left: 22px;
                         padding-right: 0px;
-                        &::before{
+
+                        &::before {
                             left: 20px;
                             right: auto;
                         }
+
                         .menu-item {
                             margin-left: 8px;
-                            margin-right:0;
-                            .menu-link{
-                                &::before{
-                                left: -9px;
-                                right: auto;
+                            margin-right: 0;
+
+                            .menu-link {
+                                &::before {
+                                    left: -9px;
+                                    right: auto;
                                 }
-                                .menu-arrow{
+
+                                .menu-arrow {
                                     transform: rotate(180deg);
                                 }
                             }
@@ -324,22 +354,25 @@
     }
 
 
-    .is-dark{
+    .is-dark {
         .sidebar-panel .menu .menu-item .menu-link {
             color: #ffffff;
-            .menu-arrow{
-                svg{
-                    path{
-                        stroke:#FFF;
+
+            .menu-arrow {
+                svg {
+                    path {
+                        stroke: #FFF;
                     }
                 }
             }
         }
+
         .sidebar-panel .menu .menu-item > .menu-link {
             background-color: #222225;
         }
-        .sidebar-panel .menu .menu-item .menu-sub .menu-item .menu-link:hover, .sidebar-panel .menu .menu-item .menu-sub .menu-item .menu-link.active ,
-        .sidebar-panel .menu .menu-item .menu-sub .menu-item .menu-link.router-link-active.router-link-exact-active  {
+
+        .sidebar-panel .menu .menu-item .menu-sub .menu-item .menu-link:hover, .sidebar-panel .menu .menu-item .menu-sub .menu-item .menu-link.active,
+        .sidebar-panel .menu .menu-item .menu-sub .menu-item .menu-link.router-link-active.router-link-exact-active {
             background-color: #27272a;
         }
     }

@@ -6,6 +6,10 @@
                       :placeholder="placeholder$"
                       :aria-close-label="trans('delete_item')">
         </o-inputitems>
+
+        <span class="invalid" v-if="hasError">
+            {{ trans($error?.$message) }}
+        </span>
     </div>
 </template>
 

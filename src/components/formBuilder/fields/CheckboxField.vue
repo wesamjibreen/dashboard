@@ -20,6 +20,11 @@
             <span></span>
             {{ trans(label$ )}}
         </label>
+
+
+        <span class="invalid" v-if="hasError">
+            {{ trans($error?.$message) }}
+        </span>
     </div>
 </template>
 

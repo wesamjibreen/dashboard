@@ -9,5 +9,5 @@
 </script>
 
 <style>
-    @import '~notyf/notyf.min.css';
+
 </style>

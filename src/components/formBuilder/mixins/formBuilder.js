@@ -1,10 +1,12 @@
-const DEFAULT_FORM = "default";
 import formModule, {GET_FORM, SET_ERRORS, SET_FORM, SET_INPUT, SUBMIT_FORM} from "../../../store/modules/form.module";
 import form from "./form";
 import {useRoute} from "vue-router";
 
+const DEFAULT_FORM = "default";
+
 export default {
     mixins: [form],
+
     props: {
         data: {
             required: false,
@@ -30,13 +32,12 @@ export default {
             }
         }
     },
-    data: () => {
-        return {
-            find_loading: false,
-            loading: false,
-            renderLoading: true
-        }
-    },
+
+    data: () => ({
+        find_loading: false,
+        loading: false,
+        renderLoading: true
+    }),
 
     created() {
         /**
@@ -105,10 +106,6 @@ export default {
         })
     },
 
-    updated() {
-        alert('ok')
-    },
-
     methods: {
         submit() {
             // this.$emitEvent('form-success', this.form);
@@ -137,27 +134,26 @@ export default {
                     data: this.form,
                     formContext: this,
                     endPoint: this.submitEndPoint(),
-                }).then(
-                    function (data) {
-                        this.$emitEvent('form-success', data);
-                        this.successNotify(data.message);
-                        this.onSubmitSuccess(data);
-                        if (!this.isCrud)
-                            this.redirect();
-                        resolve(data);
-                    }.bind(this)
-                ).catch(
+                }).then((data) => {
+                    this.$emitEvent('form-success', data);
+                    this.successNotify(data.message);
+                    this.onSubmitSuccess(data);
+                    if (!this.isCrud)
+                        this.redirect();
+                    resolve(data);
+                }).catch(
                     function (xhr) {
                         this.loading = false;
                         let errors = _.get(xhr, 'data.data', {});
                         this.attachErrors(errors);
+                        // _.set('v$.$silentErrors', [{}])
                         this.$emitEvent('form-error', xhr);
                         let message = _.get(
                             xhr,
                             "data.message",
                             this.trans("error_while_processing")
                         );
-                        this.errorNotify("error", message);
+                        this.errorNotify(message);
                         this.onSubmitError(xhr);
                         reject(xhr);
                     }.bind(this)
@@ -513,7 +509,9 @@ export default {
 
     unmounted() {
         this.resetForm();
-    }
+    },
+
+
     // watch: {
     //     values: {
     //         deep: true,

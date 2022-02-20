@@ -19,12 +19,19 @@
             isIconify() {
                 return this.icon && this.icon.indexOf(':') !== -1
             },
-            errorsBag() {
-                console.log(this.state, this.formModule, this.model);
-                return _.get(this, `state.${this.formModule}.errors.${this.model}`, [])
+            $error() {
+                return _.find(this.$validator ?? [], (error) => {
+                    return error.$property === this.model;
+                })
+            },
+            $validator() {
+                return _.get(this, `form.validator`, []);
+            },
+            form() {
+                return _.get(this, `state.${this.formModule}`, {});
             },
             hasError() {
-                return this.errorsBag.length > 0;
+                return this.$error?.$message && this.form?.isSubmitted;
             },
             isValid() {
                 return false && !this.hasError;

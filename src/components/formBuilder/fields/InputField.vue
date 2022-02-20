@@ -1,34 +1,9 @@
 <template>
     <div :class="{'field-container' : true}">
-        <!--<VeeField v-model="input" :name="model$" v-slot="{ field  }">-->
-        <!--<input :class="{'input' : true, 'is-danger' : errorMessage && meta.touched}"-->
-        <!--:type="type$"-->
-        <!--:placeholder="placeholder$"-->
-        <!--v-bind="field"-->
-        <!--/>-->
-        <!--</VeeField>-->
-        <!--{{model$ }}-->
-        <input v-model="input"
-               :class="{
-               'input' : true,
-               'is-danger' : errorMessage && meta.touched
-               }"
-               :type="type$"
-               :placeholder="placeholder$" />
-
-        <span v-if="errorMessage && meta.touched" class="icon is-right has-text-danger">
-            <i class="fa fa-warning"></i>
+        <input v-model="input" class="input" :type="type$" :placeholder="placeholder$" />
+        <span class="invalid" v-if="hasError">
+            {{ trans($error?.$message) }}
         </span>
-
-        <!--<span class="invalid" v-if="errorMessage && meta.touched">-->
-            <!--{{ errorMessage }}-->
-        <!--</span>-->
-        <!---->
-        <div v-if="hasErrors">
-            <span  class="invalid"  v-for="error in errorsBag"> {{ error}}</span>
-        </div>
-
-
     </div>
 
 </template>

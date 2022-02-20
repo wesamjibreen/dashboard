@@ -51,8 +51,8 @@ export default {
         VeeField: VeeValidate.Field,
         ErrorMessage: VeeValidate.ErrorMessage,
     },
-    ready(){
-      // alert(this.model$);
+    ready() {
+        // alert(this.model$);
     },
     data() {
         return {
@@ -305,6 +305,23 @@ export default {
              * @author WeSSaM
              */
             return this.rules ? this.rules : {};
+        },
+
+
+        validator$() {
+            // .filter({$property : this.model$})
+            return _.get(this.form, 'validator', {});
+        },
+
+        $error() {
+            return _.find(this.validator$, (error) => {
+            // return _.find(this.validator$.$silentErrors, (error) => {
+                return error.$property === this.model$;
+            })
+        },
+
+        hasError() {
+            return this.$error?.$message && this.form?.isSubmitted;
         },
 
         inputValue: function () {

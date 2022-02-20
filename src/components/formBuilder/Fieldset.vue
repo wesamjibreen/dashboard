@@ -28,8 +28,7 @@
             </div>
         </div>
         <div class="columns is-multiline">
-            <div v-for="input in nonMultiLangInputs" :class="`column is-${input.cols ?? 12}`"
-                 v-show="isDisplayed(input)">
+            <div v-for="input in nonMultiLangInputs" :class="`column is-${input.cols ?? 12}`" v-show="isDisplayed(input)">
                 <VField  :classes="getFieldClass(input.component)">
                     <label>{{ getInputLabel(input) }} </label>
                     <VControl :icon="input.icon" :model="input.model">
@@ -94,7 +93,6 @@
                         return eval(item.show);
                     case "function" :
                         return item.show.bind(this).call();
-
                     default :
                         return true;
                 }

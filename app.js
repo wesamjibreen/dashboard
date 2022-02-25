@@ -1,7 +1,8 @@
 import {createApp as createClientApp, h, resolveDynamicComponent, Transition} from "vue";
 import {RouterView} from "vue-router";
+import CKEditor from '@mayasabha/ckeditor4-vue3';
 
-const hPath = require('path');
+// const hPath = require('path');
 
 export async function asyncRegisterComponent(path, app) {
     // const requireComponent = await require.context(
@@ -85,10 +86,9 @@ export async function createApp({enhanceApp, modules}) {
     // });
 
     let router = modules[1];
-    console.log('modules', router);
     // app.use(head);
     app.use(router);
-
+    app.use(CKEditor);
 
     if (enhanceApp) {
         await enhanceApp(app)

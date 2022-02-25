@@ -1,6 +1,5 @@
 <template>
-    <!--set-container-->
-    <div class="form-fieldset" v-show="isDisplayed({show})">
+    <div class="form-fieldset" v-if="isDisplayed({show : show ?? null})">
         <div class="fieldset-heading columns">
             <div class="column is-6">
                 <h4>{{ translatedTitle }}</h4>
@@ -17,8 +16,8 @@
             </div>
         </div>
         <div class="columns is-multiline">
-            <div v-for="input in multiLangInputs" :class="`column is-${input.cols ?? 12}`" v-show="isDisplayed(input)">
-                <VField :classes="getFieldClass(input.component)">
+            <div v-for="input in multiLangInputs" :class="`column is-${input.cols ?? 12}`" >
+                <VField v-if="isDisplayed(input)" :classes="getFieldClass(input.component)">
                     <label> {{ getInputLabel(input) }} ({{ currentLanguage.toUpperCase() }})</label>
                     <VControl :icon="input.icon" :model="input.model">
                         <component :is="`${input.component}-field`" :formModule="formModule" :locale="currentLanguage"
@@ -28,9 +27,9 @@
             </div>
         </div>
         <div class="columns is-multiline">
-            <div v-for="input in nonMultiLangInputs" :class="`column is-${input.cols ?? 12}`" v-show="isDisplayed(input)">
-                <VField  :classes="getFieldClass(input.component)">
-                    <label>{{ getInputLabel(input) }} </label>
+            <div v-for="input in nonMultiLangInputs" :class="`column is-${input.cols ?? 12}`" >
+                <VField v-if="isDisplayed(input)" :classes="getFieldClass(input.component)">
+                    <label> {{ getInputLabel(input) }} </label>
                     <VControl :icon="input.icon" :model="input.model">
                         <component :is="`${input.component}-field`" :formModule="formModule" v-bind="input"/>
                     </VControl>
@@ -88,11 +87,12 @@
                 return this.trans(input.label ?? input.model);
             },
             isDisplayed(item) {
-                switch (typeof item.show) {
+                let type = item?.show;
+                switch (typeof type) {
                     case  "string" :
-                        return eval(item.show);
+                        return eval(type);
                     case "function" :
-                        return item.show.bind(this).call();
+                        return type.bind(this).call();
                     default :
                         return true;
                 }

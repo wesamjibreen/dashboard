@@ -1,10 +1,12 @@
 <template>
     <div class="content">
-        <CKEditor
-                v-model="input"
-                :editor="ClassicEditor"
-                :config="config">
-        </CKEditor>
+        <ckeditor v-model="input"></ckeditor>
+
+        <!--<CKEditor-->
+        <!--:editor="ClassicEditor"-->
+        <!--:config="config">-->
+        <!--</CKEditor>-->
+        <!--v-model="input"-->
         <!--@update:modelValue="input = $event"-->
         <!--@ready="onEditorReady"-->
     </div>
@@ -15,12 +17,13 @@
     }
 </style>
 <script>
-    import {ref} from 'vue'
-    import CKE from '@ckeditor/ckeditor5-vue'
-    import input from "../mixins/input"
-    import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+    // import CKEditor from '@mayasabha/ckeditor4-vue3';
 
-    const CKEditor = CKE.component;
+    import {ref} from 'vue'
+    import input from "../mixins/input"
+    // import CKE from '@ckeditor/ckeditor5-vue'
+    // import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+    // const CKEditor = CKE.component;
     const editorData = ref(`<h2>Your HTML Content</h2>`);
     const config = {
         fontFamily: {
@@ -31,50 +34,20 @@
         mixins: [input],
         data() {
             return {
-                ClassicEditor,
+                // ClassicEditor,
                 config,
                 editorContent: ""
             }
         },
         components: {
-            CKEditor
+            // CKEditor,
+            // CKEditor
         },
         watch: {
             locale(newVal) {
-                this.input = _.get(Object.assign({}, this.inputValue), newVal, "");
+                // this.input = _.get(Object.assign({}, this.inputValue), newVal, "");
             }
         }
-        // methods: {
-        //     onInputCreated() {
-        //         // this.input =
-        //     },
-        // },
-        // methods: {
-        //     onEditorReady() {
-        //         this.editorContent = this.input;
-        //     }
-        // },
-        // watch: {
-        //     editorContent(newVal) {
-        //         this.$commit(newVal);
-        //         // this.input = newVal;
-        //     },
-        //     // input: {
-        //     //     immediate: true,
-        //     //     handler(newValue) {
-        //     //
-        //     //         // if (this.editorContent !== newValue)
-        //     //         //     this.editorContent = newValue;
-        //     //         // alert(newValue);
-        //     //
-        //     //     }
-        //     // },
-        //
-        //     // inputValue(newValue) {
-        //     //     if (this.editorContent != newValue)
-        //     //         this.input = newValue;
-        //     // }
-        // }
     }
 </script>
 

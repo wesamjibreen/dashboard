@@ -230,12 +230,12 @@ export default {
 
             if (this.translated_labels)
                 options = _.map(options, (option) => {
-                    option[this.optionName] = this.trans(option[this.optionName]);
+                    option[this.optionName] = this.trans(option?.[this.optionName]);
                     return option;
                 });
             else
                 options = _.map(JSON.parse(JSON.stringify(options)), (option) => {
-                    option[this.optionName] = getValueByLocale(option[this.optionName]);
+                    option[this.optionName] = getValueByLocale(option?.[this.optionName]);
                     return option;
                 });
 

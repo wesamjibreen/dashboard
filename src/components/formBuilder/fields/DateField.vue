@@ -1,29 +1,22 @@
 <template>
     <div class="field-container">
-        <o-datepicker @update:modelValue="onChange"
-                      :modelValue="computedInput"
-                      class="input"
-                      type="string"
-                      :multiple="multiple"
-                      :range="range"
-                      icon=" fa fa-calendar"
-                      :placeholder="placeholder$"
-                      trap-focus>
+        <o-datepicker
+                class="input"
+                type="string"
+                :multiple="multiple"
+                :range="range"
+                icon=" fa fa-calendar"
+                :placeholder="placeholder$"
+                @update:modelValue="onChange"
+                :modelValue="computedInput"
+                trap-focus>
         </o-datepicker>
 
-        <!--:dateFormatter="dateFormatter"-->
-        <!--:dateParser="dateParser"-->
-        <!--:dateCreator="dateCreator"-->
-
-        <span class="invalid" v-if="errorMessage && meta.touched">
-            {{ errorMessage }}
-        </span>
     </div>
 </template>
 
 <script>
     import input from "../mixins/input";
-    import {useInputField} from "../composable/useInputField";
 
     export default {
         name: "DateField",
@@ -38,11 +31,6 @@
             range: {
                 default: false
             }
-        },
-        setup(props) {
-            return {
-                ...useInputField(props)
-            };
         },
         data() {
             return {
@@ -65,12 +53,13 @@
                 return new Date();
             },
             dateFormatter(date) {
-                date = date || new Date();
+                date = date || new Date(date);
                 return date && date.hasOwnProperty('toLocaleDateString') ? date.toLocaleDateString('en-GB').split('/').reverse().join('-') : null;
             },
             dateParser(date) {
-                date = date || new Date();
-                return date && date.hasOwnProperty('toLocaleDateString') ? date.toLocaleDateString('en-GB').split('/').reverse().join('-') : null;
+                // return date;
+                date = new Date(date);
+                return date ? date.toLocaleDateString('en-GB').split('/').reverse().join('-') : null;
             }
         },
         computed: {

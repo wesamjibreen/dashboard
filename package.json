@@ -42,6 +42,7 @@
     "@ckeditor/ckeditor5-build-classic": "^31.0.0",
     "@ckeditor/ckeditor5-vue": "^2.0.1",
     "@fawmi/vue-google-maps": "^0.9.4",
+    "@mayasabha/ckeditor4-vue3": "^0.0.5",
     "@oruga-ui/oruga-next": "^0.5.2",
     "@popperjs/core": "*",
     "@vueform/multiselect": "^2.2.0",

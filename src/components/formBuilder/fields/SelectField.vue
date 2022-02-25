@@ -13,10 +13,10 @@
                      :options="optionsData">
             <template #multiplelabel="{ values }">
                 <div class="multiple-label">
-                        <span class="value-label" v-for="(value , index) in  values">
-                            {{ value[optionName] }}
-                            <i class="close-label fas fa-times" @click="removeItem(value,index)"></i>
-                        </span>
+                    <span class="value-label" v-for="(value , index) in  values">
+                        {{ value?.[optionName] }}
+                        <i class="close-label fas fa-times" @click="removeItem(value,index)"></i>
+                    </span>
                 </div>
             </template>
         </Multiselect>

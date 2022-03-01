@@ -1,0 +1,166 @@
+.vac-rooms-container {
+	display: flex;
+	flex-flow: column;
+	flex: 0 0 25%;
+	min-width: 260px;
+	max-width: 500px;
+	position: relative;
+	background: var(--chat-sidemenu-bg-color);
+	height: 100%;
+	border-top-left-radius: var(--chat-container-border-radius);
+	border-bottom-left-radius: var(--chat-container-border-radius);
+
+	&.vac-rooms-container-full {
+		flex: 0 0 100%;
+		max-width: 100%;
+	}
+
+	.vac-rooms-empty {
+		font-size: 14px;
+		color: #9ca6af;
+		font-style: italic;
+		text-align: center;
+		margin: 40px 0;
+		line-height: 20px;
+		white-space: pre-line;
+	}
+
+	.vac-room-list {
+		flex: 1;
+		position: relative;
+		max-width: 100%;
+		cursor: pointer;
+		padding: 0 10px 5px;
+		overflow-y: auto;
+	}
+
+	.vac-room-item {
+		border-radius: 8px;
+		align-items: center;
+		display: flex;
+		flex: 1 1 100%;
+		margin-bottom: 5px;
+		padding: 0 14px;
+		position: relative;
+		min-height: 71px;
+		transition: background-color 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+
+		&:hover {
+			background: var(--chat-sidemenu-bg-color-hover);
+		}
+	}
+
+	.vac-room-selected {
+		color: var(--chat-sidemenu-color-active) !important;
+		background: var(--chat-sidemenu-bg-color-active) !important;
+
+		&:hover {
+			background: var(--chat-sidemenu-bg-color-active) !important;
+		}
+	}
+
+	@media only screen and (max-width: 768px) {
+		.vac-room-list {
+			padding: 0 7px 5px;
+		}
+
+		.vac-room-item {
+			min-height: 60px;
+			padding: 0 8px;
+		}
+	}
+}
+
+.vac-menu-options {
+    top: 60px;
+}
+
+.is-dark{
+    .vac-rooms-container , .vac-room-header , .vac-col-messages .vac-container-scroll , .vac-box-footer ,
+    .vac-message-actions-wrapper .vac-blur-container , .vac-chat-container{
+        background:  #181a1b;
+    }
+    .vac-rooms-container .vac-room-selected  , .vac-box-search .vac-input , .vac-textarea ,
+    .vac-message-wrapper .vac-message-card , .vac-rooms-container .vac-room-item:hover , .vac-room-files-container{
+        background: #2f2f32 !important;
+    }
+    .vac-box-search .vac-input  , .vac-textarea{
+        border: 1px solid #2f2f32;
+    }
+    .vac-room-container .vac-room-name , .vac-message-wrapper .vac-message-card , .vac-box-search .vac-input ,
+    .vac-card-window .vac-chat-container textarea , .vac-room-header .vac-room-name , .vac-icon-textarea-left .vac-dot-audio-record-time{
+        color: #ffffff;
+    }
+    .vac-rooms-container , .vac-room-header{
+        border-color: #2f2f32;
+    }
+    #vac-icon-emoji-reaction , #vac-icon-toggle  , .vac-room-options #vac-icon-menu{
+     fill:#FFF
+    }
+    .vac-col-messages .vac-container-scroll , .vac-rooms-container .vac-room-list{
+        &::-webkit-scrollbar-track {
+            background-color: #181a1b;
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: #2f2f32;
+        }
+    }
+}
+.vac-col-messages .vac-container-scroll ,
+.vac-rooms-container .vac-room-list{
+    &::-webkit-scrollbar {
+        width: 9px;
+    }
+}
+
+html[dir="rtl"] {
+    .vac-box-search .vac-input {
+        padding: 10px 40px 10px 10px;
+    }
+    .vac-box-search .vac-icon-search {
+        left:auto;
+        right: 30px;
+    }
+    .vac-box-search .vac-add-icon {
+        padding-right: 10px;
+        margin-left: 0;
+    }
+    .vac-icon-textarea .vac-send-disabled, .vac-icon-textarea  .vac-svg-button{
+        transform: rotate(180deg) !important;
+    }
+    .vac-icon-textarea-left .vac-svg-button , .vac-emoji-wrapper .vac-svg-button{
+        transform: rotate(0deg) !important;
+    }
+    &.is-dark .vac-rooms-container{
+        border-left: 1px solid #2f2f32
+    }
+    .vac-room-header .vac-toggle-button.vac-toggle-button{
+        transform: rotate(180deg) !important;
+    }
+    .vac-menu-options {
+        right:auto;
+        left: 10px;
+    }
+    .vac-emoji-wrapper .vac-emoji-picker{
+        left: -50px !important;
+        right: auto !important;
+    }
+    .vac-message-wrapper .vac-icon-check {
+        margin: -3px 3px 0 3px;
+    }
+    .vac-message-wrapper .vac-message-box {
+        justify-content: flex-end;
+        margin-right: auto;
+    }
+    .vac-message-wrapper .vac-message-box.vac-offset-current {
+        justify-content: flex-start;
+        margin-right: 0;
+    }
+    .vac-room-header .vac-toggle-button {
+        margin-left: 15px;
+        margin-right:0
+    }
+    .vac-menu-options .vac-menu-list span svg{
+        margin-right: 5px;
+    }
+}

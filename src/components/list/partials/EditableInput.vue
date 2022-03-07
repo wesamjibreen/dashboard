@@ -81,7 +81,6 @@
 
         .btn-overlay {
             position: absolute;
-            left: 1px;
             top: 1px;
             z-index: 1;
         }
@@ -108,6 +107,21 @@
                     border-right-color: transparent;
                     border-top-color: transparent;
                 }
+            }
+        }
+    }
+
+    html[dir="rtl"]{
+        .editable-component {
+            .btn-overlay {
+                left: 1px;
+            }
+        }
+    }
+    html[dir="ltr"]{
+        .editable-component {
+            .btn-overlay {
+                right: 1px;
             }
         }
     }

@@ -2835,11 +2835,11 @@ button.v-button.small {
 .flex-table-action .table-action svg g [fill] {
     -webkit-transition: fill 0.3s ease;
     transition: fill 0.3s ease;
-    fill: #4abf8a;
+    fill: var(--primary);
 }
 
 .flex-table-action .table-action:hover {
-    background-color: #4abf8a;
+    background-color:var(--primary);
 }
 
 .flex-table-action .table-action:hover svg g [fill] {
@@ -3046,5 +3046,9 @@ form.form-layout.--loading {
      }
      .form-separator .form-fieldset:not(:last-of-type) {
         border-color: #3b3b40;
+    }
+    .g-dialog-content--fullscreen {
+        background: var(--dark-sidebar-light-6);
+        border-color: var(--dark-sidebar-light-12);
     }
 }

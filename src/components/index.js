@@ -44,7 +44,7 @@ export const GlobalComponents = {
     VPlaceholderPage: defineAsyncComponent(() => import('../components/base/placeholder/VPlaceholderPage.vue')),
     VBreadcrumb: defineAsyncComponent(() => import('../components/base/breadcrumb/VBreadcrumb.vue')),
     //     // VBreadcrumb:  import('../components/base/breadcrumb/VBreadcrumb.vue')['default'],
-
+    ChatWindow: defineAsyncComponent(() => import('../components/chat/App.vue')),
 //     // VPlaceholderPage:  import('../components/base/placeholder/VPlaceholderPage.vue')['default'],
 
     // ActivityPanel:  import('../components/partials/panels/ActivityPanel.vue')['default'],

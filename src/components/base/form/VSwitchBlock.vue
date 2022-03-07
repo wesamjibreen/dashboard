@@ -56,7 +56,7 @@
             },
         },
         setup(props, {emit, attrs}) {
-            const blockSwitchId = `block-switch-${Math.random()}`;
+            const blockSwitchId = `block-switch-${ Math.random() }`;
 
             return {
                 blockSwitchId,

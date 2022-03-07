@@ -56,6 +56,8 @@ export const common = {
         show : "عرض",
         all : "عرض",
         enter_valid_data: "قم بالتأكد من البيانات المدخلة !",
+        export_to_excel: "تصدير إلى إكسل",
+        export_to_pdf: "تصدير إلى PDF",
         "Value is required" : "هذا الحقل مطلوب",
     },
     en: {
@@ -74,6 +76,7 @@ export const common = {
         save: "Save",
         cancel: "Cancel",
         enter: "Enter",
+        export_to_excel: "Export Excel",
         text: "Text",
         image: "Image",
         select: "Select",
@@ -120,5 +123,8 @@ export const common = {
         edit : "Edit",
         show : "Show",
         all : "Show",
+        export_to_excel: "Export Excel",
+        export_to_pdf: "Export PDF",
+
     }
 };

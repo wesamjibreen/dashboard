@@ -14,7 +14,29 @@
                     </h3>
                     <div class="d-flex align-items-center justify-content-end">
                         <VButtons>
-                            <VButton color="primary" icon="fas fa-plus" elevated @click="addNew">
+                            <VButton
+                                    v-if="hasPDF"
+                                    color="danger"
+                                    icon="fas fa-file-pdf"
+                                    elevated class="btn-list"
+                                    :loading="loadingPdf"
+                                    @click="exportTo('Pdf')">
+                                {{ trans('export_to_pdf') }}
+                            </VButton>
+                            <VButton v-if="hasExcel"
+                                     color="warning"
+                                     icon="fas fa-file-excel"
+                                     elevated class="btn-list"
+                                     :loading="loadingExcel"
+                                     @click="exportTo('Excel')">
+                                {{ trans('export_to_excel') }}
+                            </VButton>
+                            <VButton v-if="hasCreateBtn"
+                                    color="primary"
+                                     icon="fas fa-plus"
+                                     elevated
+                                     class="btn-list"
+                                     @click="addNew">
                                 {{ trans('add_new') }}
                             </VButton>
                         </VButtons>
@@ -48,7 +70,7 @@
                         <div class="column is-8">
                             <ActionGroup v-for="(actionGroup, index) in  actionGroups"
                                          v-bind="actionGroup" :resource="resource"
-                                         :key="`action_group_${actionGroup.slug}_${index}`" />
+                                         :key="`action_group_${actionGroup.slug}_${index}`"/>
                         </div>
                         <div class="column is-4">
                             تم تحديد
@@ -60,7 +82,8 @@
                         <!--Table header-->
                         <div class="flex-table-header">
                             <slot name="table_header" :column="column">
-                                <span v-if="hasSelect  && hasActionGroups" class="flex-datatable-cell cell-start checkbox-selector">
+                                <span v-if="hasSelect  && hasActionGroups"
+                                      class="flex-datatable-cell cell-start checkbox-selector">
                                     <label class="checkbox is-primary is-outlined is-circle">
                                         <input id="head-checkbox" type="checkbox" v-model="isAllSelected"
                                                @input="onSelectAllChange"/>
@@ -126,9 +149,11 @@
                 </VLoader>
 
 
-                <VPlaceholderPage v-if="isEmpty"
-                                  :title="trans('datatable.no_results')"
-                                  :subtitle="trans('datatable.no_results_subtitle')" larger>
+                <VPlaceholderPage
+                        v-if="isEmpty"
+                        :title="trans('datatable.no_results')"
+                        :subtitle="trans('datatable.no_results_subtitle')"
+                        larger>
                     <template #image>
                         <img class="light-image" src="/panel/images/illustrations/placeholders/search-4.svg" alt=""/>
                         <img class="dark-image" src="/panel/images/illustrations/placeholders/search-4-dark.svg"
@@ -137,7 +162,11 @@
                 </VPlaceholderPage>
             </div>
         </div>
+        <div v-show="false">
 
+            <Export ref="exporting" :data="exportedData" :columns="exportingColumns"/>
+
+        </div>
     </div>
 </template>
 
@@ -150,10 +179,12 @@
     import Action from "./partials/Action";
     import ActionGroup from "./partials/ActionGroup";
     import CheckboxField from "../formBuilder/fields/CheckboxField";
+    import Export from "./partials/Export";
 
     export default {
         name: "Index",
         components: {
+            Export,
             CheckboxField,
             StatusLabel,
             SwitchStatus,
@@ -166,7 +197,15 @@
     }
 </script>
 
+
+
 <style>
+
+    button.btn-list {
+        color: white !important;
+        margin: 0 5px;
+    }
+
     .list-flex-toolbar.flex-list-v1 {
         justify-content: space-between;
     }
@@ -188,3 +227,4 @@
     }
 
 </style>
+

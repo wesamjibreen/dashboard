@@ -14,7 +14,7 @@
         </div>
         <div data-simplebar>
             <ul class="menu">
-                <li v-for="(item,index) in menu" class="menu-item" @click="setActive(item, index)"
+                <li v-for="(item,index) in menu" class="menu-item" @click.exact="setActive(item, index)"
                     :class="{ 'is-open': activeIndex === index }">
                     <div class="menu-link" @click="mainGo(item)">
                         <span class="menu-arrow" v-if="hasChildren(item)">
@@ -30,7 +30,8 @@
                     </div>
                     <div class="menu-sub" v-if="hasChildren(item)">
                         <div class="menu-item" v-for=" child in item?.children ">
-                            <RouterLink v-bind="child" class="menu-link">
+                            <RouterLink v-bind="child"
+                                        :class="['menu-link' , isActive(child) && 'router-link-active router-link-exact-active'] ">
                                 <span class="menu-title">{{ trans(child.label) }}</span>
 
                                 <span class="menu-icon">
@@ -57,7 +58,8 @@
     </div>
 </template>
 <script>
-    import {sidebar} from "../../mixins"
+    import {sidebar} from "../../mixins";
+    import {useRoute} from "vue-router";
 
     export default {
         mixins: [sidebar],
@@ -66,13 +68,32 @@
                 activeIndex: undefined
             }
         },
-        created() {
-            // console.log('menu', this.menu);
+        beforeUpdate() {
+            let route = useRoute();
+            console.log('beforeUpdate', route.name)
+            // this.setActiveItem();
 
         },
+        created() {
+            // let route = useRoute();
+            // this.$watch(route.name, () => {
+            //     alert('okk');
+            // }, {deep: true, immediate: true});
+
+            this.setActiveItem();
+        },
         methods: {
+            setActiveItem() {
+                let route = useRoute();
+                let resourceName = (route.name ?? "").split(".")?.[0];
+                this.activeIndex = _.findIndex(this.menu, {children: [{key: resourceName}]});
+            },
+
             setActive(ss, index) {
-                this.activeIndex = index;
+                if (index === this.activeIndex)
+                    this.activeIndex = -1;
+                else
+                    this.activeIndex = index;
             },
             hasChildren(item) {
                 return item.children?.length > 0;
@@ -86,7 +107,9 @@
 
             },
             isActive(item) {
-                // let route = useRoute();
+                let route = useRoute();
+                let resourceName = (route.name ?? "").split(".")?.[0];
+                return resourceName === item.key;
             }
         },
         computed: {
@@ -98,6 +121,14 @@
             }
 
         },
+        watch: {
+            '$route.name': {
+                handler() {
+                    alert('okk');
+                    this.setActiveItem()
+                }
+            }
+        }
     }
 </script>
 

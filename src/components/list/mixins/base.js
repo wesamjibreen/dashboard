@@ -1,7 +1,9 @@
 import {useRoute} from "vue-router";
 import {getValueByLocale} from "../../../utils/helper";
+import exporting from "./export";
 
 export default {
+    mixins: [exporting],
     props: {
         resource: {
             required: false,
@@ -10,6 +12,7 @@ export default {
         columns: Array,
         actions: Array,
         filters: Array,
+        config: Object,
         actionGroups: {
             default: [],
             type: Array
@@ -28,6 +31,7 @@ export default {
             rows: [],
             paginator: null,
             isAllSelected: null,
+            excelLoading: false,
             selected: []
         }
     },
@@ -180,6 +184,9 @@ export default {
         }
     },
     computed: {
+        hasCreateBtn() {
+            return _.get(this, 'config.createBtn', true);
+        },
         hasActionGroups() {
             return (this.actionGroups ?? []).length > 0;
         },

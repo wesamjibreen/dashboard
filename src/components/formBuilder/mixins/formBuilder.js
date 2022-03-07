@@ -173,7 +173,8 @@ export default {
         },
 
         redirect() {
-            this.$router.push({name: `${this.resource}.all`});
+            if (this.redirectTo)
+                this.$router.push(this.redirectTo);
         },
 
 
@@ -411,7 +412,7 @@ export default {
              * computed property returns form's redirectTo
              * @author WeSSaM
              */
-            return this.getConfig('redirectTo', null);
+            return this.getConfig('redirectTo', {name: `${this.resource}.all`});
         },
 
 

@@ -1,45 +1,6 @@
 import {createApp as createClientApp, h, resolveDynamicComponent, Transition} from "vue";
 import {RouterView} from "vue-router";
 import CKEditor from '@mayasabha/ckeditor4-vue3';
-import useNotify from "../Modules/Supervisor/Resources/js/composable/useNotify";
-
-// const hPath = require('path');
-
-export async function asyncRegisterComponent(path, app) {
-    // const requireComponent = await require.context(
-    //     // The relative path of the components folder
-    //     path,
-    //     // Whether or not to look in subfolders
-    //     true,
-    //     // The regular expression used to match base component filenames
-    //     /[A-Z]\w+\.(vue|js)$/
-    //     , 'lazy'
-    // );
-    // console.log('requireComponent',requireComponent.keys());
-
-    // requireComponent.keys().forEach(async fileName => {
-    //     const componentName = _.upperFirst(
-    //         _.camelCase(
-    //             fileName.split('/').pop().replace(/\.\w+$/, '')
-    //         )
-    //     );
-    //     // Get component config
-    //     const componentConfig = await requireComponent(fileName)
-    //     // Get PascalCase name of component
-    //
-    //     app.component(componentName, componentConfig.default || componentConfig)
-    //
-    //     // Register component globally
-    //     // Vue.component(
-    //     //     componentName,
-    //     //     // Look for the component options on `.default`, which will
-    //     //     // exist if the component was exported with `export default`,
-    //     //     // otherwise fall back to module's root.
-    //     //     componentConfig.default || componentConfig
-    //     // )
-    // })
-
-}
 
 export async function createApp({enhanceApp, modules}) {
     const app = createClientApp({

@@ -89,7 +89,6 @@ const initRouter = function (routes, base = "/", config = {}) {
         ) {
             let $auth = useStorage(`${base}_user`, {});
             let policies = $auth.value?.policies ? atob($auth.value?.policies).split(",") : [];
-            console.log('on PERMS', policies, toName, policies.includes(toName), toName.replace("all", "show"));
             if (!policies.includes(toName) &&
                 !policies.includes(toName.replace("all", "show").replace("_", "-")) &&
                 !policies.includes(`others.${toName}`)

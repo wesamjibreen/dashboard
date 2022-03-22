@@ -1,5 +1,4 @@
 import {mapState} from "vuex";
-import {getValueByLocale} from "../../../utils/helper";
 // import { FETCH_OPTIONS, UPDATE_OPTIONS } from "../../../store/setting.module";
 
 export default {
@@ -34,7 +33,7 @@ export default {
         // this.onInputCreated();
         // this.onInputChanges();
         // this.dispatchFetchOptionsAction();
-        if (this.endPoint &&  !this.async)
+        if (this.endPoint && !this.async)
             this.fetchOptions();
 
         // this.$root.$on(
@@ -254,8 +253,6 @@ export default {
             else
                 options = _.map(JSON.parse(JSON.stringify(options)), (option) => {
                     option[this.optionName] = this.getValueByLocale(option?.[this.optionName]);
-                    console.log('getValueByLocale', option[this.optionName]);
-
                     return option;
                 });
 
@@ -263,8 +260,7 @@ export default {
             return options;
         },
         options$() {
-            if (this.endPoint) {
-                // console.log('options$$', this.optionsKey, this.vuexOptions);
+            if (this.endPoint?.name) {
                 return this.options;
             }
             return this.data ? this.data : [];

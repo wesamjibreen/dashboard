@@ -23,7 +23,7 @@
             </div>
             <VLoader size="small" :active="isLoading" class="loading-overlay">
                 <div class="form-body form-separator">
-                    <Fieldset v-for="fieldset in fieldSets$" v-bind="fieldset" :formModule="formModule$"/>
+                    <Fieldset v-for="fieldset in fieldSets$" v-bind="fieldset" :loading="find_loading" :formModule="formModule$"/>
                 </div>
             </VLoader>
         </div>

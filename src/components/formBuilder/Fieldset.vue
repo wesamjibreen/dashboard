@@ -16,22 +16,27 @@
             </div>
         </div>
         <div class="columns is-multiline">
-            <div v-for="input in multiLangInputs" :class="`column is-${input.cols ?? 12}`" >
+            <div v-for="input in multiLangInputs" :class="`column is-${input.cols ?? 12}`">
                 <VField v-if="isDisplayed(input)" :classes="getFieldClass(input.component)">
                     <label> {{ getInputLabel(input) }} ({{ currentLanguage.toUpperCase() }})</label>
                     <VControl :icon="input.icon" :model="input.model">
-                        <component :is="`${input.component}-field`" :formModule="formModule" :locale="currentLanguage"
+                        <component :is="`${input.component}-field`"
+                                   :formModule="formModule"
+                                   :locale="currentLanguage"
                                    v-bind="input"/>
                     </VControl>
                 </VField>
             </div>
         </div>
         <div class="columns is-multiline">
-            <div v-for="input in nonMultiLangInputs" :class="`column is-${input.cols ?? 12}`" >
+            <div v-for="(input,index) in nonMultiLangInputs" :class="`column is-${input.cols ?? 12}`">
                 <VField v-if="isDisplayed(input)" :classes="getFieldClass(input.component)">
                     <label> {{ getInputLabel(input) }} </label>
                     <VControl :icon="input.icon" :model="input.model">
-                        <component :is="`${input.component}-field`" :formModule="formModule" v-bind="input"/>
+                        <component :is="`${input.component}-field`"
+                                   :key="input.component != 'select' ? `${input.model}_${input.component}_${index}` : `${input.model}_${input.component}_${key * index}` "
+                                   :formModule="formModule"
+                                   v-bind="input"/>
                     </VControl>
                 </VField>
             </div>
@@ -55,6 +60,9 @@
             },
             show: {
                 default: null
+            },
+            loading: {
+                default: true
             }
         },
         components: {
@@ -64,7 +72,8 @@
         },
         data() {
             return {
-                currentLanguage: null
+                currentLanguage: null,
+                key: 1
             }
         },
         created() {
@@ -95,6 +104,15 @@
                         return type.bind(this).call();
                     default :
                         return true;
+                }
+            }
+        },
+        watch: {
+            loading: {
+                immediate : true,
+                handler(newVal) {
+                    // alert(newVal);
+                    this.key += Math.random();
                 }
             }
         },

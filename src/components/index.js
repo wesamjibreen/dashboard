@@ -43,7 +43,6 @@ export const GlobalComponents = {
     LanguagesPanel: defineAsyncComponent(() => import('../components/basic/panels/LanguagesPanel.vue')),
     VPlaceholderPage: defineAsyncComponent(() => import('../components/base/placeholder/VPlaceholderPage.vue')),
     VBreadcrumb: defineAsyncComponent(() => import('../components/base/breadcrumb/VBreadcrumb.vue')),
-    ChatWindow: defineAsyncComponent(() => import('../components/chat/App.vue')),
     //     // VBreadcrumb:  import('../components/base/breadcrumb/VBreadcrumb.vue')['default'],
     ChatWindow: defineAsyncComponent(() => import('../components/chat/App.vue')),
 //     // VPlaceholderPage:  import('../components/base/placeholder/VPlaceholderPage.vue')['default'],

@@ -2985,6 +2985,61 @@ form.form-layout.--loading {
     }
 }
 
+.permission{
+    border: 1px solid var(--fade-grey-dark-3);
+    background-color: var(--white);
+    border-radius: var(--radius-large);
+    padding:40px 30px 30px;
+    .card-permission{
+        position: relative;
+        margin-bottom:10px;
+        &:not(:last-of-type){
+            margin-bottom: 40px;
+        }
+        border: 1px solid var(--fade-grey-dark-3);
+        .header-permission{
+            position: absolute;
+            top: -26px;
+            left: 10px;
+            z-index: 1;
+            background-color: var(--white);
+        }
+        .body-permission{
+            padding: 30px 0px 15px;
+            .radio, .checkbox {
+                font-size: 14px;
+                display: block;
+                padding: 0.5em 1em;
+                display: flex;
+                align-items: flex-start;
+                input + span {
+                    flex: 0 0 auto;
+                    margin: 0px 10px;
+                }
+            }
+        }
+    }
+}
+
+.company-dashboard .company-header{
+    &.list-row{
+        display: block;
+        padding: 20px 30px;
+        >.columns.is-multiline{
+            &:not(:last-of-type){
+                border-bottom: 1px solid var(--fade-grey-dark-3);
+            }
+        }
+    }
+}
+
+@media(min-width:769px) and (max-width:1100px){
+    .column.is-md-12{
+        width: 100%;
+    }
+}
+
+
 .is-dark{
 
     .card {

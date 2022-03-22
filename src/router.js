@@ -4,11 +4,11 @@ import {BaseLayout} from "../modules";
 import {useStorage} from "@vueuse/core";
 import {getTokenKey} from "./utils/storage";
 
-const initRouter = function (routes, base = "/") {
+const initRouter = function (routes, base = "/", config = {}) {
     routes = [
         {
             path: "",
-            beforeEnter: checkAuth(base),
+            beforeEnter: checkAuth(base, config),
             component: BaseLayout,
             children: [
                 {
@@ -26,54 +26,46 @@ const initRouter = function (routes, base = "/") {
                     name: "setting",
                     component: () => import('./pages/setting/Index.vue'),
                 },
-                // {
-                //     path: "/form",
-                //     redirect: "/form/all",
-                //     component: () => import('./pages/form/Index.vue'),
-                //     children: [
-                //         {
-                //             path: "create",
-                //             name: "form.create",
-                //             component: () => import('./pages/form/Create.vue'),
-                //         },
-                //         {
-                //             path: "all",
-                //             name: "form.all",
-                //             component: () => import('./pages/form/List.vue'),
-                //         },
-                //         {
-                //             path: ":id/edit",
-                //             name: "form.edit",
-                //             component: () => import('./pages/form/Create.vue'),
-                //         },
-                //
-                //     ]
-                // },
-                // {
-                //     path: "/country",
-                //     redirect: "/country/all",
-                //     component: () => import('./pages/country/Index.vue'),
-                //     children: [
-                //         {
-                //             path: "create",
-                //             name: "country.create",
-                //             component: () => import('./pages/country/Create.vue'),
-                //         },
-                //         {
-                //             path: "all",
-                //             name: "country.all",
-                //             component: () => import('./pages/country/List.vue'),
-                //         },
-                //         {
-                //             path: ":id/edit",
-                //             name: "country.edit",
-                //             component: () => import('./pages/country/Create.vue'),
-                //         },
-                //
-                //     ]
-                // },
+                {
+                    path: "role",
+                    redirect: "/role/all",
+                    component: () => import('./pages/role/Index.vue'),
+                    children: [
+                        {
+                            path: "create",
+                            name: "role.create",
+                            component: () => import('./pages/role/Create.vue'),
+                        },
+                        {
+                            path: "all",
+                            name: "role.all",
+                            component: () => import('./pages/role/List.vue'),
+                        },
+                        {
+                            path: ":id/edit",
+                            name: "role.edit",
+                            component: () => import('./pages/role/Create.vue'),
+                        },
+
+                    ]
+                },
                 ...routes,
             ]
+        },
+        {
+            path: "/404",
+            name: "error.404",
+            component: () => import('./pages/error/page-1'),
+        },
+        {
+            path: "/401",
+            name: "error.401",
+            component: () => import('./pages/error/401'),
+        },
+        {
+            path: "/500",
+            name: "error.500",
+            component: () => import('./pages/error/401'),
         },
     ];
     const router = createRouter({
@@ -85,13 +77,32 @@ const initRouter = function (routes, base = "/") {
      * Handle NProgress display on page changes
      */
 
-    router.beforeEach((to, from) => {
-        NProgress.start();
 
+    router.beforeEach((to, from) => {
+        let hasPermissions = _.get(config, 'app.permissions.enabled', false);
+        let toName = to.name ?? "";
+
+        if (
+            hasPermissions &&
+            !toName.includes("error") &&
+            !['login', 'dashboard'].includes(toName)
+        ) {
+            let $auth = useStorage(`${base}_user`, {});
+            let policies = $auth.value?.policies ? atob($auth.value?.policies).split(",") : [];
+            console.log('on PERMS', policies, toName, policies.includes(toName), toName.replace("all", "show"));
+            if (!policies.includes(toName) &&
+                !policies.includes(toName.replace("all", "show").replace("_", "-")) &&
+                !policies.includes(`others.${toName}`)
+            )
+                return {
+                    name: 'error.401'
+                };
+        }
+        NProgress.start();
     });
+
     router.afterEach((to, from) => {
         NProgress.done();
-
     });
     return router;
 };
@@ -99,9 +110,6 @@ const initRouter = function (routes, base = "/") {
 
 const generateRoutes = ({resource, folderName = null, path}, routes = []) => {
     folderName = folderName || _.camelCase(resource);
-    console.log('path', path);
-    // console.log('path',path.resolve(`/pages/${folderName}/Index.vue`));
-
     return {
         path: `${resource}`,
         name: resource,
@@ -137,7 +145,7 @@ const generateRoutes = ({resource, folderName = null, path}, routes = []) => {
 // };
 
 
-const checkAuth = (base) => {
+const checkAuth = (base, config = {}) => {
     return (to, from, next) => {
         let isAuthenticated = useStorage(getTokenKey(base), null).value;
         switch (true) {
@@ -155,6 +163,14 @@ const checkAuth = (base) => {
             default :
                 next();
         }
+
+
+        // if (hasPermissions) {
+        //
+        //     next({path: '/401'});
+        //
+        // } else
+        //     next();
     }
 };
 export {

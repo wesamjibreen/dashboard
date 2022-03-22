@@ -96,8 +96,6 @@ export default class App {
             this.load(app);
 
             app.mount('#app');
-
-
         });
         this.app = instance.app;
         // this.app.mount('#app');
@@ -134,7 +132,6 @@ export default class App {
         //     'lazy'
         // );
         // await register(list, app);
-
 
 
         // await requireCallback(
@@ -262,7 +259,9 @@ export default class App {
 
 
     useModules() {
+        // console.log('useModules',this.$i18n)
         this.modules.forEach((module) => this.instance().use(module));
+        this.app.use(this.$i18n);
         this.app.use(VueViewer);
         this.app.use(VueGoogleMaps, this.config?.app?.map ?? {});
         this.app.use(Datepicker);
@@ -283,7 +282,7 @@ export default class App {
     }
 
     initRouter() {
-        this.modules.push(initRouter(this.routes, this.base));
+        this.modules.push(initRouter(this.routes, this.base, this.config));
     }
 
     initModules() {

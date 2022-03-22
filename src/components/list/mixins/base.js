@@ -1,9 +1,31 @@
 import {useRoute} from "vue-router";
-import {getValueByLocale} from "../../../utils/helper";
+// import {getValueByLocale} from "../../../utils/helper";
 import exporting from "./export";
+import ImageHolder from "../partials/ImageHolder";
+import EditableInput from "../partials/EditableInput";
+import SwitchStatus from "../partials/SwitchStatus";
+import SortableView from "../partials/SortableView";
+import StatusLabel from "../partials/StatusLabel";
+import Action from "../partials/Action";
+import ActionGroup from "../partials/ActionGroup";
+import CheckboxField from "../../formBuilder/fields/CheckboxField";
+import Export from "../partials/Export";
+import TableView from "../partials/TableView";
 
 export default {
     mixins: [exporting],
+    components: {
+        TableView,
+        SortableView,
+        Export,
+        CheckboxField,
+        StatusLabel,
+        SwitchStatus,
+        EditableInput,
+        ImageHolder,
+        ActionGroup,
+        Action
+    },
     props: {
         resource: {
             required: false,
@@ -17,9 +39,7 @@ export default {
             default: [],
             type: Array
         },
-        hasSelect: {
-            default: true
-        }
+
     },
     data() {
         return {
@@ -42,23 +62,13 @@ export default {
         onActionGroupClick(actionGroup) {
 
         },
-        onSelectAllChange($event) {
-            if (!this.isAllSelected)
-                this.selected = _.map(this.rows, (row) => {
-                    return row.id
-                });
-            else
-                this.selected = [];
+
+
+        onSelect(selectedValues) {
+            this.selected = selectedValues;
         },
 
         init() {
-            // const route = useRoute();
-            // if (!route.query[this.pageKey]) {
-            //     let query = Object.assign({}, route.query);
-            //     query[this.pageKey] = 1;
-            //     this.$router.push({query})
-            // }
-
             this.onReload(() => {
                 this.fetch();
             });
@@ -78,7 +88,6 @@ export default {
                     true,
                     {
                         title: this.trans("sure_to_delete"),
-                        // message: this.trans("sure_to_delete_text"),
                         type: "warning",
                         callback: () => {
                             this.loading = true;
@@ -110,17 +119,17 @@ export default {
                     true,
                     {
                         title: this.trans("sure_to_delete"),
-                        // message: this.trans("sure_to_delete_text"),
                         type: "warning",
                         callback: () => {
                             this.loading = true;
                             this.request(
-                                this.$endPoint(`${this.resource}.delete`, row.id),
-                                {},
+                                this.$endPoint(`${this.resource}.multi_delete`),
+                                {selected: this.selected},
                                 ({data}) => {
                                     this.value = false;
                                     window.Bus.emit('confirmation-dialog', false);
                                     window.Bus.emit(`reload-table-${this.resource}`);
+                                    this.selected = [];
                                     this.successNotify(data.message);
                                 },
                                 (data) => {
@@ -142,13 +151,14 @@ export default {
         fetch(page = null) {
             page = page || this.queryPage;
             this.loading = true;
+            let params = {...this.filter, page};
+            if (this.isSortable)
+                params = {...params, no_pagination: true, order_by: "ordered", sort_by: "asc"};
+
             this.request(
                 this.fetchEndPoint,
                 {
-                    params: {
-                        ...this.filter,
-                        page,
-                    }
+                    params
                 },
                 ({data}) => {
                     [this.rows, this.paginator] = [data.data, data.paginator];
@@ -166,7 +176,7 @@ export default {
             if (column.value instanceof Function)
                 return column.value(row);
 
-            return getValueByLocale(_.get(row, column.value, defaultVal ?? ""));
+            return this.getValueByLocale(_.get(row, column.value, defaultVal ?? ""));
         },
         initActionEvent(slug, callback = Function) {
             this.$bus.off(`${slug}-${this.resource}-action-clicked`);
@@ -184,6 +194,12 @@ export default {
         }
     },
     computed: {
+        isSortable() {
+            return _.get(this, 'config.sortable', false);
+        },
+        hasSelect() {
+            return _.get(this, 'config.selectable', false);
+        },
         hasCreateBtn() {
             return _.get(this, 'config.createBtn', true);
         },
@@ -219,6 +235,11 @@ export default {
             return _.map(this.rows, (row) => {
                 return row.id;
             })
+        },
+        viewComponent() {
+            if (this.isSortable)
+                return "SortableView";
+            return "TableView";
         }
     },
 

@@ -43,6 +43,7 @@ export default {
         repeater: {
             required: false
         },
+        onInputChange: Function,
         multiLang: Boolean,
         locale: String
     },
@@ -105,7 +106,7 @@ export default {
             let model = this.model;
             let locale = this.locale$;
             let value = this.passingInput(newVal);
-
+            this.onChange(value, model, locale, this.formModule);
             if (this.fromModule)
                 this.$store.commit(`${this.formModule}/${SET_INPUT}`, {
                     model,
@@ -144,7 +145,28 @@ export default {
 
         onFetch() {
 
+        },
+
+        $setValue(model, value, form = null) {
+            /**
+             * this method is used to  set model's value to vuex form
+             * @author WeSSaM
+             */
+            form = form || this.formModule;
+            this.$store.commit(`${form}/${SET_INPUT}`, {model, value});
+        },
+
+
+        onChange(...args) {
+            /**
+             *  if input properties has on Change callback then it will be called with arguments
+             *  (newValue, current Model, locale, formModule)
+             *  @author WeSSaM
+             */
+            if (this.onInputChange instanceof Function)
+                this.onInputChange.bind(this)(...args);
         }
+
     },
     computed: {
         locale$() {
@@ -315,7 +337,7 @@ export default {
 
         $error() {
             return _.find(this.validator$, (error) => {
-            // return _.find(this.validator$.$silentErrors, (error) => {
+                // return _.find(this.validator$.$silentErrors, (error) => {
                 return error.$property === this.model$;
             })
         },

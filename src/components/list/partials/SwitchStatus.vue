@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :key="`${resource}_${slug}_${key}`">
         <SwitchField v-model="localInput" @update:modelValue="onSwitchChanged"/>
     </div>
 </template>
@@ -20,6 +20,7 @@
             slug: String
         },
         data: () => ({
+            key: "",
             localInput: null
             // input: null
         }),
@@ -28,8 +29,8 @@
         },
         methods: {
             onSwitchChanged($event) {
-                let params  = {};
-                params[this.slug]  = $event;
+                let params = {};
+                params[this.slug] = $event;
                 this.request(
                     this.updateEndPoint,
                     params,
@@ -53,8 +54,18 @@
             },
             rowId() {
                 return _.get(this, 'row.id', 0);
+            },
+            value() {
+                return this.row[this.slug];
             }
         },
+        watch: {
+            "value": {
+                handler(newVal) {
+                    this.localInput = newVal;
+                }
+            }
+        }
         // methods: {
         //     onChange() {
         //

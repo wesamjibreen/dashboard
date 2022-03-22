@@ -1,10 +1,21 @@
 // import {Notyf} from 'notyf'
 import useNotyfy from '../composable/useNotyf.js'
+import {mapState} from "vuex";
 
 export default {
+    data: () => ({
+        // locale: window.currentLocale
+    }),
+    created() {
+        console.log('$locale', this.$locale);
 
+        // alert(this.locale);
+        // window.Bus.on('on-language-changed', (newVal) => this.locale = newVal);
+        // this.locale =
+        // if (this.$base)
+        // this.locale =
+    },
     methods: {
-
         appConfig(key, defaultVal = "") {
             /**
              *  return config key from form's config object
@@ -41,12 +52,27 @@ export default {
         },
         errorNotify(message = "") {
             this.showNotify("error", message);
+        },
+        getValueByLocale(value, defaultVal = "") {
+            if (!(value instanceof Object))
+                return value;
+            return _.get(value, this.$locale, _.get(Object.entries(value), '0.1', defaultVal));
         }
     },
     computed: {
+        $locale() {
+            return this.$i18n.global.locale?.value
+        },
         notify() {
             return useNotyfy();
             // return new Notyf()
-        }
+        },
+        // ...mapState({
+        //     locale: (state) => {
+        //         console.log('currentLanguage',state);
+        //         return window.currentLocale;
+        //     }
+        // })
+
     }
 }

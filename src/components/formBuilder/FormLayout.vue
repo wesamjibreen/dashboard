@@ -73,14 +73,7 @@
                         });
                         result[input.model] = rules;
                     });
-                    // inputs = [...inputs, ...fieldSet.inputs];
-                    // return [...JSON.parse(JSON.stringify(result)), ...value.inputs];
                 });
-
-                // let result = {};
-
-
-                console.log('validations', result);
 
                 return {
                     form: result
@@ -93,40 +86,6 @@
                     return this.errorNotify(this.trans('enter_valid_data'));
                 else
                     this.submit();
-                // this.loading = true;
-                // this.$emitEvent('before-submit', this.form);
-                //
-                // this.request(
-                //     this.submitEndPoint(),
-                //     this.form,
-                //     ({data}) => {
-                //         // this.$emitEvent('form-success', data);
-                //         // this.successNotify(data.message);
-                //         // this.onSubmitSuccess(data);
-                //         // if (!this.isCrud)
-                //         //     this.redirect();
-                //
-                //         // resolve(data);
-                //     },
-                //     (xhr) => {
-                //         // this.loading = false;
-                //         // let errors = _.get(xhr, 'data.data', {});
-                //         // this.attachErrors(errors);
-                //         // this.$emitEvent('form-error', xhr);
-                //         // let message = _.get(
-                //         //     xhr,
-                //         //     "data.message",
-                //         //     this.trans("error_while_processing")
-                //         // );
-                //         // this.errorNotify("error", message);
-                //         // this.onSubmitError(xhr);
-                //
-                //         // reject(xhr);
-                //     },
-                //     () => {
-                //         // this.loading = false;
-                //     });
-
             },
             onCancel() {
                 this.$emit('cancel');
@@ -139,7 +98,6 @@
             isStuck() {
                 return y.value > 30;
             },
-
             rules() {
                 return {
                     required,
@@ -149,8 +107,6 @@
                 set(newVal) {
                     this.$store.commit(`${this.formModule}/${SET_SUBMITTED}`, newVal);
                 },
-
-
                 get() {
                     return this.form?.isSubmitted
                 }
@@ -159,12 +115,6 @@
         watch: {
             "v$.$silentErrors": {
                 deep: true,
-                // immediate: true,
-                // handler: _.debounce(function(newVal)  {
-                //     // if (this.$store.hasModule(this.formModule))
-                //     //     this.$store.commit(`${this.formModule}/${UPDATE_VALIDATOR}`, newVal)
-                // }, 1000),
-
                 handler: function (newVal) {
                     if (this.$store.hasModule(this.formModule))
                         this.$store.commit(`${this.formModule}/${UPDATE_VALIDATOR}`, newVal)
@@ -172,42 +122,8 @@
             }
         },
         validations() {
-            // return {
-            //
-            // };
-
             return this.validations;
-            // let inputs = [];
-            // let result = {};
-            //
-            // _.forEach(this.fieldSets$, (fieldSet) => {
-            //     _.forEach(fieldSet.inputs, (input) => {
-            //         let rules = {};
-            //         _.forEach(input.rules, (value, key) => {
-            //             if (value)
-            //                 rules[key] = this.rules[key];
-            //         });
-            //         result[input.model] = rules;
-            //     });
-            //     // inputs = [...inputs, ...fieldSet.inputs];
-            //     // return [...JSON.parse(JSON.stringify(result)), ...value.inputs];
-            // });
-            //
-            // // let result = {};
-            //
-            //
-            // console.log('validations', result);
-            //
-            // return {
-            //     form: result
-            // };
-
-            // return {
-            //     form: result
-            // }
         }
-
-
     }
 </script>
 

@@ -60,32 +60,29 @@
 <script>
     import {sidebar} from "../../mixins";
     import {useRoute} from "vue-router";
+    import {useStorage} from '@vueuse/core'
 
     export default {
         mixins: [sidebar],
+        setup() {
+            const route = useRoute();
+
+            return {
+                route
+            }
+        },
         data() {
             return {
                 activeIndex: undefined
             }
         },
-        beforeUpdate() {
-            let route = useRoute();
-            console.log('beforeUpdate', route.name)
-            // this.setActiveItem();
-
-        },
         created() {
-            // let route = useRoute();
-            // this.$watch(route.name, () => {
-            //     alert('okk');
-            // }, {deep: true, immediate: true});
-
             this.setActiveItem();
         },
         methods: {
             setActiveItem() {
-                let route = useRoute();
-                let resourceName = (route.name ?? "").split(".")?.[0];
+                let route = this.route?.name ?? "";
+                let resourceName = route.split(".")?.[0];
                 this.activeIndex = _.findIndex(this.menu, {children: [{key: resourceName}]});
             },
 
@@ -114,17 +111,41 @@
         },
         computed: {
             menu() {
-                return _.get(this.$instance, 'config.menu', [])
+                let menuItems = _.get(this.$instance, 'config.menu', []);
+                if (this.appConfig('permissions.enabled', false)) {
+                    let filteredMenu = [];
+                    let policies = this.userPolicies ?? [];
+
+                    _.forEach(menuItems, (item) => {
+                        // if (item.key == "dashboard")
+                        //     filteredMenu.push(item);
+
+                        let children = _.filter(item.children, (child) => {
+                            let childKey = child.key.replace("_", "-");
+                            return policies.includes(`${childKey}.show`) || policies.includes(`${childKey}`) || policies.includes(`others.${childKey}`);
+                        });
+                        if (children.length > 0 || policies.includes(`others.${item.key}`)) {
+                            item.children = children;
+                            filteredMenu.push(item);
+                        }
+                    });
+
+                    return filteredMenu;
+                }
+                return menuItems;
             },
             logo() {
                 return this.appConfig('logo.light')
+            },
+            userPolicies() {
+                let $auth = useStorage(`${this.$base}_user`, {});
+                let policies = $auth.value?.policies;
+                return policies ? atob(policies).split(",") : [];
             }
-
         },
         watch: {
-            '$route.name': {
-                handler() {
-                    alert('okk');
+            'route.name': {
+                handler(newVal) {
                     this.setActiveItem()
                 }
             }

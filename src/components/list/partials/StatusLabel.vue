@@ -26,7 +26,7 @@
                 return _.get(this.row, this.slug, {});
             },
             label$() {
-                return _.get(this.status$, 'name')
+                return this.getValueByLocale(this.status$?.name ?? "");
             },
             color$() {
                 return _.get(this.status$, this.path$, 'warning');

@@ -1,6 +1,7 @@
 import {createApp as createClientApp, h, resolveDynamicComponent, Transition} from "vue";
 import {RouterView} from "vue-router";
 import CKEditor from '@mayasabha/ckeditor4-vue3';
+import useNotify from "../Modules/Supervisor/Resources/js/composable/useNotify";
 
 // const hPath = require('path');
 
@@ -65,9 +66,10 @@ export async function createApp({enhanceApp, modules}) {
             }
         },
     });
+    let router = modules[1];
+
     // router.beforeEach((to, from) => {
-    //     const userSession = useAuthUser()
-    //     if (!to.meta.withoutAuth && !userSession.isLoggedIn) {
+    //     if (true) {
     //         let query = {};
     //         if (to.fullPath !== "/") {
     //             const notif = useNotify();
@@ -79,13 +81,12 @@ export async function createApp({enhanceApp, modules}) {
     //         }
     //
     //         return {
-    //             name: 'auth.login',
+    //             name: 'login',
     //             query
     //         }
     //     }
     // });
 
-    let router = modules[1];
     // app.use(head);
     app.use(router);
     app.use(CKEditor);

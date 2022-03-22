@@ -4,11 +4,11 @@
 
 
 
-        <div class="columns is-multiline">
-            <div v-for="{component , ...item} in sections" :class="`column is-${item.cols ?? 12}`">
-                <component :is="component" v-bind="item"/>
-            </div>
-        </div>
+        <!--<div class="columns is-multiline">-->
+            <!--<div v-for="{component , ...item} in sections" :class="`column is-${item.cols ?? 12}`">-->
+                <!--<component :is="component" v-bind="item"/>-->
+            <!--</div>-->
+        <!--</div>-->
     </div>
 </template>
 

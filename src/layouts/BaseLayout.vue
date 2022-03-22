@@ -13,7 +13,7 @@
     import AppLayout from "./AppLayout";
     import {computed, inject, reactive} from "vue";
     import {useHead} from "@vueuse/head";
-    import {useRoute} from "vue-router";
+    import {useRoute, useRouter} from "vue-router";
     import {useI18n} from 'vue-i18n';
     import {SET_COUNTRIES, SET_LANGUAGES} from "../store/modules/setting.module";
 
@@ -25,9 +25,14 @@
             const config = inject('$config');   // injecting variable in setup
             // const base = inject('$base');   // injecting variable in setup
             // let token = useStorage(getTokenKey(base), null);
-
+            // window.Bus.on('on-language-changed', (newVal) => {
+            //     window.currentLocale = newVal;
+            //     console.log('onchagne', window.currentLocale);
+            //
+            // });
             const store = useStore();
 
+            const router = useRouter();
             //
             // const AppLayout = defineComponent(AppLayout);
             // const AuthLayout = defineComponent(AuthLayout);
@@ -68,7 +73,8 @@
                 AppLayout,
                 AuthLayout,
                 isAuthenticated,
-                layout
+                layout,
+                router
             }
         },
         components: {
@@ -137,7 +143,14 @@
                     return;
 
                 this.initCountries();
-            }
+            },
+            // '$router.path': {
+            //     deep: true,
+            //     immediate : true,
+            //     handler(newVal) {
+            //         alert(newVal);
+            //     }
+            // }
         }
     }
 </script>

@@ -12,6 +12,7 @@
     const store = useStore();
 
     const base = inject('$base');
+    const $bus =  inject('$bus');
     /**
      * We use the same storage key as we use in the /src/i18n.ts file
      * so if user reload the page, the selected language will be the same
@@ -40,7 +41,9 @@
      */
     watch(locale, () => {
         setDirection(dir.value);
-        defaultLocale.value = locale.value
+        defaultLocale.value = locale.value;
+        $bus.emit('on-language-changed', locale.value);
+        window.currentLocale = locale.value;
     });
 
 
@@ -85,111 +88,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!--<div class="language-box">-->
-                    <!--<div class="language-option">-->
-                    <!--<input-->
-                    <!--v-model="locale"-->
-                    <!--type="radio"-->
-                    <!--name="language_selection"-->
-                    <!--value="fr"-->
-                    <!--/>-->
-                    <!--<div class="language-option-inner">-->
-                    <!--<img src="/images/icons/flags/france.svg" alt=""/>-->
-                    <!--<div class="indicator">-->
-                    <!--<i-->
-                    <!--aria-hidden="true"-->
-                    <!--class="iconify"-->
-                    <!--data-icon="feather:check"-->
-                    <!--&gt;</i>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</div>-->
-
-                    <!--<div class="language-box">-->
-                    <!--<div class="language-option">-->
-                    <!--<input-->
-                    <!--v-model="locale"-->
-                    <!--type="radio"-->
-                    <!--name="language_selection"-->
-                    <!--value="es"-->
-                    <!--/>-->
-                    <!--<div class="language-option-inner">-->
-                    <!--<img src="/images/icons/flags/spain.svg" alt=""/>-->
-                    <!--<div class="indicator">-->
-                    <!--<i-->
-                    <!--aria-hidden="true"-->
-                    <!--class="iconify"-->
-                    <!--data-icon="feather:check"-->
-                    <!--&gt;</i>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</div>-->
-
-                    <!--<div class="language-box">-->
-                    <!--<div class="language-option">-->
-                    <!--<input-->
-                    <!--v-model="locale"-->
-                    <!--type="radio"-->
-                    <!--name="language_selection"-->
-                    <!--value="de"-->
-                    <!--/>-->
-                    <!--<div class="language-option-inner">-->
-                    <!--<img src="/images/icons/flags/germany.svg" alt=""/>-->
-                    <!--<div class="indicator">-->
-                    <!--<i-->
-                    <!--aria-hidden="true"-->
-                    <!--class="iconify"-->
-                    <!--data-icon="feather:check"-->
-                    <!--&gt;</i>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</div>-->
-
-                    <!--<div class="language-box">-->
-                    <!--<div class="language-option">-->
-                    <!--<input-->
-                    <!--v-model="locale"-->
-                    <!--type="radio"-->
-                    <!--name="language_selection"-->
-                    <!--value="es-MX"-->
-                    <!--/>-->
-                    <!--<div class="language-option-inner">-->
-                    <!--<img src="/images/icons/flags/mexico.svg" alt=""/>-->
-                    <!--<div class="indicator">-->
-                    <!--<i-->
-                    <!--aria-hidden="true"-->
-                    <!--class="iconify"-->
-                    <!--data-icon="feather:check"-->
-                    <!--&gt;</i>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</div>-->
-
-                    <!--<div class="language-box">-->
-                    <!--<div class="language-option">-->
-                    <!--<input-->
-                    <!--v-model="locale"-->
-                    <!--type="radio"-->
-                    <!--name="language_selection"-->
-                    <!--value="zh-CN"-->
-                    <!--/>-->
-                    <!--<div class="language-option-inner">-->
-                    <!--<img src="/images/icons/flags/china.svg" alt=""/>-->
-                    <!--<div class="indicator">-->
-                    <!--<i-->
-                    <!--aria-hidden="true"-->
-                    <!--class="iconify"-->
-                    <!--data-icon="feather:check"-->
-                    <!--&gt;</i>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</div>-->
                 </div>
 
                 <div class="img-wrap has-text-centered">

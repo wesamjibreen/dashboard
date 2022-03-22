@@ -25,17 +25,16 @@ export default {
         multiple: Boolean,
         async: Boolean
     },
-
-    data() {
-        return {
-            options: []
-        };
-    },
+    data: () => ({
+        loading: false,
+        options: [],
+        q: null,
+    }),
     created() {
         // this.onInputCreated();
         // this.onInputChanges();
         // this.dispatchFetchOptionsAction();
-        if (this.endPoint)
+        if (this.endPoint &&  !this.async)
             this.fetchOptions();
 
         // this.$root.$on(
@@ -57,18 +56,29 @@ export default {
                 // this.$store.dispatch(`setting/${UPDATE_OPTIONS}`, this);
             }
         },
+
         async fetchOptions() {
             /**
              * refresh options by sending new request to end point
              * @author WeSSaM
              */
-                // alert('fetchOptions');
-                // console.log('fetchOptions', this.$endPoint(this.endPoint.name, this.endPoint.params));
-            let _this = this;
-            // _this.is_loading = true;
+
+            if (!this.endPoint?.name)
+                return;
+
+            // console.log('on search', {
+            //     q: this.q,
+            //     ...this.endPoint?.params ?? {},
+            // })
+            this.loading = true;
             await this.request(
-                this.$endPoint(this.endPoint.name, this.endPoint.params),
-                {params: this.endPoint.params},
+                this.$endPoint(this.endPoint?.name, this.endPoint?.params),
+                {
+                    params: {
+                        q: this.q,
+                        ...this.endPoint?.params ?? {},
+                    }
+                },
                 ({data}) => {
                     if (data.data.data != undefined) this.options = data.data.data;
                     else
@@ -92,7 +102,7 @@ export default {
                     this.options = [];
                 },
                 () => {
-                    // _this.is_loading = false;
+                    this.loading = false;
                 }
             );
         },
@@ -178,7 +188,15 @@ export default {
              * @author WeSSaM
              */
             return /^-?[\d.]+(?:e-?\d+)?$/.test(n);
-        }
+        },
+
+
+        onSearch: _.debounce(function (q) {
+            this.q = q;
+            if (this.async)
+                this.fetchOptions();
+        }, 1000),
+
     },
 
     computed: {
@@ -199,9 +217,9 @@ export default {
         optionsData: function () {
             let options = this.options$;
 
-            if (this.async) {
-                return [];
-            }
+            // if (this.async) {
+            //     return [];
+            // }
 
             // /**
             //  * check if properties has End Point
@@ -235,7 +253,9 @@ export default {
                 });
             else
                 options = _.map(JSON.parse(JSON.stringify(options)), (option) => {
-                    option[this.optionName] = getValueByLocale(option?.[this.optionName]);
+                    option[this.optionName] = this.getValueByLocale(option?.[this.optionName]);
+                    console.log('getValueByLocale', option[this.optionName]);
+
                     return option;
                 });
 

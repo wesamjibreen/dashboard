@@ -20,6 +20,7 @@ const columns = [
     //     value: "actions"
     // },
 ];
+
 const actions = [
     {
         slug: "edit",

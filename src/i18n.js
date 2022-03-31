@@ -59,6 +59,18 @@ export const common = {
         export_to_excel: "تصدير إلى إكسل",
         export_to_pdf: "تصدير إلى PDF",
         "Value is required" : "هذا الحقل مطلوب",
+        download_sample_text: "من فضلك قم بتحميل هذا النموذج أولاً , واجعل بياناتك بنفس تصنيف النموذج وبنفس لغة الموقع  ",
+        download_sample: "قم بتحميل النموذج",
+        pick_file_text: "قم برفع ملفك هنا ",
+        pick_file: "ارفاق الملف",
+        upload_file_text: "قم برفع ملفك هنا ",
+        upload_file: "رفع الملف ",
+        uploading: "يتم الارفاق",
+        import_excel: "استيراد البيانات",
+        add_marker: "اضافة علامة",
+        add_polygon: "اضافة منطقة",
+        reset_markers: "حذف العلامات",
+        reset_polygons: "حذف المناطق",
     },
     en: {
         welcome: "Welcome",
@@ -97,6 +109,20 @@ export const common = {
         all : "Show",
         "Value is required" : "Value is required",
         enter_valid_data: "Make sure that you've entered valid data",
+        download_sample_text: "Please download this sample firstly, and make your data matching with sample category and site language",
+        download_sample: "Download the form",
+        pick_file_text: "Upload your file here",
+        pick_file: "attach the file",
+        upload_file_text: "Upload your file here",
+        upload_file: "upload file",
+        uploading: "is attached",
+        import_excel: "Import Excel",
+        export_to_pdf: "Export PDF",
+        add_marker: "Add Marker",
+        add_polygon: "Add Polygon",
+        reset_markers: "Reset Markers",
+        reset_polygons: "Reset Polygons",
+
 
     },
     tr: {
@@ -125,6 +151,6 @@ export const common = {
         all : "Show",
         export_to_excel: "Export Excel",
         export_to_pdf: "Export PDF",
-
+        upload_file : "Upload File",
     }
 };

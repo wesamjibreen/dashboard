@@ -114,6 +114,10 @@
 }
 
 html[dir="rtl"] {
+    .vac-message-actions-wrapper .vac-options-container {
+        right: auto;
+        left: 0;
+    }
     .vac-box-search .vac-input {
         padding: 10px 40px 10px 10px;
     }

@@ -1,4 +1,4 @@
-import {useRoute} from "vue-router";
+import { useRoute } from "vue-router";
 // import {getValueByLocale} from "../../../utils/helper";
 import exporting from "./export";
 import ImageHolder from "../partials/ImageHolder";
@@ -35,6 +35,7 @@ export default {
         actions: Array,
         filters: Array,
         config: Object,
+        importing: Object,
         actionGroups: {
             default: [],
             type: Array
@@ -52,13 +53,20 @@ export default {
             paginator: null,
             isAllSelected: null,
             excelLoading: false,
-            selected: []
+            selected: [],
+            perPage: 10
         }
     },
     created() {
         this.init();
     },
     methods: {
+        onPerPageCountChange(perPage) {
+            this.perPage = perPage
+            this.fetch();
+        },
+
+
         onActionGroupClick(actionGroup) {
 
         },
@@ -81,7 +89,7 @@ export default {
 
         initAction() {
             this.initActionEvent('edit', (row, data = {}) => {
-                this.$router.push({name: `${this.resource}.edit`, params: {id: row.id}});
+                this.$router.push({ name: `${this.resource}.edit`, params: { id: row.id } });
             });
             this.initActionEvent('delete', (row, data = {}) => {
                 this.$bus.emit('confirmation-dialog',
@@ -94,7 +102,7 @@ export default {
                             this.request(
                                 this.$endPoint(`${this.resource}.delete`, row.id),
                                 {},
-                                ({data}) => {
+                                ({ data }) => {
                                     this.value = false;
                                     window.Bus.emit('confirmation-dialog', false);
                                     window.Bus.emit(`reload-table-${this.resource}`);
@@ -124,8 +132,8 @@ export default {
                             this.loading = true;
                             this.request(
                                 this.$endPoint(`${this.resource}.multi_delete`),
-                                {selected: this.selected},
-                                ({data}) => {
+                                { selected: this.selected },
+                                ({ data }) => {
                                     this.value = false;
                                     window.Bus.emit('confirmation-dialog', false);
                                     window.Bus.emit(`reload-table-${this.resource}`);
@@ -146,21 +154,21 @@ export default {
         },
 
         addNew() {
-            this.$router.push({name: `${this.resource}.create`});
+            this.$router.push({ name: `${this.resource}.create` });
         },
         fetch(page = null) {
             page = page || this.queryPage;
             this.loading = true;
-            let params = {...this.filter, page};
+            let params = { ...this.filter, page, perPage: this.perPage };
             if (this.isSortable)
-                params = {...params, no_pagination: true, order_by: "ordered", sort_by: "asc"};
+                params = { ...params, no_pagination: true, order_by: "ordered", sort_by: "asc" };
 
             this.request(
                 this.fetchEndPoint,
                 {
                     params
                 },
-                ({data}) => {
+                ({ data }) => {
                     [this.rows, this.paginator] = [data.data, data.paginator];
                 },
                 () => {
@@ -202,6 +210,9 @@ export default {
         },
         hasCreateBtn() {
             return _.get(this, 'config.createBtn', true);
+        },
+        hasImportBtn() {
+            return _.get(this, 'config.importBtn', true);
         },
         hasActionGroups() {
             return (this.actionGroups ?? []).length > 0;
@@ -255,9 +266,9 @@ export default {
             // immediate: true,
             deep: true,
             handler: _.debounce(function (newVal) {
-                let query = {...this.$route.query, ...newVal};
+                let query = { ...this.$route.query, ...newVal };
                 query[this.pageKey] = 1;
-                this.$router.push({query});
+                this.$router.push({ query });
                 this.fetch();
                 console.log('filters', newVal);
             }, 500)

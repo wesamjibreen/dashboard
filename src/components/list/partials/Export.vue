@@ -1,34 +1,6 @@
 <template>
     <div class="invoice">
-        <!--<div class="invoice-header">-->
-        <!--<div class="header-right">-->
-        <!--<h4>مركزز : شركة محركي التجارية</h4>-->
-        <!--<h4>الادارة</h4>-->
-        <!--</div>-->
-        <!--<div class="header-center">-->
-        <!--<h3 style="margin-bottom:10px">تقرير المبيعات</h3>-->
-        <!--<h4>  التقرير اليومي | <span>3-3-2022</span></h4>-->
-        <!--</div>-->
-        <!--<div class="header-left">-->
-        <!--<img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Wikimedia-logo.png" class="logo" alt="">-->
-        <!--</div>-->
-        <!--</div>-->
 
-        <!--<table ref="exporting" style="border:1px solid black;">-->
-        <!--<tr>-->
-        <!--<th style="border:1px solid black;" v-for="column in columns">-->
-        <!--{{ trans(column.text) }}-->
-        <!--</th>-->
-        <!--</tr>-->
-        <!--<tr v-for="item in exportedData">-->
-        <!--<td style="border:1px solid black;" v-for="column in exportingColumns">-->
-        <!--<img v-if="validURL(rowValue(column,item))" :src="rowValue(column,item)"/>-->
-        <!--<span v-else>-->
-        <!--{{ rowValue(column,item) }}-->
-        <!--</span>-->
-        <!--</td>-->
-        <!--</tr>-->
-        <!--</table>-->
         <div class="invoice-body">
             <table class="invoice-table">
                 <thead>

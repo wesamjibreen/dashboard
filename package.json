@@ -1,6 +1,6 @@
 {
   "name": "nawadash",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "Vue3 Functional Dashboard",
   "main": "index.js",
   "scripts": {
@@ -75,6 +75,7 @@
     "notyf": "^3.10.0",
     "nprogress": "^0.2.0",
     "path": "^0.12.7",
+    "read-excel-file": "^5.2.28",
     "simple-datatables": "^3.2.0",
     "smart-tagz": "^0.3.1",
     "tiny-emitter": "^2.1.0",

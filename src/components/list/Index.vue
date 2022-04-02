@@ -30,16 +30,6 @@
                             {{ trans("export_to_excel") }}
                         </VButton>
                         <VButton
-                            v-if="hasCreateBtn"
-                            color="primary"
-                            icon="fas fa-plus"
-                            elevated
-                            class="btn-list"
-                            @click="addNew"
-                        >
-                            {{ trans("add_new") }}
-                        </VButton>
-                        <VButton
                             v-if="hasImportBtn"
                             color="info"
                             icon="fas fa-file-excel"
@@ -49,6 +39,17 @@
                         >
                             {{ trans("import_excel") }}
                         </VButton>
+                        <VButton
+                            v-if="hasCreateBtn"
+                            color="primary"
+                            icon="fas fa-plus"
+                            elevated
+                            class="btn-list"
+                            @click="addNew"
+                        >
+                            {{ trans("add_new") }}
+                        </VButton>
+
                     </VButtons>
                 </div>
             </div>

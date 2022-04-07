@@ -114,7 +114,7 @@
                     </span>
                     <p>
 
-                        {{   getValueByLocale(item.textKey) }}
+                        {{   getValueByLocale(item.name) }}
 
 
                     </p>

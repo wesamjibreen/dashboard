@@ -1,6 +1,5 @@
 <template>
     <div class="invoice">
-
         <div class="invoice-body">
             <table class="invoice-table">
                 <thead>

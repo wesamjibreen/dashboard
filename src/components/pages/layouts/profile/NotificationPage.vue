@@ -3,243 +3,98 @@
     <div class="timeline-header"></div>
     <div class="timeline-wrapper-inner">
       <div class="timeline-container">
-        <!--Timeline item-->
-        <div class="timeline-item is-unread">
-          <div class="date">
+        <!-- notifications list -->
+        <div v-if="notifications.length > 0">
+          <div
+            class="timeline-item"
+            v-for="(notification, index) in notifications"
+            :key="index"
+          >
+            <!-- <div class="date">
             <span>Sep 23, 2020</span>
-          </div>
-          <div class="dot is-info"></div>
-          <div class="content-wrap">
-            <div class="content-box">
-              <div class="status"></div>
-              <VAvatar picture="/panel/images/avatars/svg/vuero-13.svg" />
-
-              <div class="box-text">
-                <div class="meta-text">
-                  <p>
-                    <span>Tara S.</span> added you to the
-                    <a>Barber Website Redesign Project</a>.
-                  </p>
-                  <span>11:42 am</span>
-                </div>
-              </div>
-              <div class="box-end">
-                <VAvatar
-                  size="small"
-                  picture="/panel/images/avatars/svg/vuero-1.svg"
+          </div> -->
+            <!-- <div class="dot is-danger"></div> -->
+            <div class="content-wrap">
+              <div class="content-box">
+                <!-- <div class="status"></div> -->
+                <!-- <VAvatar :picture="notification.image" /> -->
+                <img
+                  alt=""
+                  :src="
+                    notification.image ||
+                    require('../../../../assets/notification_icon.png')
+                  "
                 />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!--Timeline item-->
-        <div class="timeline-item is-unread">
-          <div class="date">
-            <span>Sep 23, 2020</span>
-          </div>
-          <div class="dot is-danger"></div>
-          <div class="content-wrap">
-            <div class="content-box">
-              <div class="status"></div>
-              <VAvatar picture="/images/avatars/23.jpg" />
-
-              <div class="box-text">
-                <div class="meta-text">
-                  <p>
-                    <span>Irina V.</span> left a comment on a <a>Task</a>, in
-                    <a>Corporate Tools Rebranding</a>.
-                  </p>
-                  <span>9:18 am</span>
+                <div class="mx-4">
+                  <div class="">
+                    <p>
+                      {{ notification.image }}
+                    </p>
+                    <p>
+                      {{ notification.body }}
+                    </p>
+                    <!-- <span>{{ notification.date }}</span> -->
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        <!--Timeline item-->
-        <div class="timeline-item">
-          <div class="date">
-            <span>Sep 22, 2020</span>
-          </div>
-          <div class="dot is-success"></div>
-          <div class="content-wrap">
-            <div class="content-box">
-              <div class="status"></div>
-              <VAvatar picture="/panel/images/avatars/svg/vuero-5.jpg" />
-
-              <div class="box-text">
-                <div class="meta-text">
-                  <p>
-                    <span>Mary L.</span> added 3 new members to the
-                    <a>Blake &amp; Mortimer Project</a>.
-                  </p>
-                  <span>9:18 am</span>
-                </div>
-              </div>
-              <div class="box-end">
-                <VAvatar size="small" color="warning" initials="BT" />
-                <VAvatar size="small" picture="/images/avatars/18.jpg" />
-                <VAvatar size="small" color="info" initials="JD" />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!--Timeline item-->
-        <div class="timeline-item">
-          <div class="date">
-            <span>Sep 23, 2020</span>
-          </div>
-          <div class="dot is-purple"></div>
-          <div class="content-wrap">
-            <div class="content-box">
-              <div class="status"></div>
-              <VAvatar picture="/panel/images/avatars/svg/vuero-12.svg" />
-
-              <div class="box-text">
-                <div class="meta-text">
-                  <p>
-                    <span>Joshua S.</span> changed the status of a
-                    <a>Task</a> from
-                    <VTag label="Pending" color="purple" rounded />
-                    to
-                    <VTag label="Completed" color="green" rounded />
-                  </p>
-                  <span>9:18 am</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!--Timeline item-->
-        <div class="timeline-item">
-          <div class="date">
-            <span>Sep 22, 2020</span>
-          </div>
-          <div class="dot is-warning"></div>
-          <div class="content-wrap">
-            <div class="content-box">
-              <div class="status"></div>
-              <VAvatar picture="/images/avatars/26.jpg" />
-
-              <div class="box-text">
-                <div class="meta-text">
-                  <p>
-                    <span>Courtney W.</span> uploaded 2 new files to the
-                    <a>Blake &amp; Mortimer Project</a>.
-                  </p>
-                  <span>9:18 am</span>
-                </div>
-              </div>
-              <div class="box-end">
-                <VAvatar
-                  size="small"
-                  squared
-                  picture="/demo/photos/apps/5.png"
-                />
-                <VAvatar
-                  size="small"
-                  squared
-                  picture="/demo/photos/apps/8.png"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!--Timeline item-->
-        <div class="timeline-item">
-          <div class="date">
-            <span>Sep 23, 2020</span>
-          </div>
-          <div class="dot is-info"></div>
-          <div class="content-wrap">
-            <div class="content-box">
-              <div class="status"></div>
-              <VAvatar picture="/images/avatars/31.jpg" />
-
-              <div class="box-text">
-                <div class="meta-text">
-                  <p>
-                    <span>Yassine A.</span> mentionned you in a
-                    <a>comment</a> on <a>Delivery tracking Dashboard</a>.
-                  </p>
-                  <span>11:42 am</span>
-                </div>
-              </div>
-              <div class="box-end">
-                <VAvatar
-                  size="small"
-                  picture="/panel/images/avatars/svg/vuero-1.svg"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!--Timeline item-->
-        <div class="timeline-item">
-          <div class="date">
-            <span>Sep 23, 2020</span>
-          </div>
-          <div class="dot is-danger"></div>
-          <div class="content-wrap">
-            <div class="content-box">
-              <div class="status"></div>
-              <VAvatar picture="/panel/images/avatars/svg/vuero-13.svg" />
-
-              <div class="box-text">
-                <div class="meta-text">
-                  <p>
-                    <span>Tara S.</span> left a comment on a <a>Task</a>, in
-                    <a>Corporate Tools Rebranding</a>.
-                  </p>
-                  <span>9:18 am</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!--Timeline item-->
-        <div class="timeline-item">
-          <div class="date">
-            <span>Sep 23, 2020</span>
-          </div>
-          <div class="dot is-purple"></div>
-          <div class="content-wrap">
-            <div class="content-box">
-              <div class="status"></div>
-              <VAvatar picture="/panel/images/avatars/svg/vuero-25.svg" />
-
-              <div class="box-text">
-                <div class="meta-text">
-                  <p>
-                    <span>Melany W.</span> changed the status of a
-                    <a>Task</a> from
-                    <VTag label="Overdue" color="danger" rounded />
-                    to
-                    <VTag label="Completed" color="green" rounded />
-                  </p>
-                  <span>9:18 am</span>
-                </div>
-              </div>
+        <div v-else class="">
+          <div class="columns pa-6 is-mobile is-centered">
+            <div class="column is-half">
+              <h1>no notifications</h1>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="load-more-wrap has-text-centered">
-        <VButton dark-outlined>Load More</VButton>
-      </div>
+      <!-- <div
+        v-if="notifications.length > 0"
+        class="load-more-wrap has-text-centered"
+      >
+        <VButton dark-outlined @click="loadMoreClick">Load More</VButton>
+      </div> -->
     </div>
   </div>
 </template>
 
+<script setup>
+import { computed, ref, reactive, defineComponent, onMounted } from "vue";
+import {
+  messaging,
+  getFCMToken,
+  subscribeTokenToTopic,
+  firebaseSettings,
+  onNotificationMessage,
+} from "../../../../plugins/firebase";
+import { useStore } from "vuex";
+import useNotifications from "../../../../composable/useNotifications";
+
+const store = useStore();
+const user = computed(() => {
+  return store.getters["currentUser"];
+});
+
+const notifications = ref([]);
+
+onMounted(() => {
+  const notis = useNotifications();
+  onNotificationMessage(function (payload) {
+    notis.fetchNotifications(function (notifis) {
+      notifications.value = notifis;
+    });
+  });
+
+  notis.fetchNotifications(function (notifis) {
+    notifications.value = notifis;
+  });
+});
+</script>
+
+
 <style lang="scss" scoped>
-@import '../../../../scss/abstracts/_mixins.scss';
+@import "../../../../scss/abstracts/_mixins.scss";
 
 /*
   1. Timeline
@@ -266,7 +121,7 @@
         margin-bottom: 10px;
 
         &::before {
-          content: '';
+          content: "";
           position: absolute;
           top: 46px;
           left: 111px;

@@ -1,5 +1,5 @@
 import html2pdf from "html2pdf.js";
-import { saveExcel } from "@progress/kendo-vue-excel-export";
+import {saveExcel} from "@progress/kendo-vue-excel-export";
 
 const FRONT_SOURCE = 'front';
 const BACK_SOURCE = 'backend';
@@ -67,7 +67,8 @@ export default {
             });
 
             this.fetchExporting((data) => {
-                columns = this.getResourceColumns(data.data);
+                if (columns.length === 0)
+                    columns = this.getResourceColumns(data.data);
                 console.log('this.parseToExport(data.data,columns) columns', columns);
                 console.log('this.parseToExport(data.data,columns) data', data.data);
                 console.log('this.parseToExport(data.data,columns)', this.parseToExport(data.data, columns));
@@ -83,11 +84,11 @@ export default {
             // var element = document.getElementById('body');
             this.loadingPdf = true;
             var opt = {
-                pagebreak: { mode: ['avoid-all'] },
+                pagebreak: {mode: ['avoid-all']},
                 margin: 0.5,
                 filename: `${this.resource}-${new Date().getTime()}.pdf`,
-                image: { type: 'jpeg', quality: 0.9 },
-                html2canvas: { scale: 3 },
+                image: {type: 'jpeg', quality: 0.9},
+                html2canvas: {scale: 3},
                 jsPDF: {
                     orientation: 'landscape',
                     unit: 'in',
@@ -101,15 +102,16 @@ export default {
                 this.exportedData = data.data;
                 this.$nextTick(() => {
                     console.log('fetchExporting', this.exportingColumns);
-                    // console.log('this.$refs.exporting',this.$refs.exporting.$el);
+                    console.log('this.$refs.exporting', this.$refs, this.$refs.exporting.$el);
+                    console.log('exportedData ', this.exportedData);
                     // alert('ok');
                     html2pdf().set(opt).from(this.$refs.exporting.$el).toPdf().
                         //     .output().then((...args) => {
                         //     console.log('html2pdf' ,...args);
                         // }).
                         save().then(() => {
-                            this.loadingPdf = false;
-                        });
+                        this.loadingPdf = false;
+                    });
                 })
 
             });
@@ -123,7 +125,7 @@ export default {
                         no_pagination: true
                     }
                 },
-                ({ data }) => {
+                ({data}) => {
                     callback(data);
                 },
                 null,
@@ -149,7 +151,7 @@ export default {
             // prepare columns
             const columns = []
             this.importingColumns.forEach(function (column) {
-                columns.push({ field: column.text });
+                columns.push({field: column.text});
             })
             // create & save excel file
             saveExcel({

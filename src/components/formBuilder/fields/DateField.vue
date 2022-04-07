@@ -7,7 +7,7 @@
                 :range="range"
                 icon=" fa fa-calendar"
                 :placeholder="placeholder$"
-                @update:modelValue="onChange"
+                @update:modelValue="onDateChange"
                 :modelValue="computedInput"
                 trap-focus>
         </o-datepicker>
@@ -41,7 +41,7 @@
             }
         },
         methods: {
-            onChange(value) {
+            onDateChange(value) {
                 if (this.isMultiple)
                     this.$commit(_.map(value ?? [], (date) => {
                         return this.dateParser(date);

@@ -1,5 +1,6 @@
 <template>
-    <a href="javascript:;" class="table-action" @click="onClick">
+
+    <a href="javascript:;"   class="table-action" @click="onClick">
         <div v-if="icon" :class="classes">
             <i aria-hidden="true" :class="icon"></i>
         </div>

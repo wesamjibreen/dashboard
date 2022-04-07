@@ -71,6 +71,9 @@ export const common = {
         add_polygon: "اضافة منطقة",
         reset_markers: "حذف العلامات",
         reset_polygons: "حذف المناطق",
+        no_notifications : "لا يوجد اشعارات ",
+        notifications : "الاشعارات ",
+        see_all : "عرض الكل",
     },
     en: {
         welcome: "Welcome",
@@ -122,7 +125,9 @@ export const common = {
         add_polygon: "Add Polygon",
         reset_markers: "Reset Markers",
         reset_polygons: "Reset Polygons",
-
+        no_notifications : "No Notifications",
+        notifications : "Notifications",
+        see_all : "See All",
 
     },
     tr: {
@@ -152,5 +157,8 @@ export const common = {
         export_to_excel: "Export Excel",
         export_to_pdf: "Export PDF",
         upload_file : "Upload File",
+        no_notifications : "No Notifications",
+        notifications : "Notifications",
+        see_all : "See All",
     }
 };

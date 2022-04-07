@@ -102,20 +102,6 @@
         </div>
       </transition-group>
     </div>
-
-<!--    <div class="block mt-2">-->
-<!--      <div class="select">-->
-<!--        <select v-model="perPage">-->
-<!--          <option-->
-<!--            v-for="(pageCount, index) in pageCounts"-->
-<!--            :key="index"-->
-<!--            :value="pageCount"-->
-<!--          >-->
-<!--            {{ pageCount }}-->
-<!--          </option>-->
-<!--        </select>-->
-<!--      </div>-->
-<!--    </div>-->
   </div>
 </template>
 
@@ -126,17 +112,8 @@ export default {
   name: "TableView",
   mixins: [view],
   data() {
-    return {
-      pageCounts: [1, 50, 100, 200],
-      perPage: 1,
-    };
+    return {};
   },
-  // watch: {
-  //   perPage(newVal) {
-  //     //   update pagination
-  //     this.$emit("on-per-page-count-change", newVal);
-  //   },
-  // },
 };
 </script>
 

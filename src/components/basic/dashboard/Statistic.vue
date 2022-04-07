@@ -113,7 +113,10 @@
                         {{  $get(item,valueKey) }}
                     </span>
                     <p>
-                        {{ $get(item,textKey) }}
+
+                        {{   getValueByLocale(item.textKey) }}
+
+
                     </p>
                 </div>
             </div>
@@ -124,6 +127,7 @@
 
 <script>
     import dashboard from "./dashboard";
+    import base from "../../list/mixins/base";
 
     // import CheckboxField from "../../formBuilder/fields/CheckboxField.vue";
 
@@ -138,9 +142,15 @@
                 // data_2:[{id:1,name:"Admin 1"},{id:2,name:"Admin 2"},{id:3,name:"Admin 3"}]
             }
         },
-        mixins: [dashboard],
+        mixins: [dashboard , base],
         methods: {
+            $$getRowValue(column, row, defaultVal = "") {
+                console.log('sssda' , column , row ,column.name) ;
+                if (column.value instanceof Function)
+                    return column.value(row);
 
+                return this.getValueByLocale(_.get(row, column.name, defaultVal ?? ""));
+            },
         },
 
     }

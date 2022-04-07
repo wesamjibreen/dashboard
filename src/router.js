@@ -1,8 +1,11 @@
-import {createRouter, createWebHistory} from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import NProgress from 'nprogress'
-import {BaseLayout} from "../modules";
-import {useStorage} from "@vueuse/core";
-import {getTokenKey} from "./utils/storage";
+import { BaseLayout } from "../modules";
+import { useStorage } from "@vueuse/core";
+import { getTokenKey } from "./utils/storage";
+import { inject } from "vue";
+import useNotifications from "./composable/useNotifications";
+
 
 const initRouter = function (routes, base = "/", config = {}) {
     routes = [
@@ -27,28 +30,11 @@ const initRouter = function (routes, base = "/", config = {}) {
                     component: () => import('./pages/setting/Index.vue'),
                 },
                 {
-                    path: "role",
-                    redirect: "/role/all",
-                    component: () => import('./pages/role/Index.vue'),
-                    children: [
-                        {
-                            path: "create",
-                            name: "role.create",
-                            component: () => import('./pages/role/Create.vue'),
-                        },
-                        {
-                            path: "all",
-                            name: "role.all",
-                            component: () => import('./pages/role/List.vue'),
-                        },
-                        {
-                            path: ":id/edit",
-                            name: "role.edit",
-                            component: () => import('./pages/role/Create.vue'),
-                        },
-
-                    ]
+                    path: config.app.notifications.route,
+                    name: "notifications",
+                    component: () => import('./pages/dashboard/Notifications.vue'),
                 },
+
                 ...routes,
             ]
         },
@@ -79,6 +65,10 @@ const initRouter = function (routes, base = "/", config = {}) {
 
 
     router.beforeEach((to, from) => {
+        if (to.name === 'notifications' && !config.app.notifications.display) {
+            router.push({ name: 'dashboard' });
+        }
+
         let hasPermissions = _.get(config, 'app.permissions.enabled', false);
         let toName = to.name ?? "";
 
@@ -107,7 +97,7 @@ const initRouter = function (routes, base = "/", config = {}) {
 };
 
 
-const generateRoutes = ({resource, folderName = null, path}, routes = []) => {
+const generateRoutes = ({ resource, folderName = null, path }, routes = []) => {
     folderName = folderName || _.camelCase(resource);
     return {
         path: `${resource}`,
@@ -148,18 +138,18 @@ const checkAuth = (base, config = {}) => {
     return (to, from, next) => {
         let isAuthenticated = useStorage(getTokenKey(base), null).value;
         switch (true) {
-            case !isAuthenticated :
+            case !isAuthenticated:
                 if (to.name === "login")
                     next();
                 else
-                    next({name: "login"});
+                    next({ name: "login" });
                 return;
 
-            case   !to.name || to.name === "login":
-                next({name: 'dashboard'});
+            case !to.name || to.name === "login":
+                next({ name: 'dashboard' });
                 return;
 
-            default :
+            default:
                 next();
         }
 

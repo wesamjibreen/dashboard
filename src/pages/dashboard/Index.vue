@@ -1,15 +1,14 @@
 <template>
-    <div class="finance-dashboard stock-dashboard">
-
-
-
-
-        <div class="columns is-multiline">
-            <div v-for="{component , ...item} in sections" :class="`column is-${item.cols ?? 12}`">
-                <component :is="component" v-bind="item"/>
-            </div>
-        </div>
-<!--     </div>-->
+  <div class="finance-dashboard stock-dashboard">
+    <div class="columns is-multiline">
+      <div
+        v-for="{ component, ...item } in sections"
+        :class="`column is-${item.cols ?? 12}`"
+      >
+        <component :is="component" v-bind="item" @refetch="fetch" />
+      </div>
+    </div>
+    <!--     </div>-->
   </div>
 </template>
 
@@ -19,6 +18,13 @@ import Category from "../../components/basic/dashboard/Category";
 import Filter from "../../components/basic/dashboard/Filter";
 import Statistic from "../../components/basic/dashboard/Statistic";
 import DateField from "../../components/formBuilder/fields/DateField";
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import {
+  messaging,
+  firebaseSettings,
+  subscribeTokenToTopic,
+  getMessagingToken,
+} from "../../plugins/firebase";
 
 export default {
   name: "Index",
@@ -37,21 +43,25 @@ export default {
     },
   }),
   created() {
-    this.fetch();
+    this.fetch({});
   },
   methods: {
-    fetch() {
-      this.loading = true;
-      this.request(
-        this.homeEndPoint,
-        { params: this.form },
-        ({ data }) => {
-          this.data = data.data;
-        },
-        null,
-        () => {
-          this.loading = false;
-        }
+    fetch(query) {
+      setTimeout(
+        function () {
+          this.loading = true;
+          this.request(
+            this.homeEndPoint,
+            { params: { ...query } },
+            ({ data }) => {
+              this.data = data.data;
+            },
+            null,
+            () => {
+              this.loading = false;
+            }
+          );
+        }.bind(this)
       );
     },
   },
@@ -61,6 +71,23 @@ export default {
     },
     sections() {
       return this.data ?? [];
+    },
+    routeQuery() {
+      return this.$route;
+    },
+  },
+  watch: {
+    routeQuery: {
+      handler(newVal) {
+      },
+      deep: true,
+      immediate: true,
+    },
+    "$route.params": {
+      handler: function (value) {
+      },
+      deep: true,
+      immediate: true,
     },
   },
 };

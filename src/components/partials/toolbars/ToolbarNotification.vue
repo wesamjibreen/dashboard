@@ -27,18 +27,19 @@ const user = computed(() => {
   return store.getters["currentUser"];
 });
 let { endPoint, request } = useRequest();
+const notis = useNotifications();
 
 const notifications = ref([]);
 
 const seeAllClick = function () {
-  router.push({
-    name: "notifications",
-  });
+  router.push(notis.config.route);
+  // router.push({
+  //   name: "notifications",
+  // });
   dropdown.close();
 };
 
 onMounted(() => {
-  const notis = useNotifications();
   getFCMToken(function (currentToken) {
     // console.log("TOKEN", currentToken);
     const topicName = `admins-${user?.value.id}`;
@@ -68,13 +69,6 @@ onMounted(() => {
     notifications.value = notifis;
   }, true);
 });
-
-const def = ref(require("../../../assets/notification_icon.png"));
-
-const getImgUrl = (path) => {
-  return require("../../../assets/notification_icon.png");
-  // return require("@/assets/" + "notification_icon.png");
-};
 </script>
 
 <template>
@@ -105,11 +99,10 @@ const getImgUrl = (path) => {
               <li v-for="(notification, index) in notifications" :key="index">
                 <a class="notification-item">
                   <div class="img-left">
-                    <img
+                    <VAvatar
                       alt=""
-                      :src="
-                        notification.image ||
-                        require('../../../assets/notification_icon.png')
+                      :picture="
+                        notification.image || '/images/notification_icon.png'
                       "
                     />
                   </div>

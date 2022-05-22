@@ -17,12 +17,10 @@
             <div class="content-wrap">
               <div class="content-box">
                 <!-- <div class="status"></div> -->
-                <!-- <VAvatar :picture="notification.image" /> -->
-                <img
+                <VAvatar
                   alt=""
-                  :src="
-                    notification.image ||
-                    require('../../../../assets/notification_icon.png')
+                  :picture="
+                    notification.image || '/images/notification_icon.png'
                   "
                 />
                 <div class="mx-4">

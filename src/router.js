@@ -30,7 +30,8 @@ const initRouter = function (routes, base = "/", config = {}) {
                     component: () => import('./pages/setting/Index.vue'),
                 },
                 {
-                    path: config.app.notifications.route,
+                    // path: config.app.notifications.route,
+                    path: '/notifications/all',
                     name: "notifications",
                     component: () => import('./pages/dashboard/Notifications.vue'),
                 },
@@ -79,6 +80,7 @@ const initRouter = function (routes, base = "/", config = {}) {
         ) {
             let $auth = useStorage(`${base}_user`, {});
             let policies = $auth.value?.policies ? atob($auth.value?.policies).split(",") : [];
+
             if (!policies.includes(toName) &&
                 !policies.includes(toName.replace("all", "show").replace("_", "-")) &&
                 !policies.includes(`others.${toName}`)
@@ -127,7 +129,6 @@ const generateRoutes = ({ resource, folderName = null, path }, routes = []) => {
         ]
     };
 };
-
 
 // const importViewModule = function (folderName, viewName, module = "") {
 //     return import(`${module}/${folderName}/${viewName}`);

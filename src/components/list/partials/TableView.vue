@@ -21,7 +21,10 @@
         <span class="flex-datatable-cell" v-for="column in columns">
           {{ column.text }}
         </span>
-        <span class="flex-datatable-cell cell-end">
+        <span
+          v-if="permissionsEnabled ? hasActionsPermissions : actions.length"
+          class="flex-datatable-cell cell-end"
+        >
           {{ trans("actions") }}
         </span>
       </slot>
@@ -82,6 +85,7 @@
             <div
               class="flex-table-cell flex-table-action cell-end"
               :data-th="trans('actions')"
+              v-if="permissionsEnabled ? hasActionsPermissions : actions.length"
             >
               <slot
                 name="actions"
@@ -89,13 +93,21 @@
                 :resource="resource"
                 :actions="actions"
               >
-                <Action
+                <div
                   v-for="(action, index) in actions"
-                  v-bind="action"
-                  :resource="resource"
-                  :row="row"
                   :key="`action_${action.slug}_${index}`"
-                />
+                >
+                  <Action
+                    v-bind="action"
+                    :resource="resource"
+                    :row="row"
+                    v-if="
+                      permissionsEnabled
+                        ? hasPermission(`${resource}.${action.slug}`)
+                        : true
+                    "
+                  />
+                </div>
               </slot>
             </div>
           </slot>
@@ -113,6 +125,32 @@ export default {
   mixins: [view],
   data() {
     return {};
+  },
+  computed: {
+    permissionsEnabled() {
+      return _.get(this, "$config.app.permissions.enabled", false);
+    },
+    policies() {
+      let $auth = JSON.parse(localStorage.getItem(`${this.$base}_user`, {}));
+      let policies = $auth?.policies;
+      return policies ? atob(policies).split(",") : [];
+    },
+    hasActionsPermissions() {
+      let hasPermissions = false;
+      this.actions.forEach(
+        function (action) {
+          if (this.hasPermission(`${this.resource}.${action.slug}`)) {
+            hasPermissions = true;
+          }
+        }.bind(this)
+      );
+      return hasPermissions;
+    },
+  },
+  methods: {
+    hasPermission(policy) {
+      return this.policies.includes(policy);
+    },
   },
 };
 </script>

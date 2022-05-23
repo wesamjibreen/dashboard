@@ -119,23 +119,18 @@
 
 <script>
 import { view } from "../mixins";
+import { permissions } from "../mixins";
 
 export default {
   name: "TableView",
-  mixins: [view],
+  mixins: [view, permissions],
   data() {
     return {};
   },
   computed: {
-    permissionsEnabled() {
-      return _.get(this, "$config.app.permissions.enabled", false);
-    },
-    policies() {
-      let $auth = JSON.parse(localStorage.getItem(`${this.$base}_user`, {}));
-      let policies = $auth?.policies;
-      return policies ? atob(policies).split(",") : [];
-    },
     hasActionsPermissions() {
+      if (!this.actions.length) return false;
+
       let hasPermissions = false;
       this.actions.forEach(
         function (action) {
@@ -148,9 +143,6 @@ export default {
     },
   },
   methods: {
-    hasPermission(policy) {
-      return this.policies.includes(policy);
-    },
   },
 };
 </script>

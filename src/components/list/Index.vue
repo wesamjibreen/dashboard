@@ -40,7 +40,7 @@
               {{ trans("import_excel") }}
             </VButton>
             <VButton
-              v-if="hasCreateBtn"
+              v-if="hasCreateBtn && hasPermission(`${resource}.create`)"
               color="primary"
               icon="fas fa-plus"
               elevated
@@ -181,6 +181,7 @@
 
 <script>
 import base from "./mixins/base";
+import { permissions } from "./mixins";
 
 import ImportDialog from "./partials/ImportDialog.vue";
 
@@ -189,7 +190,7 @@ export default {
     ImportDialog,
   },
   name: "Index",
-  mixins: [base],
+  mixins: [base, permissions],
   mounted() {},
   data() {
     return {

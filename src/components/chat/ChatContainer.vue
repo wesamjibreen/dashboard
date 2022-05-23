@@ -1,70 +1,86 @@
 <template>
-  <div class="window-container" :class="{ 'window-mobile': isDevice }">
-    <form v-if="addNewRoom" @submit.prevent="createRoom">
-      <input v-model="addRoomUsername" type="text" placeholder="Add username" />
-      <button type="submit" :disabled="disableForm || !addRoomUsername">
-        Create Room
-      </button>
-      <button class="button-cancel" @click="addNewRoom = false">Cancel</button>
-    </form>
+  <VLoader size="small" :active="isLoading">
+    <div class="window-container" :class="{ 'window-mobile': isDevice }">
+      <form v-if="addNewRoom" @submit.prevent="createRoom">
+        <input
+          v-model="addRoomUsername"
+          type="text"
+          placeholder="Add username"
+        />
+        <button type="submit" :disabled="disableForm || !addRoomUsername">
+          Create Room
+        </button>
+        <button class="button-cancel" @click="addNewRoom = false">
+          Cancel
+        </button>
+      </form>
 
-    <form v-if="inviteRoomId" @submit.prevent="addRoomUser">
-      <input v-model="invitedUsername" type="text" placeholder="Add username" />
-      <button type="submit" :disabled="disableForm || !invitedUsername">
-        Add User
-      </button>
-      <button class="button-cancel" @click="inviteRoomId = null">Cancel</button>
-    </form>
+      <form v-if="inviteRoomId" @submit.prevent="addRoomUser">
+        <input
+          v-model="invitedUsername"
+          type="text"
+          placeholder="Add username"
+        />
+        <button type="submit" :disabled="disableForm || !invitedUsername">
+          Add User
+        </button>
+        <button class="button-cancel" @click="inviteRoomId = null">
+          Cancel
+        </button>
+      </form>
 
-    <form v-if="removeRoomId" @submit.prevent="deleteRoomUser">
-      <select v-model="removeUserId">
-        <option default value="">Select User</option>
-        <option v-for="user in removeUsers" :key="user._id" :value="user._id">
-          {{ user.username }}
-        </option>
-      </select>
-      <button type="submit" :disabled="disableForm || !removeUserId">
-        Remove User
-      </button>
-      <button class="button-cancel" @click="removeRoomId = null">Cancel</button>
-    </form>
+      <form v-if="removeRoomId" @submit.prevent="deleteRoomUser">
+        <select v-model="removeUserId">
+          <option default value="">Select User</option>
+          <option v-for="user in removeUsers" :key="user._id" :value="user._id">
+            {{ user.username }}
+          </option>
+        </select>
+        <button type="submit" :disabled="disableForm || !removeUserId">
+          Remove User
+        </button>
+        <button class="button-cancel" @click="removeRoomId = null">
+          Cancel
+        </button>
+      </form>
 
-    <chat-window
-      :height="screenHeight"
-      :theme="theme"
-      :styles="styles"
-      :current-user-id="currentUserId"
-      :room-id="roomId"
-      :rooms="loadedRooms"
-      :loading-rooms="loadingRooms"
-      :messages="messages"
-      :messages-loaded="messagesLoaded"
-      :rooms-loaded="roomsLoaded"
-      :room-actions="roomActions"
-      :menu-actions="menuActions"
-      :message-selection-actions="messageSelectionActions"
-      :room-message="roomMessage"
-      :templates-text="templatesText"
-      @fetch-more-rooms="fetchMoreRooms"
-      @fetch-messages="fetchMessages"
-      @send-message="sendMessage"
-      @edit-message="editMessage"
-      @delete-message="deleteMessage"
-      @open-file="openFile"
-      @open-user-tag="openUserTag"
-      @add-room="addRoom"
-      @room-action-handler="menuActionHandler"
-      @menu-action-handler="menuActionHandler"
-      @message-selection-action-handler="messageSelectionActionHandler"
-      @send-message-reaction="sendMessageReaction"
-      @typing-message="typingMessage"
-      @toggle-rooms-list="$emit('show-demo-options', $event.opened)"
-    >
-      <!-- <template #room-header="{ room }">
+      <chat-window
+        :height="screenHeight"
+        :theme="theme"
+        :styles="styles"
+        :current-user-id="currentUserId"
+        :room-id="roomId"
+        :rooms="loadedRooms"
+        :loading-rooms="loadingRooms"
+        :messages="messages"
+        :messages-loaded="messagesLoaded"
+        :rooms-loaded="roomsLoaded"
+        :room-actions="roomActions"
+        :menu-actions="menuActions"
+        :message-selection-actions="messageSelectionActions"
+        :room-message="roomMessage"
+        :templates-text="templatesText"
+        @fetch-more-rooms="fetchMoreRooms"
+        @fetch-messages="fetchMessages"
+        @send-message="sendMessage"
+        @edit-message="editMessage"
+        @delete-message="deleteMessage"
+        @open-file="openFile"
+        @open-user-tag="openUserTag"
+        @add-room="addRoom"
+        @room-action-handler="menuActionHandler"
+        @menu-action-handler="menuActionHandler"
+        @message-selection-action-handler="messageSelectionActionHandler"
+        @send-message-reaction="sendMessageReaction"
+        @typing-message="typingMessage"
+        @toggle-rooms-list="$emit('show-demo-options', $event.opened)"
+      >
+        <!-- <template #room-header="{ room }">
                 {{ room.roomName }}
             </template> -->
-    </chat-window>
-  </div>
+      </chat-window>
+    </div>
+  </VLoader>
 </template>
 
 <script>
@@ -95,6 +111,7 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       roomsPerPage: 15,
       rooms: [],
       roomId: "",
@@ -159,6 +176,9 @@ export default {
     },
     screenHeight() {
       return this.isDevice ? window.innerHeight + "px" : "calc(100vh - 80px)";
+    },
+    archiveEndpoint() {
+      return _.get(this, "$config.app.chat.archiveEndpoint", {});
     },
   },
 
@@ -567,9 +587,16 @@ export default {
         //  add users to users array in room document
         const room = await firestoreService.getRoom(roomId);
         const users = [...room.users, this.currentUserId];
-        firestoreService.updateRoom(roomId, { users, lastUpdated: new Date() });
+        firestoreService.updateRoom(roomId, {
+          users,
+          lastUpdated: new Date(),
+          lastMessage: content,
+        });
       } else {
-        firestoreService.updateRoom(roomId, { lastUpdated: new Date() });
+        firestoreService.updateRoom(roomId, {
+          lastUpdated: new Date(),
+          lastMessage: content,
+        });
       }
     },
 
@@ -952,31 +979,37 @@ export default {
     },
 
     async deleteRoom(roomId) {
-      this.request(
-        { method: "DELETE", url: "api/admin/chat-archive" },
-        { document_id: roomId },
-        function ({ data }) {
-          console.log("DELETED successfully");
-        },
-        function ({ data }) {
-          console.log("DELETED error");
-        }
-      );
-      return;
-      firestoreService.getMessages(roomId).then(({ data }) => {
-        data.forEach((message) => {
-          firestoreService.deleteMessage(roomId, message.id);
-          if (message.files) {
-            message.files.forEach((file) => {
-              storageService.deleteFile(this.currentUserId, message.id, file);
-            });
-          }
+      if (Object.keys(this.archiveEndpoint).length) {
+        this.isLoading = true;
+        this.request(
+          this.archiveEndpoint,
+          { document_id: roomId },
+          function ({ data }) {
+            this.successNotify("Chat deleted successfully");
+            this.fetchRooms();
+            this.isLoading = false;
+          }.bind(this),
+          function ({ data }) {
+            this.errorNotify("Error happened while deleting");
+            this.isLoading = false;
+          }.bind(this)
+        );
+      } else {
+        firestoreService.getMessages(roomId).then(({ data }) => {
+          data.forEach((message) => {
+            firestoreService.deleteMessage(roomId, message.id);
+            if (message.files) {
+              message.files.forEach((file) => {
+                storageService.deleteFile(this.currentUserId, message.id, file);
+              });
+            }
+          });
         });
-      });
 
-      await firestoreService.deleteRoom(roomId);
+        await firestoreService.deleteRoom(roomId);
 
-      this.fetchRooms();
+        this.fetchRooms();
+      }
     },
 
     resetForms() {

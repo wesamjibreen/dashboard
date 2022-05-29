@@ -362,14 +362,6 @@ export default {
         }.bind(this),
         5000
       );
-
-      return;
-      this.request(
-        storeChatEndPoint,
-        {},
-        function ({ data }) {},
-        function ({ data }) {}
-      );
     },
 
     listenLastMessage(room) {

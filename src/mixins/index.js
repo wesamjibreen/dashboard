@@ -1,6 +1,7 @@
 import common from "./common"
 import request from "./request"
 import sidebar from "./sidebar"
+import permissions from "./permissions"
 
 const GlobalMixins = [
     request,
@@ -10,5 +11,6 @@ const GlobalMixins = [
 
 export {
     GlobalMixins,
-    sidebar
+    sidebar,
+    permissions
 }

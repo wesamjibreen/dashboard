@@ -101,11 +101,7 @@
                     v-bind="action"
                     :resource="resource"
                     :row="row"
-                    v-if="
-                      permissionsEnabled
-                        ? hasPermission(`${resource}.${action.slug}`)
-                        : true
-                    "
+                    v-if="hasPermission(`${resource}.${action.slug}`)"
                   />
                 </div>
               </slot>
@@ -119,7 +115,7 @@
 
 <script>
 import { view } from "../mixins";
-import { permissions } from "../mixins";
+import { permissions } from "../../../mixins";
 
 export default {
   name: "TableView",
@@ -129,7 +125,7 @@ export default {
   },
   computed: {
     hasActionsPermissions() {
-      if (!this.actions.length) return false;
+      if (!this.actions) return false;
 
       let hasPermissions = false;
       this.actions.forEach(
@@ -142,8 +138,7 @@ export default {
       return hasPermissions;
     },
   },
-  methods: {
-  },
+  methods: {},
 };
 </script>
 

@@ -181,7 +181,7 @@
 
 <script>
 import base from "./mixins/base";
-import { permissions } from "./mixins";
+import { permissions } from "../../mixins";
 
 import ImportDialog from "./partials/ImportDialog.vue";
 

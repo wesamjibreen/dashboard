@@ -119,6 +119,9 @@ export default {
                     },
                 );
             });
+            this.initActionEvent('show', (row, data = {}) => {
+                this.$router.push({ name: `${this.resource}.show`, params: { id: row.id } });
+            });
         },
 
         initActionGroup() {

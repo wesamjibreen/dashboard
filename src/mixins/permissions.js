@@ -11,7 +11,8 @@ export default {
     },
     methods: {
         hasPermission(policy) {
-            return this.permissionsEnabled ? this.policies.includes(policy) : true;
+            let policyKey = policy.replace("_", "-");
+            return this.permissionsEnabled ? this.policies.includes(policyKey) : true;
         },
     }
 }

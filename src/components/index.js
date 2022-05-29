@@ -8,6 +8,7 @@ import {Icon} from '@iconify/vue';
 
 export const GlobalComponents = {
     Icon,
+    TableShow: defineAsyncComponent(() => import('../components/basic/TableShow.vue')),
     Sortable: defineAsyncComponent(() => import('../components/basic/Sortable.vue')),
     VSimpleDatatables: defineAsyncComponent(() => import('../components/base/plugins/VSimpleDatatables.vue')),
     VLoader: defineAsyncComponent(() => import('../components/base/loader/VLoader.vue')),

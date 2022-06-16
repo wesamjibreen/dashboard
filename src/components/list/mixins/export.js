@@ -1,7 +1,7 @@
 import html2pdf from "html2pdf.js";
-import {saveExcel} from "@progress/kendo-vue-excel-export";
+import { saveExcel } from "@progress/kendo-vue-excel-export";
 
-const FRONT_SOURCE = 'front';
+const FRONT_SOURCE = 'frontend';
 const BACK_SOURCE = 'backend';
 export default {
     props: {
@@ -13,9 +13,24 @@ export default {
         exportedData: []
     }),
     methods: {
+        exportingEndPoint(type) {
+            type = type.toLowerCase()
+            let endpointName = 'excelEndPoint'
+            switch (type) {
+                case 'excel':
+                    endpointName = 'excelEndPoint'
+                    break;
+                case 'pdf':
+                    endpointName = 'pdfEndPoint'
+                    break;
+            }
+            const customExportingEndpoint = _.get(this, `exporting.${endpointName}`, {});
+            return Object.keys(customExportingEndpoint).length ? customExportingEndpoint : this.defaultEndPoint;
+        },
         exportTo(type = "Excel") {
+            console.log('export', type);
             if (this.exportingSource === BACK_SOURCE) {
-                this.fetchExporting((data) => {
+                this.fetchExporting(type, (data) => {
                     window.open(data.file_url);
                 });
             } else
@@ -66,7 +81,7 @@ export default {
                 }
             });
 
-            this.fetchExporting((data) => {
+            this.fetchExporting('excel', (data) => {
                 if (columns.length === 0)
                     columns = this.getResourceColumns(data.data);
                 console.log('this.parseToExport(data.data,columns) columns', columns);
@@ -84,11 +99,11 @@ export default {
             // var element = document.getElementById('body');
             this.loadingPdf = true;
             var opt = {
-                pagebreak: {mode: ['avoid-all']},
+                pagebreak: { mode: ['avoid-all'] },
                 margin: 0.5,
                 filename: `${this.resource}-${new Date().getTime()}.pdf`,
-                image: {type: 'jpeg', quality: 0.9},
-                html2canvas: {scale: 3},
+                image: { type: 'jpeg', quality: 0.9 },
+                html2canvas: { scale: 3 },
                 jsPDF: {
                     orientation: 'landscape',
                     unit: 'in',
@@ -98,7 +113,7 @@ export default {
                 }
             };
             // unit: 'in', format: 'letter', orientation: 'landscape'
-            this.fetchExporting((data) => {
+            this.fetchExporting('pdf', (data) => {
                 this.exportedData = data.data;
                 this.$nextTick(() => {
                     console.log('fetchExporting', this.exportingColumns);
@@ -110,22 +125,23 @@ export default {
                         //     console.log('html2pdf' ,...args);
                         // }).
                         save().then(() => {
-                        this.loadingPdf = false;
-                    });
+                            this.loadingPdf = false;
+                        });
                 })
 
             });
         },
 
-        fetchExporting(callback = Function) {
+        fetchExporting(type, callback = Function) {
             this.request(
-                this.exportingEndPoint,
+                this.exportingEndPoint(type),
                 {
                     params: {
-                        no_pagination: true
+                        no_pagination: true,
+                        ...this.filter
                     }
                 },
-                ({data}) => {
+                ({ data }) => {
                     callback(data);
                 },
                 null,
@@ -151,7 +167,7 @@ export default {
             // prepare columns
             const columns = []
             this.importingColumns.forEach(function (column) {
-                columns.push({field: column.text});
+                columns.push({ field: column.text });
             })
             // create & save excel file
             saveExcel({
@@ -179,9 +195,6 @@ export default {
         },
         hasPDF() {
             return _.get(this, 'config.pdfBtn', true);
-        },
-        exportingEndPoint() {
-            return this.defaultEndPoint;
         },
         // import
         importingColumns() {

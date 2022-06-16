@@ -11,7 +11,8 @@ export default {
                 this.excelEndPoint,
                 {
                     params: {
-                        no_pagination: true
+                        no_pagination: true,
+                        ...this.filter
                     }
                 },
                 ({data}) => {

@@ -22,7 +22,7 @@
           {{ column.text }}
         </span>
         <span
-          v-if="permissionsEnabled ? hasActionsPermissions : actions.length"
+          v-if="hasActionsPermissions(resource, actions)"
           class="flex-datatable-cell cell-end"
         >
           {{ trans("actions") }}
@@ -85,7 +85,7 @@
             <div
               class="flex-table-cell flex-table-action cell-end"
               :data-th="trans('actions')"
-              v-if="permissionsEnabled ? hasActionsPermissions : actions.length"
+              v-if="hasActionsPermissions(resource, actions)"
             >
               <slot
                 name="actions"
@@ -124,19 +124,7 @@ export default {
     return {};
   },
   computed: {
-    hasActionsPermissions() {
-      if (!this.actions) return false;
-
-      let hasPermissions = false;
-      this.actions.forEach(
-        function (action) {
-          if (this.hasPermission(`${this.resource}.${action.slug}`)) {
-            hasPermissions = true;
-          }
-        }.bind(this)
-      );
-      return hasPermissions;
-    },
+   
   },
   methods: {},
 };

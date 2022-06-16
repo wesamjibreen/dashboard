@@ -11,7 +11,12 @@
           >
             {{ trans(column.text) }}
           </span>
-          <span class="cell-end">{{ trans('actions') }}</span>
+          <span
+            v-if="hasActionsPermissions(resource, actions)"
+            class="flex-datatable-cell cell-end"
+          >
+            {{ trans("actions") }}
+          </span>
         </div>
 
         <transition-group name="list" tag="div">
@@ -68,17 +73,30 @@
                   </span>
                 </slot>
               </div>
+
               <div
                 class="flex-table-cell flex-table-action cell-end"
                 :data-th="trans('actions')"
+                v-if="hasActionsPermissions(resource, actions)"
               >
-                <Action
-                  v-for="(action, index) in actions"
-                  v-bind="action"
-                  :resource="resource"
+                <slot
+                  name="actions"
                   :row="row"
-                  :key="`action_${action.slug}_${index}`"
-                />
+                  :resource="resource"
+                  :actions="actions"
+                >
+                  <div
+                    v-for="(action, index) in actions"
+                    :key="`action_${action.slug}_${index}`"
+                  >
+                    <Action
+                      v-bind="action"
+                      :resource="resource"
+                      :row="row"
+                      v-if="hasPermission(`${resource}.${action.slug}`)"
+                    />
+                  </div>
+                </slot>
               </div>
             </slot>
           </div>
@@ -90,23 +108,16 @@
 
 <script>
 import { view } from "../../list/mixins";
+import { permissions } from "../../../mixins";
 
 export default {
   name: "Table",
-  mixins: [view],
+  mixins: [view, permissions],
   props: {
     end_point: {
       required: true,
       default: {},
     },
-    // columns: {
-    //   required: true,
-    //   default: [],
-    // },
-    // actions: {
-    //   required: false,
-    //   default: [],
-    // },
   },
   data() {
     return {
@@ -117,7 +128,7 @@ export default {
   created() {
     if (Object.keys(this.end_point).length) {
       this.request(
-        { method: "GET", url: `/${this.end_point}` },
+        { method: "GET", url: `${this.end_point}` },
         {},
         function ({ data }) {
           this.rows = data.data;

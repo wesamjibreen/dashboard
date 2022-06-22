@@ -165,7 +165,7 @@
       <Export
         ref="exporting"
         :data="exportedData"
-        :columns="exportingColumns"
+        :columns="exportingColumns('pdf')"
         :listRef="listRef"
       />
     </div>

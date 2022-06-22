@@ -15,30 +15,23 @@ export default {
     methods: {
         exportingEndPoint(type) {
             type = type.toLowerCase()
-            let endpointName = 'excelEndPoint'
-            switch (type) {
-                case 'excel':
-                    endpointName = 'excelEndPoint'
-                    break;
-                case 'pdf':
-                    endpointName = 'pdfEndPoint'
-                    break;
-            }
-            const customExportingEndpoint = _.get(this, `exporting.${endpointName}`, {});
-            return Object.keys(customExportingEndpoint).length ? customExportingEndpoint : this.defaultEndPoint;
+            if (this.exportingSource(type) === FRONT_SOURCE)
+                return this.defaultEndPoint;
+
+            const typeExportingEndpoint = _.get(this, `exporting.${type}.endPoint`, {});
+            return Object.keys(typeExportingEndpoint).length ? typeExportingEndpoint : this.defaultEndPoint;
         },
         exportTo(type = "Excel") {
             console.log('export', type);
-            if (this.exportingSource === BACK_SOURCE) {
+            if (this.exportingSource(type) === BACK_SOURCE) {
                 this.fetchExporting(type, (data) => {
-                    window.open(data.file_url);
+                    window.open(`/admin/reports/${data.data.filename}`, '_blank')
                 });
             } else
                 this[`exportTo${type}`]();
-
         },
-        parseToExport(data, columns = null) {
-            let exportedColumns = columns || this.exportingColumns;
+        parseToExport(data, type, columns = null) {
+            let exportedColumns = columns || this.exportingColumns(type);
             if (exportedColumns)
                 return _.map(data, (row) => {
                     let result = {};
@@ -73,7 +66,7 @@ export default {
         },
         exportToExcel() {
             this.loadingExcel = true;
-            let columns = _.map(this.exportingColumns, (column) => {
+            let columns = _.map(this.exportingColumns('excel'), (column) => {
                 let field = column.value ?? column.field;
                 return {
                     field: field instanceof Function ? column.field : column.text,
@@ -86,9 +79,9 @@ export default {
                     columns = this.getResourceColumns(data.data);
                 console.log('this.parseToExport(data.data,columns) columns', columns);
                 console.log('this.parseToExport(data.data,columns) data', data.data);
-                console.log('this.parseToExport(data.data,columns)', this.parseToExport(data.data, columns));
+                console.log('this.parseToExport(data.data,columns)', this.parseToExport(data.data, 'excel', columns));
                 saveExcel({
-                    data: this.parseToExport(data.data, columns),
+                    data: this.parseToExport(data.data, 'excel', columns),
                     fileName: `${this.resource}-excel.xlsx`,
                     columns: columns
                 });
@@ -114,9 +107,9 @@ export default {
             };
             // unit: 'in', format: 'letter', orientation: 'landscape'
             this.fetchExporting('pdf', (data) => {
-                this.exportedData = data.data;
+                this.exportedData = [...data.data];
                 this.$nextTick(() => {
-                    console.log('fetchExporting', this.exportingColumns);
+                    console.log('fetchExporting', this.exportingColumns('pdf'));
                     console.log('this.$refs.exporting', this.$refs, this.$refs.exporting.$el);
                     console.log('exportedData ', this.exportedData);
                     // alert('ok');
@@ -176,20 +169,23 @@ export default {
                 columns: columns
             });
         },
-    },
-    computed: {
-        exportingSource() {
-            return _.get(this, 'exporting.source', FRONT_SOURCE);
+        exportingSource(type) {
+            type = type.toLowerCase();
+            return _.get(this, `exporting.${type}.source`, FRONT_SOURCE);
         },
-        exportingColumns() {
-            if ((this.exporting?.columns ?? []).length > 0)
-                return this.exporting?.columns;
+        exportingColumns(type) {
+            type = type.toLowerCase();
+            const typeExportingColumns = _.get(this, `exporting.${type}.columns`, []);
+            if (typeExportingColumns.length > 0)
+                return typeExportingColumns;
 
             if ((this.columns ?? []).length > 0)
                 return this.columns;
             // console.log('exportingColumns', this.exportedData, this.getResourceColumns(this.exportedData) ?? [])
             return this.getResourceColumns(this.exportedData) ?? [];
         },
+    },
+    computed: {
         hasExcel() {
             return _.get(this, 'config.excelBtn', true);
         },
@@ -198,7 +194,7 @@ export default {
         },
         // import
         importingColumns() {
-            return _.get(this, 'importing.columns', this.exportingColumns);
+            return _.get(this, 'importing.columns', this.exportingColumns('excel'));
         },
     }
 }

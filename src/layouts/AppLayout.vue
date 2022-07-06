@@ -69,7 +69,8 @@
     </DashboardsSubsidebar>
     <!-- </transition> -->
 
-    <CountriesPanel />
+    <!-- <CountriesPanel /> -->
+    <DeterminantsPanel />
 
     <LanguagesPanel />
 
@@ -164,10 +165,9 @@ import { useRoute, useRouter } from "vue-router";
 import { Icon } from "@iconify/vue";
 import { activePanel } from "../state/activePanelState";
 import { pageTitle } from "../state/sidebarLayoutState";
-import useCountry from "../composable/useCountry";
+import useNotifications from "../composable/useNotifications";
 import AlertDialog from "../components/dialog/AlertDialog";
 import { mapState } from "vuex";
-import useNotifications from "../composable/useNotifications";
 
 export default {
   components: {
@@ -207,7 +207,6 @@ export default {
       props && props.defaultSidebar ? props.defaultSidebar : "dashboard"
     );
     let router = useRouter();
-    const { isNotificationDisplayed } = useCountry();
     let $instance = inject("$instance");
     let menuItems = ref(_.get($instance, "config.menu", []));
 

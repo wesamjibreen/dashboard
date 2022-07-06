@@ -1,8 +1,7 @@
 <template>
-  <div class="business-dashboard hr-dashboard">
+  <!-- <div class="business-dashboard hr-dashboard">
     <div class="incoming">
       <div class="flex-table">
-        <!--Table header-->
         <div class="flex-table-header">
           <span
             class="flex-datatable-cell"
@@ -103,7 +102,8 @@
         </transition-group>
       </div>
     </div>
-  </div>
+  </div> -->
+  <VList v-bind="list"></VList>
 </template>
 
 <script>
@@ -118,29 +118,23 @@ export default {
       required: true,
       default: {},
     },
+    exporting: {
+      default: {},
+    },
   },
-  data() {
-    return {
-      loading: false,
-      rows: [],
-    };
-  },
-  created() {
-    if (Object.keys(this.end_point).length) {
-      this.request(
-        { method: "GET", url: `${this.end_point}` },
-        {},
-        function ({ data }) {
-          this.rows = data.data;
-          this.loading = false;
-        }.bind(this),
-        function (err) {
-          this.loading = false;
-        }.bind(this)
-      );
-    } else {
-      //   ??
-    }
+  computed: {
+    list() {
+      return {
+        resource: this.resource,
+        columns: this.columns,
+        actions: this.actions,
+        exporting: this.exporting,
+        customFetchEndPoint: { method: "get", url: this.end_point },
+        config: {
+          showToolbar: true,
+        },
+      };
+    },
   },
 };
 </script>

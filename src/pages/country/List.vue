@@ -1,5 +1,5 @@
 <template>
-  <VList v-bind="list"></VList>
+    <VList v-bind="list"></VList>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
-import {useStorage} from '@vueuse/core'
-import {createI18n as createClientI18n} from 'vue-i18n'
+import { useStorage } from '@vueuse/core'
+import { createI18n as createClientI18n } from 'vue-i18n'
 
 const DEFAULT_LANGUAGE = "ar";
 
@@ -9,7 +9,7 @@ const initI18n = function (i18n = {}, config = {}) {
     let language = !config.language.hasOwnProperty('navigator') || config.language?.navigator && navigator.language ? navigator.language.split('-')[0] : defaultLanguage;
     const defaultLocale = useStorage(`${base}_locale`, language);
     let messages = {};
-    _.forEach(i18n.messages, (value, key) => messages[key] = {...value, ...common[key]});
+    _.forEach(i18n.messages, (value, key) => messages[key] = { ...value, ...common[key] });
     return createClientI18n({
         locale: defaultLocale.value,
         legacy: false,
@@ -47,18 +47,18 @@ export const common = {
         add_date: "إضافة تاريخ",
         welcome_back_to_account: "آهلا بعودتك .. قم بتسجيل الدخول",
         sure_to_delete: "هل أنت متأكد من الحذف ؟",
-        email : "البريد الإلكتروني",
-        password : "كلمة المرور",
-        remember_me : "تذكرني؟",
-        login : "دخول",
-        create : "اضافة",
-        edit : "تعديل",
-        show : "عرض",
-        all : "عرض",
+        email: "البريد الإلكتروني",
+        password: "كلمة المرور",
+        remember_me: "تذكرني؟",
+        login: "دخول",
+        create: "اضافة",
+        edit: "تعديل",
+        show: "عرض",
+        all: "عرض",
         enter_valid_data: "قم بالتأكد من البيانات المدخلة !",
         export_to_excel: "تصدير إلى إكسل",
         export_to_pdf: "تصدير إلى PDF",
-        "Value is required" : "هذا الحقل مطلوب",
+        "Value is required": "هذا الحقل مطلوب",
         download_sample_text: "من فضلك قم بتحميل هذا النموذج أولاً , واجعل بياناتك بنفس تصنيف النموذج وبنفس لغة الموقع  ",
         download_sample: "قم بتحميل النموذج",
         pick_file_text: "قم برفع ملفك هنا ",
@@ -71,9 +71,10 @@ export const common = {
         add_polygon: "اضافة منطقة",
         reset_markers: "حذف العلامات",
         reset_polygons: "حذف المناطق",
-        no_notifications : "لا يوجد اشعارات ",
-        notifications : "الاشعارات ",
-        see_all : "عرض الكل",
+        no_notifications: "لا يوجد اشعارات ",
+        notifications: "الاشعارات ",
+        see_all: "عرض الكل",
+        select_all: "اختر الكل",
     },
     en: {
         welcome: "Welcome",
@@ -101,16 +102,16 @@ export const common = {
         title: "Title",
         sure_to_delete: "Are you sure to delete?",
         confirm: "Confirm",
-        email : "E-mail",
-        password : "Password",
+        email: "E-mail",
+        password: "Password",
         welcome_back_to_account: "Welcome back to your account.",
-        remember_me : "Remember Me?",
-        login : "Login",
-        create : "Create",
-        edit : "Edit",
-        show : "Show",
-        all : "Show",
-        "Value is required" : "Value is required",
+        remember_me: "Remember Me?",
+        login: "Login",
+        create: "Create",
+        edit: "Edit",
+        show: "Show",
+        all: "Show",
+        "Value is required": "Value is required",
         enter_valid_data: "Make sure that you've entered valid data",
         download_sample_text: "Please download this sample firstly, and make your data matching with sample category and site language",
         download_sample: "Download the form",
@@ -125,10 +126,10 @@ export const common = {
         add_polygon: "Add Polygon",
         reset_markers: "Reset Markers",
         reset_polygons: "Reset Polygons",
-        no_notifications : "No Notifications",
-        notifications : "Notifications",
-        see_all : "See All",
-
+        no_notifications: "No Notifications",
+        notifications: "Notifications",
+        see_all: "See All",
+        select_all: "Select All"
     },
     tr: {
         datatable: {
@@ -145,20 +146,21 @@ export const common = {
         select: "Select",
         title: "Title",
         logout: "Logout",
-        password : "Password",
-        email : "E-mail",
+        password: "Password",
+        email: "E-mail",
         welcome_back_to_account: "Welcome back to your account.",
-        login : "Login",
-        remember_me : "Remember Me?",
-        create : "Create",
-        edit : "Edit",
-        show : "Show",
-        all : "Show",
+        login: "Login",
+        remember_me: "Remember Me?",
+        create: "Create",
+        edit: "Edit",
+        show: "Show",
+        all: "Show",
         export_to_excel: "Export Excel",
         export_to_pdf: "Export PDF",
-        upload_file : "Upload File",
-        no_notifications : "No Notifications",
-        notifications : "Notifications",
-        see_all : "See All",
+        upload_file: "Upload File",
+        no_notifications: "No Notifications",
+        notifications: "Notifications",
+        see_all: "See All",
+        select_all: "Select All"
     }
 };

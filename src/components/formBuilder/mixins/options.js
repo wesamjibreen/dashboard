@@ -22,7 +22,8 @@ export default {
         normalizer: Function,
         filter: Function,
         multiple: Boolean,
-        async: Boolean
+        async: Boolean,
+        showSelectAll: Boolean
     },
     data: () => ({
         loading: false,

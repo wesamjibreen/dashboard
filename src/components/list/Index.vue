@@ -1,6 +1,6 @@
 <template>
   <div :class="['card', isSortable && 'card-draggable']">
-    <div class="card-head py-4 px-5">
+    <div class="card-head py-4 px-5" v-if="hasToolbar">
       <div class="list-flex-toolbar flex-list-v1 mb-0">
         <h3 class="card-title">
           {{ pageTitle }}
@@ -47,13 +47,32 @@
               class="btn-list"
               @click="addNew"
             >
-              {{ trans("add_new") }}
+              {{ trans(listAddKey) }}
             </VButton>
           </VButtons>
         </div>
       </div>
     </div>
     <div class="card-body p-5">
+      <div class="list-flex-toolbar flex-list-v1 mb-0">
+        <div class="d-flex align-items-center justify-content-end">
+          <div
+            v-for="(actionButton, index) in actionButtons"
+            :key="index"
+            class="card ma-2"
+            @click="$router.push(actionButton.route)"
+            style="cursor: pointer"
+          >
+            <div class="card-body">
+              <VIcon :icon="actionButton.icon" />
+              <h3>
+                {{ trans(actionButton.label) }}
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="filters-form">
         <transition name="fade">
           <div class="columns is-multiline">
@@ -131,6 +150,7 @@
               :resource="resource"
               :fetch="fetch"
             >
+              <VFlexPagination />
               <VFlexPagination
                 v-if="paginator && !isLoading"
                 @handle-pagination="fetch"
@@ -198,7 +218,11 @@ export default {
       perPage: 15,
     };
   },
-  computed: {},
+  computed: {
+    listAddKey() {
+      return _.get(this, "$config.app.ui_config.list_add_key", "add_new");
+    },
+  },
   methods: {
     onChangePerPage() {
       this.fetch();

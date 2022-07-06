@@ -1,10 +1,10 @@
-import {defineAsyncComponent} from 'vue'
+import { defineAsyncComponent } from 'vue'
 
 import formBuilder from "./formBuilder";
 import list from "./list";
 import dialog from "./dialog";
 
-import {Icon} from '@iconify/vue';
+import { Icon } from '@iconify/vue';
 
 export const GlobalComponents = {
     Icon,
@@ -40,13 +40,14 @@ export const GlobalComponents = {
     CircularMenu: defineAsyncComponent(() => import('../components/partials/circular-menu/CircularMenu.vue')),
     VBlock: defineAsyncComponent(() => import('../components/base/block/VBlock.vue')),
     UIWidget: defineAsyncComponent(() => import('../components/partials/widgets/ui-creative/UIWidget.vue')),
-    CountriesPanel : defineAsyncComponent(() => import('../components/basic/panels/CountriesPanel.vue')),
+    CountriesPanel: defineAsyncComponent(() => import('../components/basic/panels/CountriesPanel.vue')),
+    DeterminantsPanel: defineAsyncComponent(() => import('../components/basic/panels/DeterminantsPanel.vue')),
     LanguagesPanel: defineAsyncComponent(() => import('../components/basic/panels/LanguagesPanel.vue')),
     VPlaceholderPage: defineAsyncComponent(() => import('../components/base/placeholder/VPlaceholderPage.vue')),
     VBreadcrumb: defineAsyncComponent(() => import('../components/base/breadcrumb/VBreadcrumb.vue')),
     //     // VBreadcrumb:  import('../components/base/breadcrumb/VBreadcrumb.vue')['default'],
     ChatWindow: defineAsyncComponent(() => import('../components/chat/App.vue')),
-//     // VPlaceholderPage:  import('../components/base/placeholder/VPlaceholderPage.vue')['default'],
+    //     // VPlaceholderPage:  import('../components/base/placeholder/VPlaceholderPage.vue')['default'],
 
     // ActivityPanel:  import('../components/partials/panels/ActivityPanel.vue')['default'],
 

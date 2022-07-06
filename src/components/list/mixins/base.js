@@ -40,7 +40,15 @@ export default {
             default: [],
             type: Array
         },
-
+        customFetchEndPoint: {
+            required: false,
+            default: {}
+        },
+        actionButtons: {
+            required: false,
+            type: Array,
+            default: []
+        }
     },
     data() {
         return {
@@ -202,11 +210,15 @@ export default {
             this.$bus.on(`reload-table-${this.resource}`, callable);
 
             this.$bus.on('on-country-change', callable)
+            this.$bus.on('on-determinant-change', callable)
         }
     },
     computed: {
         isSortable() {
             return _.get(this, 'config.sortable', false);
+        },
+        hasToolbar(){
+            return _.get(this, 'config.showToolbar', true);
         },
         hasSelect() {
             return _.get(this, 'config.selectable', false);
@@ -224,7 +236,7 @@ export default {
             return this.trans(`${this.resource}.all`);
         },
         fetchEndPoint() {
-            return this.defaultEndPoint;
+            return Object.keys(this.customFetchEndPoint).length ? this.customFetchEndPoint : this.defaultEndPoint;
         },
         defaultEndPoint() {
             return this.$endPoint(`${this.resource}.index`);

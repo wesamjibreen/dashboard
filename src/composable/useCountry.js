@@ -8,9 +8,6 @@ export default function useCountry() {
     const config = inject('$config');
 
     const providerConfig =   _.get(config, 'app.countries', null);
-    const notificationsConfig =   _.get(config, 'app.notifications', null);
-
-    const isNotificationDisplayed = !!notificationsConfig?.display;
 
     const defaultCountryConfig = _.get(providerConfig, 'default', null);
     const country = ref();
@@ -58,7 +55,6 @@ export default function useCountry() {
         countryObject,
         flagUrl,
         isChecked,
-        isNotificationDisplayed,
         country
     }
 }

@@ -27,7 +27,7 @@ const actions = [
         color: "success",
         icon: "fa fa-edit",
         callback: function (row) {
-            this.$router.push({name: "country.edit", params: {id: row.id}});
+            this.$router.push({ name: "country.edit", params: { id: row.id } });
         }
     },
     {
@@ -47,7 +47,7 @@ const actions = [
                         this.request(
                             this.$endPoint('country.delete', row.id),
                             {},
-                            ({data}) => {
+                            ({ data }) => {
                                 this.value = false;
                                 Bus.emit('confirmation-dialog', false);
                                 Bus.emit(`reload-table-${resource}`);
@@ -71,5 +71,5 @@ const actions = [
 export {
     resource,
     columns,
-    actions
+    actions,
 }

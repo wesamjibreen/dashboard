@@ -11,11 +11,13 @@ export const FETCH_LANGUAGES = "fetchLanguages";
 export const SET_COUNTRIES = "setCountries";
 export const SET_LANGUAGES = "setLanguages";
 export const SET_CURRENT_COUNTRY = "setCurrentCountry";
+export const SET_CURRENT_DETERMINANT = "setCurrentDeterminant";
 export const SET_OPTIONS = "setOptions";
 export const SET_OPTIONS_FETCHED = "setOptionsFetched";
 export const SET_CURRENT_LANGUAGE = "setCurrentLanguage";
 
 // getters
+export const GET_CURRENT_DETERMINANT = "getCurrentDeterminant";
 export const GET_CURRENT_COUNTRY = "getCurrentCountry";
 export const GET_CURRENT_LANGUAGE = "getCurrentLanguage";
 export const GET_CURRENT_COUNTRY_LANGUAGES = "getCurrentCountryLanguages";
@@ -25,6 +27,7 @@ const state = () => ({
     languages: [],
     currentCountry: {},
     currentLanguage: {},
+    currentDeterminant: {},
 });
 // module getters
 const getters = {
@@ -32,6 +35,9 @@ const getters = {
         return state.countries.find(
             country => country.id === parseInt(state.currentCountry)
         );
+    },
+    [GET_CURRENT_DETERMINANT](state) {
+        return state.currentDeterminant
     },
     [GET_CURRENT_LANGUAGE](state) {
         return state.currentLanguage;
@@ -47,7 +53,7 @@ const actions = {
     [FETCH_LANGUAGES]() {
 
     },
-    [FETCH_COUNTRIES]({commit}, {context}) {
+    [FETCH_COUNTRIES]({ commit }, { context }) {
         context.request(
             context.$endPoint("country.index"),
             {
@@ -55,7 +61,7 @@ const actions = {
                     no_pagination: true
                 }
             },
-            function ({data}) {
+            function ({ data }) {
                 commit(SET_COUNTRIES, data.data);
             },
             function (xhr) {
@@ -84,10 +90,13 @@ const mutations = {
     [SET_CURRENT_COUNTRY](state, currentCountry) {
         state.currentCountry = currentCountry;
     },
-    [SET_OPTIONS](state, {key, options}) {
+    [SET_CURRENT_DETERMINANT](state, currentDeterminant) {
+        state.currentDeterminant = currentDeterminant;
+    },
+    [SET_OPTIONS](state, { key, options }) {
         window.$vm.$set(state, key, options);
     },
-    [SET_OPTIONS_FETCHED](state, {key, value}) {
+    [SET_OPTIONS_FETCHED](state, { key, value }) {
         window.$vm.$set(state, key, value);
     }
 };

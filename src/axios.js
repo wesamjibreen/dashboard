@@ -22,7 +22,7 @@ const initRequests = function (base) {
             _.set(config, `headers.${determinantKey.value}`, JSON.parse(determinant.value).key);
         // _.set(config, 'headers.Determinant', JSON.parse(determinant.value).key);
 
-        if (country.value)
+        if (determinant.value)
             _.set(config, 'headers.Language', locale.value);
 
 

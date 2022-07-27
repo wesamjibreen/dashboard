@@ -8,7 +8,8 @@
             :close-on-select="!multiple"
             :searchable="true"
             :valueProp="optionValue"
-            :trackBy="optionValue"
+            :trackBy="trackValue"
+
             :label="optionName"
             :placeholder="placeholder$"
             :multiple="multiple"

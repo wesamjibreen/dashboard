@@ -11,6 +11,10 @@ export default {
             required: false,
             default: "name"
         },
+        track_value: {
+            required: false,
+            default: "id"
+        },
         option_value: {
             required: false,
             default: "id"
@@ -214,6 +218,13 @@ export default {
              */
             return this.option_value !== undefined ? this.option_value : "id";
         },
+        trackValue: function () {
+            /**
+             * return the default track value key
+             * @author WeSSaM
+             */
+            return this.track_value !== undefined ? this.track_value : "id";
+        },
         optionsData: function () {
             let options = this.options$;
 
@@ -269,7 +280,7 @@ export default {
         optionsKey() {
             return `${
                 this.endPoint ? this.endPoint.name.split(".")[0] : this.model$
-                }Options`;
+            }Options`;
         },
         vuexOptions() {
             return this.setting && this.setting[this.optionsKey]

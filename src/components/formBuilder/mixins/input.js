@@ -43,8 +43,10 @@ export default {
         repeater: {
             required: false
         },
+
         onInputChange: Function,
         multiLang: Boolean,
+        type: String,
         locale: String
     },
     components: {
@@ -210,7 +212,9 @@ export default {
              *
              * @author WeSSaM
              */
-            return "text";
+            return this.type ? this.type : "text" ;
+
+//           return "text";
         },
 
         label$() {

@@ -1,24 +1,7 @@
 <template>
-  <div class="business-dashboard flights-dashboard mb-5">
-    <div class="booking-bar-wrapper">
-      <img
-        class="travel-illustration light-image"
-        src="/panel/images/illustrations/dashboards/flights/travel.svg"
-        alt=""
-      />
-      <div class="booking-bar-info">
-        <i aria-hidden="true" class="lnil lnil-plane-alt"></i>
-        <div class="inner">
-          <h2 class="booking-bar-heading">
-            Paris
-            <small>[PAR]</small>
-            - New York
-            <small>[NY]</small>
-          </h2>
-          <p class="booking-bar-sub-heading">1 adult - Business</p>
-        </div>
-      </div>
-      <div class="booking-bar column is-4">
+  <div class="business-dashboard flights-dashboard mb-2">
+    <div class="card input-icon p-2">
+      <div class="booking-bar column is-5">
         <component
           v-for="input in data$"
           :is="`${input.component}-field`"
@@ -54,5 +37,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
+
+.input-icon .o-icon.o-input__icon-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--light-text);
+    left: unset;
+    inset-inline-end: 0;
+}
 </style>

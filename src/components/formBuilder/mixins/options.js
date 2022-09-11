@@ -280,7 +280,7 @@ export default {
         optionsKey() {
             return `${
                 this.endPoint ? this.endPoint.name.split(".")[0] : this.model$
-            }Options`;
+                }Options`;
         },
         vuexOptions() {
             return this.setting && this.setting[this.optionsKey]

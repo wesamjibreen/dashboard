@@ -11,7 +11,7 @@
               <h4>Ahmed Mohammed</h4>
             </div>
           </div>
-     
+
           <div class="columns is-multiline">
             <div class="column is-3 p-3">
               <h4>Name :</h4>
@@ -20,7 +20,7 @@
               <h4>Ahmed Mohammed</h4>
             </div>
           </div>
-     
+
           <div class="columns is-multiline">
             <div class="column is-3 p-3">
               <h4>Name :</h4>
@@ -100,7 +100,7 @@
     </div> -->
 
   <div class="business-dashboard company-dashboard">
-    <div class="company-header is-dark-card-bordered is-dark-bg-6">
+    <div class="company-header is-dark-card-bordered is-dark-bg-6 card mb-1">
       <div class="header-item is-dark-bordered-12" v-for="item in data$">
         <div class="item-inner">
           <Icon
@@ -142,6 +142,7 @@ export default {
       // data:[{id:1,name:"Admin"}],
       // data_2:[{id:1,name:"Admin 1"},{id:2,name:"Admin 2"},{id:3,name:"Admin 3"}]
     };
+
   },
   mixins: [dashboard, base],
   methods: {

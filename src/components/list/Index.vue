@@ -1,8 +1,8 @@
 <template>
   <div :class="['card', isSortable && 'card-draggable']">
     <div class="card-head py-4 px-5" v-if="hasToolbar">
-      <div class="list-flex-toolbar flex-list-v1 mb-0">
-        <h3 class="card-title">
+      <div class="list-flex-toolbar flex-list-v1 mb-0 flex-wrap">
+        <h3 class="card-title mb-2">
           {{ pageTitle }}
         </h3>
         <div class="d-flex align-items-center justify-content-end">
@@ -12,7 +12,7 @@
               color="danger"
               icon="fas fa-file-pdf"
               elevated
-              class="btn-list"
+              class="btn-list mb-2"
               :loading="loadingPdf"
               @click="exportTo('Pdf')"
             >
@@ -23,7 +23,7 @@
               color="warning"
               icon="fas fa-file-excel"
               elevated
-              class="btn-list"
+              class="btn-list mb-2"
               :loading="loadingExcel"
               @click="exportTo('Excel')"
             >
@@ -34,7 +34,7 @@
               color="info"
               icon="fas fa-file-excel"
               elevated
-              class="btn-list"
+              class="btn-list mb-2"
               @click="openImportDialog"
             >
               {{ trans("import_excel") }}
@@ -44,7 +44,7 @@
               color="primary"
               icon="fas fa-plus"
               elevated
-              class="btn-list"
+              class="btn-list mb-2"
               @click="addNew"
             >
               {{ trans(listAddKey) }}
@@ -54,24 +54,38 @@
       </div>
     </div>
     <div class="card-body p-5">
-      <div class="list-flex-toolbar flex-list-v1 mb-0">
-        <div class="d-flex align-items-center justify-content-end">
-          <div
-            v-for="(actionButton, index) in actionButtons"
-            :key="index"
-            class="card ma-2"
-            @click="$router.push(actionButton.route)"
-            style="cursor: pointer"
-          >
-            <div class="card-body">
-              <VIcon :icon="actionButton.icon" />
-              <h3>
-                {{ trans(actionButton.label) }}
-              </h3>
+        <div class="columns is-multiline columns-mobile-6">
+            <div
+                v-for="(actionButton, index) in actionButtons"
+                :key="index"
+                class="column is-3 mt-1"
+                @click="$router.push(actionButton.route)"
+                style="cursor: pointer"
+                >
+                <div class="card card-country">
+                    <div class="card-body">
+                        <div class="icon">
+                          <div v-if="actionButton.icon">
+                            <!-- <VIcon :icon="actionButton.icon" /> -->
+                            <img :src="actionButton.icon" alt="">
+                        </div>
+                        <div v-else>
+                            <i aria-hidden="true" class="is-dark-primary lnil lnil-diamond-alt"></i>
+                        </div>
+
+                        </div>
+                        <h3>
+                            {{ trans(actionButton.label) }}
+                        </h3>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+        <div class="list-flex-toolbar flex-list-v1 mb-3">
+            <div class="d-flex align-items-center justify-content-end multiselect-tags">
+
+            </div>
+        </div>
 
       <div class="filters-form">
         <transition name="fade">
@@ -268,6 +282,29 @@ label.filter-label {
 </style>
 
 <style lang="scss">
+    @media(max-width:769px){
+        .columns-mobile-6{
+            display:flex;
+            >.column{
+                width: 50%;
+                flex-basis: auto;
+            }
+        }
+    }
+    .card.card-country{
+        text-align: center;
+        .icon{
+            margin-bottom: 20px;
+            color: #000;
+            img{
+                height: 20px;
+            }
+        }
+        .card-body {
+            padding: 20px 10px;
+            color: #000;
+        }
+    }
 .card {
   &.card-draggable {
     background-color: transparent;

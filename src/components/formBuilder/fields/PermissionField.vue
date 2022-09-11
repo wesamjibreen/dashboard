@@ -127,6 +127,11 @@
     };
 </script>
 
-<style>
-
+<style lang="scss">
+.permission .card-permission .header-permission {
+    top: -14px !important;
+    .checkbox.is-outlined.is-primary {
+    padding: 3px !important;;
+    }
+}
 </style>

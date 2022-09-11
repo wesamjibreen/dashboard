@@ -1,5 +1,5 @@
 <template>
-    <div class="asset-category">
+    <div class="asset-category card py-5">
         <div class="category" v-for="category in data$" @click="onClick(category)">
             <div class="asset">
                 <div class="asset-logo">

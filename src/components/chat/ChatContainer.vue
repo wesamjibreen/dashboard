@@ -829,6 +829,7 @@ export default {
             foundRoom.index = room.lastUpdated.seconds;
           } else {
             setTimeout(async () => {
+              // if (this.loadingRooms) return;
               const roomUserIds = [];
               room.users.forEach((userId) => {
                 const foundUser = this.allUsers.find(

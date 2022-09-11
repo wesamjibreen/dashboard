@@ -57,9 +57,8 @@ const localFlagSrc = computed(() => {
 
       <img :src="flagUrl" alt="" />
     </a> -->
-    <a
+    <a :class="`toolbar-link toolbar-link right-panel-trigger ${determinants.component?.value==='image'?'lang-image':'lang-label'}`"
       v-if="!!determinants.component?.value"
-      class="toolbar-link right-panel-trigger"
       @click="activePanel = 'determinants'"
     >
       <img
@@ -74,3 +73,15 @@ const localFlagSrc = computed(() => {
     <slot></slot>
   </div>
 </template>
+
+
+<style>
+    .toolbar-link.lang-label{
+        width: auto;
+        border-radius: 4px;
+        height: auto;
+        padding: 2px 12px;
+        margin: 0;
+        border: 1px solid #d7d7d7;
+    }
+</style>

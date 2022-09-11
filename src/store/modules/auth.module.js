@@ -62,6 +62,7 @@ export default function (base) {
                     ref.$router.push({name: "dashboard"}).then(() => {
                         commit(SET_AUTH, data);
                         ref.$bus.emit('authenticated', data);
+                        ref.$router.go();
                     });
                 },
                 (xhr) => {

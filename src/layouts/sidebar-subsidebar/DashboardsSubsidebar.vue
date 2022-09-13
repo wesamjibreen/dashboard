@@ -1,99 +1,96 @@
 <template>
-    <div>
-
-
-        <div class="sidebar-panel is-generic">
-            <div class="subpanel-header">
-            <!-- <h3 class="no-mb">{{ title }}</h3>
+  <div>
+    <div class="sidebar-panel is-generic">
+      <div class="subpanel-header">
+        <!-- <h3 class="no-mb">{{ title }}</h3>
                     <div class="panel-close" @click="$emit('close')">
                         <i aria-hidden="true" class="iconify" data-icon="feather:x"></i>
                     </div> -->
 
-            <div class="logo">
-                <AnimatedLogo />
-                <!--<img src="/panel/images/logo-header.png">-->
-                <!--<img :src="logo">-->
-            </div>
-            </div>
-        <perfect-scrollbar>
-            <div data-simplebar>
-                <ul class="menu">
-                    <li
-                    v-for="(item, index) in menu"
-                    class="menu-item"
-                    :class="{ 'is-open': isOpen(index) }"
-                    >
-                    <div class="menu-link" @click="setActive(item, index)">
-                        <span class="menu-arrow" v-if="hasChildren(item)">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="11.061"
-                            height="6.28"
-                            viewBox="0 0 11.061 6.28"
-                        >
-                            <path
-                            id="Path_2187"
-                            data-name="Path 2187"
-                            d="M1320,150l5,5,5-5"
-                            transform="translate(-1319.47 -149.47)"
-                            fill="none"
-                            stroke="#19324b"
-                            stroke-linejoin="round"
-                            stroke-width="1.5"
-                            />
-                        </svg>
-                        </span>
-                        <span class="menu-title">{{ trans(item.label) }}</span>
-                        <span class="menu-icon"
-                        ><Icon aria-hidden="true" :icon="`${item.icon}`"></Icon
-                        ></span>
-                    </div>
-                    <div class="menu-sub" v-if="hasChildren(item)">
-                        <div class="menu-item" v-for="child in item?.children">
-                        <RouterLink
-                            v-bind="child"
-                            :class="[
-                            'menu-link',
-                            isActive(child) &&
-                                'router-link-active router-link-exact-active',
-                            ]"
-                        >
-                            <span class="menu-title">{{ trans(child.label) }}</span>
-
-                            <span class="menu-icon">
-                            <Icon aria-hidden="true" :icon="`${child.icon}`"></Icon>
-                            <i aria-hidden="true" :class="`${child.icon}`"></i>
-                            </span>
-
-                            <!--<span class="menu-arrow">-->
-                            <!--<svg xmlns="http://www.w3.org/2000/svg" width="5.28" height="9.061"-->
-                            <!--viewBox="0 0 5.28 9.061">-->
-                            <!--<path id="Path_2192" data-name="Path 2192" d="M1320,150l4,4,4-4"-->
-                            <!--transform="translate(154.75 -1319.47) rotate(90)" fill="none"-->
-                            <!--stroke="#19324b" stroke-linejoin="round" stroke-width="1.5"/>-->
-                            <!--</svg>-->
-                            <!--</span>-->
-                        </RouterLink>
-                        </div>
-                    </div>
-                    </li>
-                </ul>
-            </div>
-        </perfect-scrollbar>
+        <div class="logo">
+          <AnimatedLogo />
+          <!--<img src="/panel/images/logo-header.png">-->
+          <!--<img :src="logo">-->
         </div>
-</div>
+      </div>
+      <perfect-scrollbar>
+        <div data-simplebar>
+          <ul class="menu">
+            <li
+              v-for="(item, index) in menu"
+              class="menu-item"
+              :class="{ 'is-open': isOpen(index) }"
+            >
+              <div class="menu-link" @click="setActive(item, index)">
+                <span class="menu-arrow" v-if="hasChildren(item)">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="11.061"
+                    height="6.28"
+                    viewBox="0 0 11.061 6.28"
+                  >
+                    <path
+                      id="Path_2187"
+                      data-name="Path 2187"
+                      d="M1320,150l5,5,5-5"
+                      transform="translate(-1319.47 -149.47)"
+                      fill="none"
+                      stroke="#19324b"
+                      stroke-linejoin="round"
+                      stroke-width="1.5"
+                    />
+                  </svg>
+                </span>
+                <span class="menu-title">{{ trans(item.label) }}</span>
+                <span class="menu-icon"
+                  ><Icon aria-hidden="true" :icon="`${item.icon}`"></Icon
+                ></span>
+              </div>
+              <div class="menu-sub" v-if="hasChildren(item)">
+                <div class="menu-item" v-for="child in item?.children">
+                  <RouterLink
+                    v-bind="child"
+                    :class="[
+                      'menu-link',
+                      isActive(child) &&
+                        'router-link-active router-link-exact-active',
+                    ]"
+                  >
+                    <span class="menu-title">{{ trans(child.label) }}</span>
 
+                    <span class="menu-icon">
+                      <Icon aria-hidden="true" :icon="`${child.icon}`"></Icon>
+                      <i aria-hidden="true" :class="`${child.icon}`"></i>
+                    </span>
+
+                    <!--<span class="menu-arrow">-->
+                    <!--<svg xmlns="http://www.w3.org/2000/svg" width="5.28" height="9.061"-->
+                    <!--viewBox="0 0 5.28 9.061">-->
+                    <!--<path id="Path_2192" data-name="Path 2192" d="M1320,150l4,4,4-4"-->
+                    <!--transform="translate(154.75 -1319.47) rotate(90)" fill="none"-->
+                    <!--stroke="#19324b" stroke-linejoin="round" stroke-width="1.5"/>-->
+                    <!--</svg>-->
+                    <!--</span>-->
+                  </RouterLink>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </perfect-scrollbar>
+    </div>
+  </div>
 </template>
 <script>
 import { sidebar } from "../../mixins";
 import { useRoute } from "vue-router";
 import { useStorage } from "@vueuse/core";
-import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
+import { PerfectScrollbar } from "vue3-perfect-scrollbar";
 
 export default {
-    components: {
-        PerfectScrollbar
-    },
+  components: {
+    PerfectScrollbar,
+  },
   mixins: [sidebar],
   setup() {
     const route = useRoute();
@@ -144,6 +141,7 @@ export default {
   },
   computed: {
     menu() {
+      console.log("userPolicies", this.userPolicies);
       let menuItems = _.get(this.$instance, "config.menu", []);
       if (this.appConfig("permissions.enabled", false)) {
         let filteredMenu = [];
@@ -194,15 +192,15 @@ export default {
 <style lang="scss">
 @import "../../scss/layout/_sidebar-panel.scss";
 .ps {
-    height: calc(100vh - 170px);
+  height: calc(100vh - 170px);
 }
-.sidebar-panel{
-    overflow:unset
+.sidebar-panel {
+  overflow: unset;
 }
 /*
  * Container style
  */
- .ps {
+.ps {
   overflow: hidden !important;
   overflow-anchor: none;
   -ms-overflow-style: none;
@@ -215,8 +213,8 @@ export default {
 .ps__rail-x {
   display: none;
   opacity: 0;
-  transition: background-color .2s linear, opacity .2s linear;
-  -webkit-transition: background-color .2s linear, opacity .2s linear;
+  transition: background-color 0.2s linear, opacity 0.2s linear;
+  -webkit-transition: background-color 0.2s linear, opacity 0.2s linear;
   height: 15px;
   /* there must be 'bottom' or 'top' for ps__rail-x */
   bottom: 0px;
@@ -226,8 +224,8 @@ export default {
 .ps__rail-y {
   display: none;
   opacity: 0;
-  transition: background-color .2s linear, opacity .2s linear;
-  -webkit-transition: background-color .2s linear, opacity .2s linear;
+  transition: background-color 0.2s linear, opacity 0.2s linear;
+  -webkit-transition: background-color 0.2s linear, opacity 0.2s linear;
   width: 15px;
   /* there must be 'right' or 'left' for ps__rail-y */
   right: 0;
@@ -262,8 +260,8 @@ export default {
 .ps__thumb-x {
   background-color: #aaa;
   border-radius: 6px;
-  transition: background-color .2s linear, height .2s ease-in-out;
-  -webkit-transition: background-color .2s linear, height .2s ease-in-out;
+  transition: background-color 0.2s linear, height 0.2s ease-in-out;
+  -webkit-transition: background-color 0.2s linear, height 0.2s ease-in-out;
   height: 6px;
   /* there must be 'bottom' for ps__thumb-x */
   bottom: 2px;
@@ -273,8 +271,8 @@ export default {
 .ps__thumb-y {
   background-color: #aaa;
   border-radius: 6px;
-  transition: background-color .2s linear, width .2s ease-in-out;
-  -webkit-transition: background-color .2s linear, width .2s ease-in-out;
+  transition: background-color 0.2s linear, width 0.2s ease-in-out;
+  -webkit-transition: background-color 0.2s linear, width 0.2s ease-in-out;
   width: 6px;
   /* there must be 'right' for ps__thumb-y */
   right: 2px;
@@ -305,7 +303,7 @@ export default {
   }
 }
 .ps {
-    position: relative;
+  position: relative;
 }
 .sidebar-panel.is-generic .subpanel-header {
   justify-content: center;

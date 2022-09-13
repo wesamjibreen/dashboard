@@ -59,7 +59,7 @@ export default function (base) {
                 credentials,
                 ({ data }) => {
                     notify.success(data.message);
-                    ref.$router.push({ name: "dashboard" }).then(() => {
+                    ref.$router.replace({ name: "dashboard" }).then(() => {
                         commit(SET_AUTH, data);
                         ref.$bus.emit('authenticated', data);
                         // ref.$router.go();
@@ -126,6 +126,7 @@ export default function (base) {
             state.user = user.value = {};
             state.errors = {};
             state.token = token.value = null;
+            localStorage.clear()
         }
     };
 

@@ -126,7 +126,7 @@ export default function (base) {
             state.user = user.value = {};
             state.errors = {};
             state.token = token.value = null;
-            localStorage.clear()
+            // localStorage.clear()
         }
     };
 

@@ -99,8 +99,8 @@ export default {
         this.$bus.emit("logout");
 
         // clear local storage data
-        localStorage.removeItem(`${this.$base}_determinant`);
-        localStorage.removeItem(`${this.$base}_determinant_key`);
+        // localStorage.removeItem(`${this.$base}_determinant`);
+        // localStorage.removeItem(`${this.$base}_determinant_key`);
       });
     },
   },

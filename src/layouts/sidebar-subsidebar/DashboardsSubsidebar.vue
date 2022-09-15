@@ -86,6 +86,7 @@ import { sidebar } from "../../mixins";
 import { useRoute } from "vue-router";
 import { useStorage } from "@vueuse/core";
 import { PerfectScrollbar } from "vue3-perfect-scrollbar";
+import { useStore } from "vuex";
 
 export default {
   components: {
@@ -94,9 +95,11 @@ export default {
   mixins: [sidebar],
   setup() {
     const route = useRoute();
+    const store = useStore();
 
     return {
       route,
+      store,
     };
   },
   data() {
@@ -173,8 +176,10 @@ export default {
       return this.appConfig("logo.light");
     },
     userPolicies() {
-      let $auth = useStorage(`${this.$base}_user`, {});
-      let policies = $auth.value?.policies;
+      // let $auth = useStorage(`${this.$base}_user`, {});
+      // let policies = $auth.value?.policies;
+      let policies = _.get(this.store.getters["currentUser"],'policies');
+      console.log('currentUser', policies,this.store.getters["currentUser"]?.policies)
       return policies ? atob(policies).split(",") : [];
     },
   },

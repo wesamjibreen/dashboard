@@ -2,6 +2,7 @@
   <div class="sidebar-layout">
     <div class="app-overlay"></div>
     <AlertDialog />
+    <PopDialog />
     <!-- Mobile navigation -->
     <MobileNavbar
       :is-open="isMobileSidebarOpen"
@@ -167,11 +168,13 @@ import { activePanel } from "../state/activePanelState";
 import { pageTitle } from "../state/sidebarLayoutState";
 import useNotifications from "../composable/useNotifications";
 import AlertDialog from "../components/dialog/AlertDialog";
+import PopDialog from "../components/dialog/PopDialog";
 import { mapState } from "vuex";
 
 export default {
   components: {
     AlertDialog,
+    PopDialog,
     Icon,
   },
   setup(props) {

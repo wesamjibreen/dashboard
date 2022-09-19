@@ -14,6 +14,11 @@ const initRouter = function (routes, base = "/", config = {}) {
             beforeEnter: checkAuth(base, config),
             component: BaseLayout,
             children: [
+                // {
+                //     path: "/KanbanBoard",
+                //     name: "KanbanBoard",
+                //     component: () => import('./pages/KanbanBoard/card'),
+                // },
                 {
                     path: "/dashboard",
                     name: "dashboard",

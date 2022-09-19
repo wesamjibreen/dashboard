@@ -104,6 +104,8 @@
                     v-if="hasPermission(`${resource}.${action.slug}`)"
                   />
                 </div>
+                <!-- <VButton gray @click="open" >{{ trans('cancel_operation') }}</VButton> -->
+                <!-- <CancelButton/> -->
               </slot>
             </div>
           </slot>
@@ -116,9 +118,13 @@
 <script>
 import { view } from "../mixins";
 import { permissions } from "../../../mixins";
+// import CancelButton from "./CancelButton.vue";
 
 export default {
   name: "TableView",
+  components : {
+    // CancelButton
+  },
   mixins: [view, permissions],
   data() {
     return {};
@@ -126,7 +132,11 @@ export default {
   computed: {
    
   },
-  methods: {},
+  methods: {
+    open(){
+            alert("opened")
+        }
+  },
 };
 </script>
 

@@ -91,7 +91,7 @@
         <transition name="fade">
           <div class="columns is-multiline">
             <div
-              v-for="filterInput in filters"
+              v-for="filterInput in filters" 
               :class="`column is-${filterInput.cols ?? 3}`"
             >
               <VField>

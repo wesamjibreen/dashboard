@@ -127,9 +127,40 @@ export default {
                     },
                 );
             });
+            this.initActionEvent("إلغاء العملية", (row, data = {}) => {
+                this.$bus.emit('Popconfirmation-dialog',
+                    true,
+                    {
+                        title: this.trans("sure_to_cancel"),
+                        type: "warning",
+                        callback: () => {
+                            this.loading = true;
+                            this.request(
+                                this.$endPoint(`${this.resource}.delete`, row.id),
+                                {},
+                                ({ data }) => {
+                                    this.value = false;
+                                    window.Bus.emit('Popconfirmation-dialog', false);
+                                    window.Bus.emit(`reload-table-${this.resource}`);
+                                    this.successNotify("تم إلغاء العملية بنجاح");
+                                },
+                                (data) => {
+                                    this.successNotify(data.message);
+                                },
+                                () => {
+                                    this.loading = false;
+                                }
+                            )
+                        },
+                    },
+                );
+            });
             this.initActionEvent('show', (row, data = {}) => {
                 this.$router.push({ name: `${this.resource}.show`, params: { id: row.id } });
             });
+            // this.initActionEvent('delete', (row, data = {}) => {
+            //     this.$router.push({ name: `${this.resource}.show`, params: { id: row.id } });
+            // });
         },
 
         initActionGroup() {
@@ -162,6 +193,7 @@ export default {
                     },
                 );
             });
+            
         },
 
         addNew() {

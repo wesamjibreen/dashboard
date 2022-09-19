@@ -65,7 +65,44 @@ const actions = [
             );
             // this.$router.push({name: "country.edit", params: {id: 1}});
         }
-    }
+    },
+    // {
+    //     slug:"إلغاء العملية",
+    //     color: "danger",
+    //     label:"إلغاء العملية",
+    //     callback: function (row, resource) {
+    //         console.log('deleteRow', row);
+    //         Bus.emit('Popconfirmation-dialog',
+    //             true,
+    //             {
+    //                 title: "sure_to_cancel",
+    //                 message: "",
+    //                 type: "warning",
+    //                 callback: () => {
+    //                     this.loading = true;
+    //                     this.request(
+    //                         this.$endPoint('country.delete', row.id),
+    //                         {},
+    //                         ({ data }) => {
+    //                             this.value = false;
+    //                             Bus.emit('Popconfirmation-dialog', false);
+    //                             Bus.emit(`reload-table-${resource}`);
+    //                         },
+    //                         () => {
+    //                             alert('error');
+    //                         },
+    //                         () => {
+    //                             this.loading = false;
+    //                         }
+    //                     )
+    //                     alert('delete');
+    //                 }
+    //             },
+    //         );
+    //         // this.$router.push({name: "country.edit", params: {id: 1}});
+    //     },
+    //     disabled : true ,
+    // }
 ];
 
 export {

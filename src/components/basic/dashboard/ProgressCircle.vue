@@ -1,13 +1,15 @@
 <template>
     <div class="card">
+      <div>
+            <h3 class="pt-3 px-5 mb-2 title-chart">{{ title$ }}</h3>
+      </div>
       <div class="card-body p-5">
-        <h3 class="mt-0 mb-4 title-chart">Title Chart</h3>
           <canvas id="myChart2" height="250"></canvas>
       </div>
     </div>
-  </template>
+</template>
 
-  <script>
+<script>
   import Chart from 'chart.js/auto';
   import dashboard from "./dashboard";
 
@@ -25,7 +27,15 @@
       borderColor : [],
       borderWidth : String,
       cutout : String,
-      borderRadius : String
+      borderRadius : String,
+      title: {},
+
+    },
+    computed: {
+        title$() {
+            // console.log('title',this.title)
+            return this.title ? this.getValueByLocale(this.title) : null;
+        }
     },
     mounted(){
       const centerText = {
@@ -131,4 +141,20 @@
     font-weight: bold;
     font-size: 20px;
 }
-  </style>
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
+.hello{
+  width: 400px ;
+  margin :auto ;
+}
+</style>
+

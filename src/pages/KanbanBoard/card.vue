@@ -1,49 +1,26 @@
 <template>
-<div>
-<!-- <KanbanApp /> -->
-  <div class="finance-dashboard stock-dashboard">
-    <div class="columns is-multiline">
-      <div
-    
-        v-for="{ component , index, ...item } in sections " v-bind:key="index"
-        :class="`column is-${item.cols ?? 12}`"
-      >
-        <component :is="component" v-bind="item" @refetch="fetch" />
-
+  <div>
+  <!-- <KanbanApp /> -->
+    <div class="finance-dashboard stock-dashboard">
+      <div class="columns is-multiline">
+        <div
+      
+          v-for="{ component , index, ...item } in sections " v-bind:key="index"
+          :class="`column is-${item.cols ?? 12}`"
+        >
+          <component :is="component" v-bind="item" @refetch="fetch" />
+  
+        </div>
+        <!-- <KanbanBoard /> -->
       </div>
-      <!-- <KanbanBoard /> -->
     </div>
   </div>
-</div>
 </template>
-
 <script>
-import Table from "../../components/basic/dashboard/Table";
-import Category from "../../components/basic/dashboard/Category";
-import Filter from "../../components/basic/dashboard/Filter";
-import Statistic from "../../components/basic/dashboard/Statistic";
-import Chart from "../../components/basic/dashboard/Chart";
-import KanbanBoard from "../../components/basic/dashboard/KanbanBoard/KanbanBoard";
-import ProgressCircle from "../../components/basic/dashboard/ProgressCircle";
-import DateField from "../../components/formBuilder/fields/DateField";
-import { getMessaging, getToken, onMessage } from "firebase/messaging";
-import {
-  messaging,
-  firebaseSettings,
-  subscribeTokenToTopic,
-  getMessagingToken,
-} from "../../plugins/firebase";
-
+import KanbanBoard from "../../components/KanbanBoard/KanbanBoard";
 export default {
-  name: "Index",
+  name: "card",
   components: {
-    Filter,
-    Category,
-    Table,
-    DateField,
-    Statistic,
-    Chart ,
-    ProgressCircle,
     KanbanBoard
   },
   data: () => ({
@@ -53,6 +30,7 @@ export default {
       range: null,
     },
   }),
+  
 //       return{
 //     data: {
 //         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -97,7 +75,7 @@ export default {
         function () {
           this.loading = true;
           this.request(
-            this.homeEndPoint,
+            this.kanbanEndPoint,
             { params: { ...query } },
             ({ data }) => {
               this.data = data.data;
@@ -112,8 +90,8 @@ export default {
     },
   },
   computed: {
-    homeEndPoint() {
-      return this.$endPoint("home.index");
+    kanbanEndPoint() {
+      return this.$endPoint("kanban.card");
     },
     sections() {
       return this.data ?? [];
@@ -874,7 +852,7 @@ export default {
   background: var(--dark-sidebar);
   opacity: 0;
   pointer-events: none;
-  z-index: 1;
+  z-card: 1;
   cursor: pointer;
   border-radius: 16px;
   transition: all 0.3s;
@@ -892,7 +870,7 @@ export default {
   font-family: var(--font);
   opacity: 0;
   pointer-events: none;
-  z-index: 2;
+  z-card: 2;
   overflow: hidden;
   cursor: pointer;
 }

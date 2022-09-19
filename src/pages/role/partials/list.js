@@ -26,6 +26,10 @@ const actions = [
   {
     slug: "delete",
     color: "danger",
+  },
+  {
+    slug: "cancel",
+    color: "danger",
   }
 ];
 

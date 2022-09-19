@@ -38,7 +38,11 @@ const actions = [
   {
     slug: "delete",
     color: "danger",
-  }
+  },
+  // {
+  //   slug:"إلغاء العملية",
+  //   color: "danger",
+  // }
 ];
 
 export {

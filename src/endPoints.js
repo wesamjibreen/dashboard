@@ -71,6 +71,7 @@ class EndPoints {
             delete: (id) => {
                 return this.generateURL('DELETE', {}, uri, id);
             },
+            
             ...others
         }
     }

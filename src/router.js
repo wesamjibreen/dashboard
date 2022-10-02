@@ -1,12 +1,8 @@
-import { createRouter, createWebHistory } from "vue-router";
+import {createRouter, createWebHistory} from "vue-router";
 import NProgress from 'nprogress'
-import { BaseLayout } from "../modules";
-import { useStorage } from "@vueuse/core";
-import { getTokenKey } from "./utils/storage";
-import { inject } from "vue";
-import useNotifications from "./composable/useNotifications";
-
-
+import {BaseLayout} from "../modules";
+import {useStorage} from "@vueuse/core";
+import {getTokenKey} from "./utils/storage";
 const initRouter = function (routes, base = "/", config = {}) {
     routes = [
         {
@@ -14,11 +10,6 @@ const initRouter = function (routes, base = "/", config = {}) {
             beforeEnter: checkAuth(base, config),
             component: BaseLayout,
             children: [
-                // {
-                //     path: "/KanbanBoard",
-                //     name: "KanbanBoard",
-                //     component: () => import('./pages/KanbanBoard/card'),
-                // },
                 {
                     path: "/dashboard",
                     name: "dashboard",
@@ -68,11 +59,9 @@ const initRouter = function (routes, base = "/", config = {}) {
     /**
      * Handle NProgress display on page changes
      */
-
-
     router.beforeEach((to, from) => {
         if (to.name === 'notifications' && !config.app.notifications.display) {
-            router.push({ name: 'dashboard' });
+            router.push({name: 'dashboard'});
         }
 
         let hasPermissions = _.get(config, 'app.permissions.enabled', false);
@@ -104,42 +93,39 @@ const initRouter = function (routes, base = "/", config = {}) {
 };
 
 
-const generateRoutes = ({ resource, folderName = null, path }, routes = []) => {
+const generateRoutes = (
+    {resource, config = {}, folderName = null, path},
+    routes = []
+) => {
     folderName = folderName || _.camelCase(resource);
     return {
         path: `${resource}`,
         name: resource,
         redirect: `${resource}/all`,
-        // component :  import(path.resolve(`/pages/${folderName}/Index.vue`)),
         component: () => import(`./pages/${folderName}/Index.vue`),
         children: [
             {
                 path: "all",
                 name: `${resource}.all`,
-                component: () => import(`./pages/${folderName}/List.vue`),
+                props: config,
+                component: () => import(`./pages/resource/List.vue`),
             },
             {
                 path: "create",
                 name: `${resource}.create`,
-                component: () => import(`./pages/${folderName}/Create.vue`),
-                // component : () => import(path.resolve(`/pages/${folderName}/Create.vue`)),
+                props: config,
+                component: () => import(`./pages/resource/Create.vue`),
             },
             {
                 path: ":id/edit",
                 name: `${resource}.edit`,
-                // component : () => import(path.resolve(`/pages/${folderName}/Create.vue`)),
-                component: () => import(`./pages/${folderName}/Create.vue`),
+                props: config,
+                component: () => import(`./pages/resource/Create.vue`),
             },
             ...routes
         ]
     };
 };
-
-// const importViewModule = function (folderName, viewName, module = "") {
-//     return import(`${module}/${folderName}/${viewName}`);
-// };
-
-
 const checkAuth = (base, config = {}) => {
     return (to, from, next) => {
         let isAuthenticated = useStorage(getTokenKey(base), null).value;
@@ -148,24 +134,16 @@ const checkAuth = (base, config = {}) => {
                 if (to.name === "login")
                     next();
                 else
-                    next({ name: "login" });
+                    next({name: "login"});
                 return;
 
             case !to.name || to.name === "login":
-                next({ name: 'dashboard' });
+                next({name: 'dashboard'});
                 return;
 
             default:
                 next();
         }
-
-
-        // if (hasPermissions) {
-        //
-        //     next({path: '/401'});
-        //
-        // } else
-        //     next();
     }
 };
 export {

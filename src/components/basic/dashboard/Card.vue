@@ -1,57 +1,96 @@
 <template>
   <div class="columns is-multiline mt-2">
-    <div class="column is-6 is-md-12">
-      <div class="company-dashboard">
+    <div class="column is-12 is-md-12">
+      <div class="company-dashboard is-dark-card-bordered">
         <div
-          class="company-header list-row"
+          class="company-header is-dark-card-bordered list-row"
           v-for="(item, index) in data"
           :key="index"
         >
-          <div class="columns is-multiline" v-for="(i, y) in item" :key="y">
-            <div class="column is-3 p-3">
-              <h4>{{ trans(i.key) }} :</h4>
-            </div>
-            <div class="column is-9 p-3">
-              <h4>{{ i.value }}</h4>
-            </div>
+            <div >
+              <div>
+                <VBlock>
+                    <h1 style="font-weight: bold; font-size:large ; margin-top: 10px">
+                      {{item.title}}
+                    </h1>
+                    <template #action>
+                        <VButton
+                          v-for="(action , index ) in item.actions"
+                          :key="index"
+                          class="btn-list mb-2"
+                          :color="action.color"
+                          :loading='action.loading'
+                          raised
+                          @click="execution(action)">
+                          {{trans(action.label)}}
+                        </VButton>
+                    </template>
+                </VBlock>
+              </div>
+              <hr style="height:1px;color:rgb(182, 182, 182);background-color:rgb(182, 182, 182);margin-top:15px">
+              <div style="margin-left:15px">
+                <div class="columns is-multiline" v-for="(i, y) in item.details" :key="y">
+                  <div class="column is-3 p-3">
+                    <p>{{ trans(i.key) }} :</p>
+                  </div>
+                  <div class="column is-9 p-3">
+                    <p>{{ i.value }}</p>
+                  </div>
+                </div>
+              </div>
           </div>
-        </div>
       </div>
+      <!-- <div v-show="false">
+      <Export
+        ref="exporting"
+        :data="exportedData"
+        :columns="exportingColumns('action.type')"
+        :listRef="listRef"
+      />
+    </div> -->
+          <ImportDialog
+      ref="importDialog"
+      :resource="resource"
+      @on-sample-button-click="downloadImportSample"
+    />
     </div>
+  </div>
   </div>
 </template>
 
 <script>
 import dashboard from "./dashboard";
-import base from "../../list/mixins/base";
+import base from "./mixins/base";
+import ImportDialog from "./partials/ImportDialog.vue";
 
 export default {
-  name: "Statistics",
-  mixins: [dashboard, base],
-  components: {},
-  props: {
-    data: {
-      required: true,
-      default: [],
-    },
+  name: "card",
+  mixins: [dashboard, base ] ,
+  components: {
+    // KanBanCard,
+    ImportDialog,
   },
-  data() {
-    return {};
-  },
-  methods: {},
+  props:{
+    data : {
+      required : true ,
+      default : []
+    }
+  }
 };
 </script>
 
 <style lang="scss">
+  p.round3 {
+    font-weight: lighter;
+}
 @import "../../../../dist/scss/abstracts/_mixins.scss";
-
 .company-dashboard {
   .company-header {
     display: flex;
     padding: 20px;
     background: var(--white);
     border: 1px solid var(--fade-grey-dark-3);
-    border-radius: var(--radius-large);
+    border-radius:10px;
     margin-bottom: 1.5rem;
 
     .header-item {

@@ -92,7 +92,6 @@
                 :row="row"
                 :resource="resource"
                 :actions="actions"
-                id="row"
               >
                 <div
                   v-for="(action, index) in actions"
@@ -102,20 +101,11 @@
                     v-bind="action"
                     :resource="resource"
                     :row="row"
-                    v-if="hasPermission(`${resource}.${action.slug}`)&&(action.slug!=='cancel')"
+                    v-if="hasPermission(`${resource}.${action.slug}`)"
                   />
-                  <Cancel 
-                  v-bind="action"
-                  :resource="resource"
-                  :row="row"
-                  v-if="hasPermission(`${resource}.${action.slug}`)&&action.slug==='cancel'"
-                  :disabled="row.cancel_operation"
-                  :color="action.color"
-                  
-                  />
-
                 </div>
-          
+                <!-- <VButton gray @click="open" >{{ trans('cancel_operation') }}</VButton> -->
+                <!-- <CancelButton/> -->
               </slot>
             </div>
           </slot>
@@ -128,26 +118,24 @@
 <script>
 import { view } from "../mixins";
 import { permissions } from "../../../mixins";
-import Cancel from "./Cancel.vue";
+// import CancelButton from "./CancelButton.vue";
 
 export default {
   name: "TableView",
   components : {
-    Cancel
+    // CancelButton
   },
   mixins: [view, permissions],
   data() {
     return {};
   },
-  props: {
-    disabled: {
-        default: true
-    },
+  computed: {
+   
   },
   methods: {
     open(){
-      document.getElementById("row").disabled = this.disabled;
-    }
+            alert("opened")
+        }
   },
 };
 </script>

@@ -7,6 +7,7 @@ import SwitchStatus from "../partials/SwitchStatus";
 import SortableView from "../partials/SortableView";
 import StatusLabel from "../partials/StatusLabel";
 import Action from "../partials/Action";
+import Cancel from "../partials/Cancel";
 import ActionGroup from "../partials/ActionGroup";
 import CheckboxField from "../../formBuilder/fields/CheckboxField";
 import Export from "../partials/Export";
@@ -24,7 +25,8 @@ export default {
         EditableInput,
         ImageHolder,
         ActionGroup,
-        Action
+        Action,
+        Cancel
     },
     props: {
         resource: {
@@ -127,7 +129,7 @@ export default {
                     },
                 );
             });
-            this.initActionEvent("إلغاء العملية", (row, data = {}) => {
+            this.initActionEvent("cancel", (row, data = {}) => {
                 this.$bus.emit('Popconfirmation-dialog',
                     true,
                     {
@@ -136,13 +138,13 @@ export default {
                         callback: () => {
                             this.loading = true;
                             this.request(
-                                this.$endPoint(`${this.resource}.delete`, row.id),
+                                this.$endPoint(`${this.resource}.cancel`, row.id),
                                 {},
                                 ({ data }) => {
                                     this.value = false;
                                     window.Bus.emit('Popconfirmation-dialog', false);
                                     window.Bus.emit(`reload-table-${this.resource}`);
-                                    this.successNotify("تم إلغاء العملية بنجاح");
+                                    this.successNotify(data.message);
                                 },
                                 (data) => {
                                     this.successNotify(data.message);

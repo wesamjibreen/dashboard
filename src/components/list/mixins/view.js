@@ -1,5 +1,6 @@
 // import {getValueByLocale} from "../../../utils/helper";
 import Action from "../partials/Action";
+import Cancel from "../partials/Cancel";
 import ImageHolder from "../partials/ImageHolder";
 import EditableInput from "../partials/EditableInput";
 import SwitchStatus from "../partials/SwitchStatus";
@@ -21,7 +22,8 @@ export default {
         SwitchStatus,
         EditableInput,
         ImageHolder,
-        Action
+        Action,
+        Cancel
     },
     data: () => ({
         selected: []

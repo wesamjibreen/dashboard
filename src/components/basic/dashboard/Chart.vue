@@ -4,18 +4,17 @@
             <h3 class="pt-3 px-5 mb-2 title-chart">{{ title$ }}</h3>
         </div>
         <div class="card-body p-5">
-            <canvas id="myChart"></canvas>
+            <canvas id="myChart"  height="180"></canvas>
         </div>
     </div>
 </template>
 <script>
 import Chart from 'chart.js/auto';
-import dashboard from "./dashboard";
 import common from "../../../mixins/common";
 
 export default {
     name: 'Chart',
-    mixins: [dashboard,common],
+    mixins: [common],
     props: {
         type: String,
         data: {},
@@ -36,13 +35,12 @@ export default {
             return this.title ? this.getValueByLocale(this.title) : null;
         }
     },
+
 }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-    margin: 40px 0 0;
-}
+
 
 ul {
     list-style-type: none;

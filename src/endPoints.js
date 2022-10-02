@@ -62,6 +62,9 @@ class EndPoints {
             status: (id) => {
                 return this.generateURL('PATCH', {}, uri, id, 'status');
             },
+            cancel: (id) => {
+                return this.generateURL('PUT', {}, uri, id ,'cancel');
+            },
             multi_delete: ($params) => {
                 return this.generateURL('PATCH', $params, uri, 'delete', 'group');
             },

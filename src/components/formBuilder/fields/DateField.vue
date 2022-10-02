@@ -1,18 +1,23 @@
 <template>
-    <div class="field-container">
+  <section>
+    <o-field >
         <o-datepicker
-                class="input"
-                type="string"
-                :multiple="multiple"
-                :range="range"
-                icon=" fa fa-calendar"
-                :placeholder="placeholder$"
-                @update:modelValue="onDateChange"
-                :modelValue="computedInput"
-                trap-focus>
-        </o-datepicker>
-
-    </div>
+                    id="delete"
+                    class="input"
+                    type="string"
+                    :multiple="multiple"
+                    :range="range"
+                    icon=" fa fa-calendar"
+                    iconRight=" fa fa-window-close"
+                    @icon-right-click="resetData"
+                    iconRightClickable
+                    :placeholder="placeholder$"
+                    @update:modelValue="onDateChange"
+                    :modelValue="computedInput"
+                    trap-focus>
+      </o-datepicker>
+    </o-field>
+  </section>
 </template>
 
 <script>
@@ -41,6 +46,10 @@
             }
         },
         methods: {
+            resetData(){
+              this.input=null;
+
+            },
             onDateChange(value) {
                 if (this.isMultiple)
                     this.$commit(_.map(value ?? [], (date) => {

@@ -19,6 +19,7 @@ export default {
                 return this.defaultEndPoint;
 
             const typeExportingEndpoint = _.get(this, `exporting.${type}.endPoint`, {});
+            console.log("test typeExportingEndpoint" , typeExportingEndpoint)
             return Object.keys(typeExportingEndpoint).length ? typeExportingEndpoint : this.defaultEndPoint;
         },
         exportTo(type = "Excel") {

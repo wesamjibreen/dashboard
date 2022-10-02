@@ -4,16 +4,16 @@
   <div class="finance-dashboard stock-dashboard">
     <div class="columns is-multiline">
       <div
-    
+
         v-for="{ component , index, ...item } in sections " v-bind:key="index"
-        :class="`column is-${item.cols ?? 12}`"
+        :class="` mb-4 column is-${item.cols ?? 12}`"
       >
         <component :is="component" v-bind="item" @refetch="fetch" />
 
       </div>
-      <!-- <KanbanBoard /> -->
     </div>
   </div>
+  <!-- <chart2 /> -->
 </div>
 </template>
 
@@ -23,6 +23,9 @@ import Category from "../../components/basic/dashboard/Category";
 import Filter from "../../components/basic/dashboard/Filter";
 import Statistic from "../../components/basic/dashboard/Statistic";
 import Chart from "../../components/basic/dashboard/Chart";
+import chart2 from "../../components/basic/dashboard/chart2";
+import ApexChart from "../../components/basic/dashboard/ApexChart";
+import card2 from "../../components/basic/dashboard/card2";
 import KanbanBoard from "../../components/basic/dashboard/KanbanBoard/KanbanBoard";
 import ProgressCircle from "../../components/basic/dashboard/ProgressCircle";
 import DateField from "../../components/formBuilder/fields/DateField";
@@ -43,8 +46,11 @@ export default {
     DateField,
     Statistic,
     Chart ,
+    ApexChart,
     ProgressCircle,
-    KanbanBoard
+    KanbanBoard,
+    card2,
+    chart2
   },
   data: () => ({
     loading: true,

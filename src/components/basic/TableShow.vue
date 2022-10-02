@@ -1,6 +1,6 @@
 <template>
   <VLoader size="small" :active="loading">
-    <div v-for="(component, index) in components" :key="index">
+    <div v-for="(component, index) in components" :key="index" :class="component.class ?? '' ">
       <component
         :is="component.component"
         v-bind="component"

@@ -65,7 +65,7 @@
                         this.successNotify(data.message);
                     },
                     (xhr) => {
-
+                        this.errorNotify(xhr.data.message ?? "")
                     },
                     () => {
                         this.$emit('loading', false);

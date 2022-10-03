@@ -3320,11 +3320,6 @@ form.form-layout.--loading {
     background-color: #f3f3f3;
 }
 
-.flex-table.flex-table-custom .flex-table-header span:not(:nth-of-type(1)),
-.flex-table.flex-table-custom .flex-table-item .flex-table-cell:not(:nth-of-type(1)){
-    justify-content: center;
-}
-
 .flex-table.flex-table-custom .flex-table-item .flex-table-cell:nth-of-type(1),
 .flex-table.flex-table-custom .flex-table-header span:nth-of-type(1){
     max-width:100px
@@ -3427,10 +3422,6 @@ html[dir="rtl"] {
 }
 
 
-.flex-table .flex-table-item .flex-table-cell:not(:last-of-type) ,
-.flex-table .flex-table-header span:not(:last-of-type){
-    max-width: 140px;
-}
 
 .flex-table .flex-table-item{
     .button.v-button {
@@ -3440,41 +3431,73 @@ html[dir="rtl"] {
     }
 }
 
-.card .flex-table.flex-table-custom .flex-table-header {
-    padding: 22px 12px 11px;
+@media(min-width:769px){
+    .flex-table{
+        display: table;
+        width: 100%;
+        text-align: center;
+        .flex-table-header{
+            display: table-header-group;
+            padding: 10px 10px !important;
+            .flex-datatable-cell{
+                display: table-cell;
+                vertical-align: middle;
+                padding: 14px 5px !important;
+                border: solid #c7c7c7;
+                border-width: 1px 0px 1px 0px ;
+                &:nth-of-type(1){
+                    border-left: 1px solid #c7c7c7;
+                }
+                &:last-of-type{
+                    border-right: 1px solid #c7c7c7;
+                }
+            }
+            span{
+                display: table-cell;
+            }
+            .repeater-cell{
+                text-align: start;
+                padding: 10px 9px!important;
+            }
+        }
+        .flex-list-inner{
+            display: contents;
+            width: 100%;
+            >div{
+                display: table-row-group;
+                width: 100%;
+            }
+        }
+        .flex-list-inner-inner{
+            display: contents;
+            width: 100%;
+            .on-boarding-screen{
+                margin: 0px auto;
+            }
+        }
+        .flex-table-item{
+            display: table-row;
+            width: 100%;
+            padding: 10px 10px !important;
+            .flex-table-cell{
+                display: table-cell;
+                vertical-align: middle;
+                padding: 10px 5px !important;
+                .file-icon{
+                    margin: 0px auto;
+                }
+            }
+            .flex-table-action.cell-end{
+                div{
+                    display: inline-flex;
+                    vertical-align: middle;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+        }
+    }
 }
-
-html[dir=ltr] .flex-table .flex-table-header span {
-    padding: 0 10px 5px;
-    margin-top: -5px;
-}
-.flex-table.flex-table-custom .flex-table-header span:not(:nth-of-type(1)), .flex-table.flex-table-custom .flex-table-item .flex-table-cell:not(:nth-of-type(1)) {
-    justify-content: flex-start;
-}
-
-
-// .cols-lg-6{
-//     @media(min-width:1024px){
-//         width: 50%;
-//         display: inline-flex;
-//         &:not(.columns){
-//             &:nth-of-type(1){
-//                 background-color: red;
-//                 &.card-business{
-//                     &:nth-of-type(1){
-//                         margin-right: 10px;
-//                     }
-//                 }
-//             }
-//         }
-
-//         >&.card-business{
-//             >.columns {
-//                 width: 100%;
-//             }
-//         }
-//     }
-// }
 
 
 .cols-lg-6{
@@ -3487,4 +3510,31 @@ html[dir=ltr] .flex-table .flex-table-header span {
             }
         }
     }
+}
+
+html[dir="rtl"]{
+    @media (min-width: 769px){
+        .flex-table .flex-table-header .flex-datatable-cell:nth-of-type(1) {
+            border-right: 1px solid #c7c7c7;
+            border-left: 0;
+        }
+        .flex-table .flex-table-header .flex-datatable-cell:last-of-type {
+            border-left: 1px solid #c7c7c7;
+            border-right: 0;
+        }
+    }
+
+}
+
+body, button, input, optgroup, select, textarea {
+    font-family: var(--font-alt);
+}
+
+.o-dpck .o-icon.o-input__icon-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--light-text);
+    left: unset;
+    inset-inline-end: 0;
 }

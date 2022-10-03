@@ -25,8 +25,8 @@
                         <div class="flex-list-inner">
                             <transition-group name="list" tag="div">
                                 <!--<Sortable>-->
-                                <draggable  v-model="rows$" itemKey="id">
-                                    <template #item="{ element, index }">
+                                <draggable class="flex-list-inner-inner" v-model="rows$" itemKey="id">
+                                    <template  #item="{ element, index }">
                                         <div class="flex-table-item">
                                             <div v-for="column in computedColumns"
                                                  class="flex-table-cell"

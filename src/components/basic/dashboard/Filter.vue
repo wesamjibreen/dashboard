@@ -39,12 +39,5 @@ export default {
 
 <style >
 
-.input-icon .o-icon.o-input__icon-left {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--light-text);
-    left: unset;
-    inset-inline-end: 0;
-}
+
 </style>

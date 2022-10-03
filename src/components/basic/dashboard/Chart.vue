@@ -4,22 +4,28 @@
             <h3 class="pt-3 px-5 mb-2 title-chart">{{ title$ }}</h3>
         </div>
         <div class="card-body p-5">
-            <canvas id="myChart"  height="180"></canvas>
+            <canvas id="myChart" :height="this.height"></canvas>
         </div>
     </div>
 </template>
 <script>
 import Chart from 'chart.js/auto';
+import dashboard from "./dashboard";
 import common from "../../../mixins/common";
 
 export default {
     name: 'Chart',
-    mixins: [common],
+    mixins: [dashboard,common],
     props: {
         type: String,
         data: {},
         options: {},
-        title: {},
+        title: Object,
+        height: {
+            type: Number,
+            default: 250
+        },
+
     },
     mounted() {
         const ctx = document.getElementById('myChart');
@@ -33,15 +39,12 @@ export default {
         title$() {
             // console.log('title',this.title)
             return this.title ? this.getValueByLocale(this.title) : null;
-        }
+        },
     },
-
 }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-
 ul {
     list-style-type: none;
     padding: 0;
@@ -59,6 +62,7 @@ a {
 .title-chart {
     font-weight: bold;
     font-size: 20px;
+    font-family: var(--font-alt);
 }
 
 </style>

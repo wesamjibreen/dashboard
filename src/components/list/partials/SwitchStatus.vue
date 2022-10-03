@@ -38,8 +38,7 @@
                         this.successNotify(data.message)
                     },
                     (xhr) => {
-                        this.errorNotify(xhr.message)
-
+                        this.errorNotify(xhr.data.message ?? "")
                     },
                     () => {
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex-table">
+    <div class="flex-table table-sort">
         <div class="flex-list-inner">
             <VLoader size="small" :active="loading">
                 <transition-group name="list" tag="div">

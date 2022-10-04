@@ -1,5 +1,5 @@
 <template>
-    <div class="flex-table flex-table-custom">
+    <div class="flex-table flex-table-custom table-sort">
         <div class="flex-list-inner">
             <Sortable :resource="resource"
                       @updated="onSorting(resource , rows)"

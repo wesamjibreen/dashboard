@@ -14,7 +14,7 @@
             <div class="column is-12" v-if="hasRows">
                 <div class="flex-list-wrapper flex-list-v1">
                     <!--List Empty Search Placeholder -->
-                    <div class="flex-table">
+                    <div class="flex-table table-separate">
                         <!--Table header-->
                         <div class="flex-table-header">
                             <span class="crud-head-label" v-for="column in computedColumns">

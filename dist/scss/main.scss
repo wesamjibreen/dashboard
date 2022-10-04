@@ -2628,8 +2628,8 @@ html[dir="ltr"] {
         }
     }
     .view-wrapper.is-pushed-full .is-stuck {
-        margin-left: 260px;
-        width: calc(100% - 260px);
+        margin-left: 240px;
+        width: calc(100% - 240px);
     }
     .view-wrapper.is-pushed-full {
         margin-left: 260px;
@@ -3432,7 +3432,7 @@ html[dir="rtl"] {
 }
 
 @media(min-width:769px){
-    .flex-table{
+    .flex-table:not(.table-sort){
         display: table;
         width: 100%;
         text-align: center;
@@ -3482,7 +3482,7 @@ html[dir="rtl"] {
             .flex-table-cell{
                 display: table-cell;
                 vertical-align: middle;
-                padding: 10px 5px !important;
+                padding: 15px 5px !important;
                 .file-icon{
                     margin: 0px auto;
                 }
@@ -3512,19 +3512,6 @@ html[dir="rtl"] {
     }
 }
 
-html[dir="rtl"]{
-    @media (min-width: 769px){
-        .flex-table .flex-table-header .flex-datatable-cell:nth-of-type(1) {
-            border-right: 1px solid #c7c7c7;
-            border-left: 0;
-        }
-        .flex-table .flex-table-header .flex-datatable-cell:last-of-type {
-            border-left: 1px solid #c7c7c7;
-            border-right: 0;
-        }
-    }
-
-}
 
 body, button, input, optgroup, select, textarea {
     font-family: var(--font-alt);
@@ -3537,4 +3524,49 @@ body, button, input, optgroup, select, textarea {
     color: var(--light-text);
     left: unset;
     inset-inline-end: 0;
+}
+
+.flex-table.table-separate{
+    border-collapse: separate;
+    border-spacing: 0em 10px;
+    .flex-table-item .flex-table-cell {
+        padding: 10px 5px !important;
+        border: solid #e8e8e8;
+        border-width: 1px 0px 1px 0px;
+        &:nth-of-type(1) {
+            border-left: 1px solid #e8e8e8;
+        }
+        &:last-of-type {
+            border-right: 1px solid #e8e8e8;
+        }
+    }
+}
+
+
+html[dir="rtl"]{
+    @media (min-width: 769px){
+        .flex-table .flex-table-header .flex-datatable-cell:nth-of-type(1) {
+            border-right: 1px solid #c7c7c7;
+            border-left: 0;
+        }
+        .flex-table .flex-table-header .flex-datatable-cell:last-of-type {
+            border-left: 1px solid #c7c7c7;
+            border-right: 0;
+        }
+    }
+}
+
+html[dir="rtl"]{
+    .flex-table.table-separate{
+        .flex-table-item .flex-table-cell {
+            &:nth-of-type(1) {
+                border-right: 1px solid #e8e8e8;
+                border-left: 0;
+            }
+            &:last-of-type {
+                border-left: 1px solid #e8e8e8;
+                border-right: 0;
+            }
+        }
+    }
 }

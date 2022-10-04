@@ -127,6 +127,7 @@ export default {
         },
 
         fetchExporting(type, callback = Function) {
+            this.loadingExcel = true;
             this.request(
                 this.exportingEndPoint(type),
                 {
@@ -141,6 +142,8 @@ export default {
                 null,
                 () => {
                     this.excelLoading = false;
+                    this.loadingExcel = false;
+
                 }
             );
         },

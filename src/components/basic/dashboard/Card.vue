@@ -1,15 +1,15 @@
 <template>
-  <div class="columns is-multiline mt-2">
+  <div class="columns is-multiline mt-2 mb-3">
     <div class="column is-12 is-md-12">
-      <div class="company-dashboard is-dark-card-bordered">
+      <div class="card is-dark-card-bordered">
         <div
-          class="company-header is-dark-card-bordered list-row"
+          class="company-header  is-dark-card-bordered list-row "
           v-for="(item, index) in data"
           :key="index"
         >
             <div >
               <div>
-                <VBlock>
+                <VBlock class="px-2 py-3 box--shadow">
                     <h1 style="font-weight: bold; font-size:large ; margin-top: 10px">
                       {{item.title}}
                     </h1>
@@ -17,7 +17,8 @@
                         <VButton
                           v-for="(action , index ) in item.actions"
                           :key="index"
-                          class="btn-list mb-2"
+                          class="btn-list"
+                          style="font-size:14px"
                           :color="action.color"
                           :loading='action.loading'
                           raised
@@ -27,14 +28,14 @@
                     </template>
                 </VBlock>
               </div>
-              <hr style="height:1px;color:rgb(182, 182, 182);background-color:rgb(182, 182, 182);margin-top:15px">
-              <div style="margin-left:15px">
-                <div class="columns is-multiline" v-for="(i, y) in item.details" :key="y">
-                  <div class="column is-3 p-3">
-                    <p>{{ trans(i.key) }} :</p>
-                  </div>
-                  <div class="column is-9 p-3">
-                    <p>{{ i.value }}</p>
+              <hr style="margin:0">
+              <div>
+                <div class="columns is-multiline sty-border-column p-4">
+                  <div class="column is-6 p-3" v-for="(i, y) in item.details" :key="y">
+                    <div class="flex align-center justify-between">
+                        <h5>{{ trans(i.key) }} :</h5>
+                        <p class="text-end">{{ i.value }}</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -312,5 +313,51 @@ export default {
       @include vuero-card--dark();
     }
   }
+}
+.text-end{
+    text-align: end;
+}
+.flex{
+  display: flex;
+}
+
+.align-center{
+  align-items: center;
+}
+
+.justify-between{
+  justify-content: space-between;
+}
+
+.sty-border-column{
+    .column{
+            border-bottom: 1px solid #EEE;
+            h5{
+                margin-bottom: 5px;
+            }
+            @media screen and (min-width: 769px) and (max-width:1024px){
+                flex: none;
+                width: 100%;
+            }
+            &.not-border-bottom{
+                border-bottom: 0px solid #EEE;
+            }
+    }
+    >.column:nth-child(odd){
+        border-right: 1px solid #EEE;
+    }
+}
+
+html[dir="rtl"]{
+    .sty-border-column{
+        >.column:nth-child(odd){
+            border-left: 1px solid #EEE;
+            border-right: 0;
+        }
+    }
+}
+
+.box--shadow{
+    box-shadow: 0 0.125em 0.25em rgb(10 10 10 / 10%);
 }
 </style>

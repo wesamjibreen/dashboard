@@ -102,7 +102,7 @@ const generateRoutes = (
         path: `${resource}`,
         name: resource,
         redirect: `${resource}/all`,
-        component: () => import(`./pages/${folderName}/Index.vue`),
+        component: () => import(`./pages/resource/Index.vue`),
         children: [
             {
                 path: "all",

@@ -3489,7 +3489,7 @@ html[dir="rtl"] {
             }
             .flex-table-action.cell-end{
                 div{
-                    display: inline-flex;
+                    display: table-cell;
                     vertical-align: middle;
                     align-items: center;
                     justify-content: center;
@@ -3506,7 +3506,7 @@ html[dir="rtl"] {
             width: 50%;
             display: inline-block;
             &.first{
-                padding-right: 20px;
+                padding-inline-end: 20px;
             }
         }
     }

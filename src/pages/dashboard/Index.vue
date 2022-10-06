@@ -13,7 +13,6 @@
       </div>
     </div>
   </div>
-  <!-- <chart2 /> -->
 </div>
 </template>
 
@@ -23,9 +22,9 @@ import Category from "../../components/basic/dashboard/Category";
 import Filter from "../../components/basic/dashboard/Filter";
 import Statistic from "../../components/basic/dashboard/Statistic";
 import Chart from "../../components/basic/dashboard/Chart";
-import chart2 from "../../components/basic/dashboard/chart2";
 import ApexChart from "../../components/basic/dashboard/ApexChart";
-import card2 from "../../components/basic/dashboard/card2";
+import DashboardCard from "../../components/basic/dashboard/DashboardCard";
+import StockCard from "../../components/basic/dashboard/StockCard";
 import KanbanBoard from "../../components/basic/dashboard/KanbanBoard/KanbanBoard";
 import ProgressCircle from "../../components/basic/dashboard/ProgressCircle";
 import DateField from "../../components/formBuilder/fields/DateField";
@@ -49,8 +48,8 @@ export default {
     ApexChart,
     ProgressCircle,
     KanbanBoard,
-    card2,
-    chart2
+    DashboardCard,
+    StockCard
   },
   data: () => ({
     loading: true,

@@ -45,7 +45,7 @@
 import dashboard from "./dashboard";
 
 export default {
-    name: 'card2',
+    name: 'DashboardCard',
     mixins: [dashboard],
     props: {
         title: String ,

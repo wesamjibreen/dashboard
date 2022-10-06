@@ -1,26 +1,24 @@
 <template>
     <div class="card">
-        <div>
-            <h3 class="pt-3 px-5 mb-2 title-chart">{{ title$ }}</h3>
-        </div>
-        <div class="card-body p-2">
-            <apexchart
-                :height="customersChartOptions.chart.height"
-                :type="customersChartOptions.chart.type"
-                :options="customersChartOptions"
-                :series="customersChartOptions.series">
-            </apexchart>
+
+        <div class="card-body">
+            <div>
+                <h3 class="pt-3 px-5 mb-2 title-chart">{{ title$ }}</h3>
+            </div>
+            <div>
+                <apexchart
+                    :height="customersChartOptions.chart.height"
+                    :type="customersChartOptions.chart.type"
+                    :options="customersChartOptions"
+                    :series="customersChartOptions.series">
+                </apexchart>
+            </div>
         </div>
     </div>
 </template>
 <script>
-// import Chart from 'chart.js/auto';
 import dashboard from "./dashboard";
-// import common from "../../../mixins/common";
-// import ApexChart from 'vue3-apexcharts';
 import VueApexCharts from "vue3-apexcharts";
-// import { themeColors } from '/@src/utils/themeColors'
-// import * as formatters from '/@src/utils/apex-formatters'
 
 export default {
     name: 'ApexChart',
@@ -31,8 +29,6 @@ export default {
     },
     components:{
         apexchart: VueApexCharts
-        // ApexChart,
-        // customersOptions,
     },
     computed: {
         title$() {

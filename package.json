@@ -1,6 +1,6 @@
 {
   "name": "nawadash",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "Vue3 Functional Dashboard",
   "main": "index.js",
   "scripts": {

@@ -217,7 +217,7 @@ export default {
       this.request(
         this.$endPoint(this.endPoint.name),
         {
-          params: { q: searchQuery },
+          params: { q: searchQuery,...this.endPoint?.params },
         },
         ({ data }) => {
           let options = _.map(data.data, (option) => {

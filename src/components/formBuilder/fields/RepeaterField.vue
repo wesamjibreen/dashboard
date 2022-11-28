@@ -22,6 +22,7 @@
                                              class="flex-table-cell"
                                              :data-th="trans(computedInput.label)">
                                             <component :is="`${computedInput.component}-field`"
+                                                       :current-row="element"
                                                        @update:modelValue="setModel(index, computedInput , $event)"
                                                        :modelValue="rows$[index] && rows$[index][computedInput.model] ? rows$[index][computedInput.model] : undefined"
                                                        v-bind="computedInput"/>

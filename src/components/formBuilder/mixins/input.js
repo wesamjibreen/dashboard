@@ -24,6 +24,7 @@ export default {
         model: {
             required: true
         },
+
         formModule: {
             required: true
         },
@@ -43,7 +44,9 @@ export default {
         repeater: {
             required: false
         },
-
+        currentRow: {
+            default: {}
+        },
         onInputChange: Function,
         multiLang: Boolean,
         type: String,
@@ -212,7 +215,7 @@ export default {
              *
              * @author WeSSaM
              */
-            return this.type ? this.type : "text" ;
+            return this.type ? this.type : "text";
 
 //           return "text";
         },

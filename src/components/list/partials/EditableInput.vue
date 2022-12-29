@@ -35,13 +35,38 @@
             this.localInput = this.value;
         },
         methods: {
+            parsingDataToRequest(){
+                let data={};
+                let params=this.column?.params;
+
+                if (typeof params=="object")
+                    Object.assign( data, params);
+
+
+                const asArray = Object.entries(this.row);
+                const filtered = asArray.filter(([key, value]) =>
+                    this.additionalKeyToRequest$.includes(key))
+
+
+                console.log('sssssss',this.__getId)
+                const additionalDataToRequest = Object.fromEntries(filtered);
+                if(additionalDataToRequest)
+                    Object.assign( data, additionalDataToRequest);
+
+                data[this.key] = this.localInput;
+
+
+
+                return data;
+
+            },
             edit() {
                 this.loading = true;
-                let data = {};
+                let data = {...this.row};
                 data[this.key] = this.localInput;
                 this.request(
                     this.saveEndPoint,
-                    data,
+                    this.parsingDataToRequest(),
                     ({data}) => {
                         this.successNotify(data.message);
                         this.$emit('success', this.row, this.localInput);
@@ -56,6 +81,7 @@
                     },
                 );
             }
+
         },
         computed: {
             key() {
@@ -69,8 +95,13 @@
                 return this.$endPoint(route, this.__getId) ?? {};
             },
             __getId() {
-                return _.get(this, 'row.id', 0);
+                return _.get(this, 'column.params', _.get(this, 'row.id', 0));
             },
+            additionalKeyToRequest$() {
+                return  _.get(this, 'column.additionalKeyToRequest', [])
+            },
+
+
         }
     }
 </script>

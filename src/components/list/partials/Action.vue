@@ -1,10 +1,12 @@
 <template>
-
-    <a href="javascript:;"   class="table-action" @click="onClick">
+    <a v-if="hasAction" href="javascript:;" class="table-action" @click="onClick">
         <div v-if="icon" :class="classes">
             <i aria-hidden="true" :class="icon"></i>
         </div>
         <div v-else :class="classes" v-html="SVGIcon"></div>
+        <span v-if="label">
+            {{ $t(label) }}
+        </span>
     </a>
 </template>
 
@@ -14,6 +16,7 @@
     export default {
         name: "Action",
         props: {
+            label: String,
             color: {
                 default: "primary"
             },
@@ -32,6 +35,7 @@
             data: {
                 default: {}
             },
+            show: Function,
             callback: Function
         },
         methods: {
@@ -44,6 +48,10 @@
             }
         },
         computed: {
+            hasAction() {
+                if (this.show instanceof Function) return this.show(this.row);
+                return true;
+            },
             SVGIcon() {
                 return _.get(svg, this.slug, this.slug)
             },

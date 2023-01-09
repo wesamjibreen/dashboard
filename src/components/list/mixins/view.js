@@ -11,6 +11,7 @@ export default {
     props: {
         resource: String,
         selectable: String,
+        selectableCallback: Function,
         rows: Array,
         actions: Array,
         actionGroups: Array,
@@ -44,6 +45,11 @@ export default {
             else
                 this.selected = [];
         },
+        isSelectable(row) {
+            if (this.selectableCallback)
+                return this.selectableCallback(row);
+            return true;
+        }
     },
     watch: {
         selected: {

@@ -29,7 +29,15 @@ export default {
     data: () => ({
         selected: []
     }),
+    created() {
+        this.onEmptyCheckbox();
+    },
     methods: {
+        onEmptyCheckbox() {
+            this.$bus.off("empty-checkbox");
+            this.$bus.on("empty-checkbox", () => this.selected = [])
+        },
+
         getRowValue(column, row, defaultVal = "") {
             if (column.value instanceof Function)
                 return column.value(row);

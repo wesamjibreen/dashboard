@@ -69,6 +69,7 @@ export default {
     },
     created() {
         this.init();
+        this.onEmptyCheckbox();
     },
     methods: {
         onPerPageCountChange(perPage) {
@@ -76,6 +77,10 @@ export default {
             this.fetch();
         },
 
+        onEmptyCheckbox() {
+            this.$bus.off("empty-checkbox");
+            this.$bus.on("empty-checkbox", () => this.selected = [])
+        },
 
         onActionGroupClick(actionGroup) {
 

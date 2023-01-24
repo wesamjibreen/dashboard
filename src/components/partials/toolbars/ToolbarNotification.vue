@@ -48,11 +48,14 @@ onMounted(() => {
   });
 
   onNotificationMessage(function (payload) {
-    const title = payload.notification.title;
-    const body = payload.notification.body;
+    // const title = payload.notification.title;
+    // const body = payload.notification.body;
+
+    const title = payload?.data?.title;
+    const body = payload?.data?.body;
     const notif = useNotyf();
     notif.success({
-      message: `${title}: ${body} `,
+      message: ` ${title} `+ "\n" +`${body} `,
       duration: 5000,
       position: {
         x: "right",

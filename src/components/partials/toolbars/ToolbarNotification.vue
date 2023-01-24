@@ -1,5 +1,6 @@
 <script setup >
 import { ref, inject, reactive, defineComponent, onMounted } from "vue";
+import {getValueByLocale} from "../../../utils/helper";
 import {
   messaging,
   getFCMToken,
@@ -51,8 +52,11 @@ onMounted(() => {
     // const title = payload.notification.title;
     // const body = payload.notification.body;
 
-    const title = payload?.data?.title;
-    const body = payload?.data?.body;
+    // const title = payload?.data?.title;
+    // const body = payload?.data?.body;
+
+    const title = payload?.data?.title ? getValueByLocale(JSON.parse(payload?.data?.title)) : '';
+    const body =  payload?.data?.title ? getValueByLocale(JSON.parse(payload?.data?.body)) : '';
     const notif = useNotyf();
     notif.success({
       message: ` ${title} `+ "\n" +`${body} `,

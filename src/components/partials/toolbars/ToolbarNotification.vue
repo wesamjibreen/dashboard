@@ -39,6 +39,13 @@ const seeAllClick = function () {
   // });
   dropdown.close();
 };
+const onClick = (notification) => {
+  if (notification?.route) {
+    console.log('notificationnotification', notification);
+    router.push(notification?.route);
+    dropdown.close();
+  }
+};
 
 onMounted(() => {
   getFCMToken(function (currentToken) {
@@ -103,8 +110,8 @@ onMounted(() => {
 
           <div v-if="notifications.length > 0">
             <ul class="notification-list">
-              <li v-for="(notification, index) in notifications" :key="index">
-                <a class="notification-item">
+              <li v-for="(notification, index) in notifications" :key="index" >
+                <a class="notification-item" @click="onClick(notification)" href="javascript:;">
                   <div class="img-left">
                     <VAvatar
                       alt=""

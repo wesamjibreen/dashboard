@@ -34,6 +34,12 @@ export default {
         endPoint: {
             required: false
         },
+        min: {
+            required: false
+        },
+        step: {
+            required: false
+        },
         rows: {
             required: false,
             default: 3
@@ -219,6 +225,31 @@ export default {
 
 //           return "text";
         },
+
+        min$() {
+            /**
+             * computed property returns input type
+             * default is text
+             *
+             * @author WeSSaM
+             */
+            return this.type =="number" ? this.min : null;
+
+//           return "text";
+        },
+
+        step$() {
+            /**
+             * computed property returns input type
+             * default is text
+             *
+             * @author WeSSaM
+             */
+            return this.type =="number" ? this.step : null;
+
+//           return "text";
+        },
+
 
         label$() {
             /**

@@ -155,7 +155,7 @@ export default {
                     //     filteredMenu.push(item);
 
                     let children = _.filter(item.children, (child) => {
-                        let childKey = child.key.replace("_", "-");
+                        let childKey = child.key.replaceAll("_", "-");
                         return (
                             policies.includes(`${childKey}.show`) ||
                             policies.includes(`${childKey}`) ||

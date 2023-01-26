@@ -76,7 +76,7 @@ const initRouter = function (routes, base = "/", config = {}) {
             let policies = $auth.value?.policies ? atob($auth.value?.policies).split(",") : [];
 
             if (!policies.includes(toName) &&
-                !policies.includes(toName.replace("all", "show").replace("_", "-")) &&
+                !policies.includes(toName.replace("all", "show").replaceAll("_", "-")) &&
                 !policies.includes(`others.${toName}`)
             )
                 return {

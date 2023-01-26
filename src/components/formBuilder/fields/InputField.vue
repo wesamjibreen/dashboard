@@ -1,6 +1,6 @@
 <template>
     <div :class="{'field-container' : true}">
-        <input v-model="input" class="input" :type="type$" :placeholder="placeholder$" />
+        <input v-model="input" class="input" :min="min$" :step="step$"  :type="type$" :placeholder="placeholder$" />
         <span class="invalid" v-if="hasError">
             {{ trans($error?.$message) }}
         </span>

@@ -137,6 +137,7 @@ export default {
         strokeWeight: 2,
         fillColor: "#FF0000",
         fillOpacity: 0.35,
+
       },
     };
   },
@@ -186,6 +187,7 @@ export default {
     },
 
     addMarker(GEOPoint = null) {
+
       this.markers.push({
         position: this.checkPointIsValid(GEOPoint) ? GEOPoint : this.center$,
       });

@@ -15,11 +15,12 @@
                         </span>
                     </div>
 
-                    <div v-for="column in columns" class="flex-table-cell" :data-th="column.text">
+                    <div v-for="(column, index) in columns" class="flex-table-cell" :data-th="column.text">
                         <slot :name="`column.${column.value}`" :row="element" :column="column"
                               :label="getRowValue(column, element)">
                             <component v-if="column.component" :is="`${column.component}`"
                                        :resource="resource"
+                                       :key="`${resource}-${column.component}-${element.id}-${index}`"
                                        :slug="column.value"
                                        :column="column"
                                        :row="element"/>

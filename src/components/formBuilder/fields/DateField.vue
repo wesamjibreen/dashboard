@@ -1,6 +1,11 @@
 <template>
+
+    <div class="field-container">
+
+
   <section>
     <o-field >
+
         <o-datepicker
                     id="delete"
                     class="input"
@@ -18,6 +23,7 @@
       </o-datepicker>
     </o-field>
   </section>
+        </div >
 </template>
 
 <script>

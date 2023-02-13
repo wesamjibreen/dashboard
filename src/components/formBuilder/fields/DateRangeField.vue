@@ -11,16 +11,50 @@
         <!--trap-focus>-->
         <!--</o-datepicker>-->
         <!--<h1>fddffddf </h1>-->
-        <o-datepicker placeholder="Click to select..." icon="calendar" v-model="input" range></o-datepicker>
+        <o-datepicker placeholder="Click to select..." icon="calendar" @update:modelValue="onDateChange"     :modelValue="computedInput" range></o-datepicker>
     </div>
 </template>
 
 <script>
-    import input from "../mixins/input";
-    export default {
-        mixins: [input],
+import input from "../mixins/input";
+export default {
+    mixins: [input],
+
+    methods: {
+        onDateChange(value) {
+
+            this.$commit(_.map(value ?? [], (date) => {
+                return this.dateParser(date);
+            }));
+
+
+        },
+        dateCreator() {
+            return new Date();
+        },
+        dateFormatter(date) {
+            date = date || new Date(date);
+            return date && date.hasOwnProperty('toLocaleDateString') ? date.toLocaleDateString('en-GB').split('/').reverse().join('-') : null;
+        },
+        dateParser(date) {
+            // return date;
+            date = new Date(date);
+            return date ? date.toLocaleDateString('en-GB').split('/').reverse().join('-') : null;
+        }
+    },
+    computed: {
+
+        computedInput() {
+
+            return _.map(this.input ?? [], (date) => {
+                return new Date(date);
+            });
+
+        },
 
     }
+
+}
 </script>
 
 

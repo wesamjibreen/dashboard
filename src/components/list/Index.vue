@@ -144,7 +144,7 @@
                         <div class="block mt-3">
                             <div
                                 class="select"
-                                v-if="!!paginator && paginator.total > pageCounts[0]"
+                                v-show="!!paginator && paginator.total > pageCounts[0]"
                             >
                                 <select v-model="perPage" @change="onChangePerPage()">
                                     <option
@@ -218,119 +218,119 @@
 </template>
 
 <script>
-    import base from "./mixins/base";
-    import {permissions} from "../../mixins";
+import base from "./mixins/base";
+import {permissions} from "../../mixins";
 
-    import ImportDialog from "./partials/ImportDialog.vue";
+import ImportDialog from "./partials/ImportDialog.vue";
 
-    export default {
-        components: {
-            ImportDialog,
+export default {
+    components: {
+        ImportDialog,
+    },
+    name: "Index",
+    mixins: [base, permissions],
+    mounted() {
+    },
+    data() {
+        return {
+            pageCounts: [15, 50, 100, 200],
+            perPage: 15,
+        };
+    },
+    computed: {
+        listAddKey() {
+            return _.get(this, "$config.app.ui_config.list_add_key", "add_new");
         },
-        name: "Index",
-        mixins: [base, permissions],
-        mounted() {
+    },
+    methods: {
+        onChangePerPage() {
+            this.fetch();
         },
-        data() {
-            return {
-                pageCounts: [15, 50, 100, 200],
-                perPage: 15,
-            };
-        },
-        computed: {
-            listAddKey() {
-                return _.get(this, "$config.app.ui_config.list_add_key", "add_new");
-            },
-        },
-        methods: {
-            onChangePerPage() {
-                this.fetch();
-            },
-        },
-        watch: {
-            // perPage(newVal) {
-            //     //   update pagination
-            //     // this.fetch()
-            //
-            //     // this.$emit("on-per-page-count-change", newVal);
-            // },
-        },
-    };
+    },
+    watch: {
+        // perPage(newVal) {
+        //     //   update pagination
+        //     // this.fetch()
+        //
+        //     // this.$emit("on-per-page-count-change", newVal);
+        // },
+    },
+};
 </script>
 
 
 <style>
-    button.btn-list {
-        color: white !important;
-        margin: 0 5px;
-    }
+button.btn-list {
+    color: white !important;
+    margin: 0 5px;
+}
 
-    .list-flex-toolbar.flex-list-v1 {
-        justify-content: space-between;
-    }
+.list-flex-toolbar.flex-list-v1 {
+    justify-content: space-between;
+}
 
-    label.filter-label {
-        font-family: "Cairo";
-        font-size: 12px;
-        color: #9b9a9a;
-        font-weight: 700;
-    }
+label.filter-label {
+    font-family: "Cairo";
+    font-size: 12px;
+    color: #9b9a9a;
+    font-weight: 700;
+}
 
-    .has-loader.has-loader-active {
-        overflow: hidden;
-        min-height: 70vh;
-    }
+.has-loader.has-loader-active {
+    overflow: hidden;
+    min-height: 70vh;
+}
 
-    .v-loader-wrapper.is-active {
-        background: #ffffff00 !important;
-    }
+.v-loader-wrapper.is-active {
+    background: #ffffff00 !important;
+}
 </style>
 
 <style lang="scss">
-    @media(max-width: 769px) {
-        .columns-mobile-6 {
-            display: flex;
+@media(max-width: 769px) {
+    .columns-mobile-6 {
+        display: flex;
 
-            > .column {
-                width: 50%;
-                flex-basis: auto;
-            }
+        > .column {
+            width: 50%;
+            flex-basis: auto;
+        }
+    }
+}
+
+.card.card-country {
+    text-align: center;
+
+    .icon {
+        margin-bottom: 20px;
+        color: #000;
+
+        img {
+            height: 20px;
         }
     }
 
-    .card.card-country {
-        text-align: center;
-
-        .icon {
-            margin-bottom: 20px;
-            color: #000;
-
-            img {
-                height: 20px;
-            }
-        }
-
-        .card-body {
-            padding: 20px 10px;
-            color: #000;
-        }
+    .card-body {
+        padding: 20px 10px;
+        color: #000;
     }
+}
 
-    .card {
-        &.card-draggable {
+.card {
+    &.card-draggable {
+        background-color: transparent;
+        box-shadow: none;
+
+        .flex-table.flex-table-custom {
             background-color: transparent;
-            box-shadow: none;
+        }
 
-            .flex-table.flex-table-custom {
-                background-color: transparent;
-            }
-
-            .flex-table.flex-table-custom .flex-list-inner .flex-table-item {
-                margin-bottom: 16px;
-                border-radius: 10px;
-                border: 1px solid var(--fade-grey-dark-3);
-                cursor: move;
-            }
+        .flex-table.flex-table-custom .flex-list-inner .flex-table-item {
+            margin-bottom: 16px;
+            border-radius: 10px;
+            border: 1px solid var(--fade-grey-dark-3);
+            cursor: move;
         }
     }
+}
 </style>

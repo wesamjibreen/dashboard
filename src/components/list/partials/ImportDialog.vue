@@ -130,7 +130,7 @@ export default {
       const file = event.target.files[0];
       this.pickedFile = file;
 
-      console.log(file);
+      console.log('sssssss',file);
     },
     // upload file
     uploadFile() {
@@ -163,13 +163,13 @@ export default {
             this.isUploading = false;
 
             // show feedback message
-            notyf.success("Data imported successfully.");
+            notyf.success(response.data.message??"Data imported successfully.");
             this.closeDialog();
             Bus.emit(`reload-table-${this.resource}`);
           }.bind(this),
           function (response) {
             console.log("REQ error", response);
-            notyf.error("An error happened, please try again.");
+            notyf.error(response.data.message??"An error happened, please try again.");
             this.isUploading = false;
           }.bind(this)
         );

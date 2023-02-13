@@ -66,6 +66,7 @@
                                     v-if="column.component"
                                     :is="`${column.component}`"
                                     :resource="resource"
+                                    :key="`${resource}-${column.component}-${row.id}-${index}`"
                                     :slug="column.value"
                                     :column="column"
                                     :row="row"
@@ -126,30 +127,30 @@
 </template>
 
 <script>
-    import { view } from "../mixins";
-    import { permissions } from "../../../mixins";
-    import Cancel from "./Cancel.vue";
+import { view } from "../mixins";
+import { permissions } from "../../../mixins";
+import Cancel from "./Cancel.vue";
 
-    export default {
-        name: "TableView",
-        components : {
-            Cancel
+export default {
+    name: "TableView",
+    components : {
+        Cancel
+    },
+    mixins: [view, permissions],
+    data() {
+        return {};
+    },
+    props: {
+        disabled: {
+            default: true
         },
-        mixins: [view, permissions],
-        data() {
-            return {};
-        },
-        props: {
-            disabled: {
-                default: true
-            },
-        },
-        methods: {
-            open(){
-                document.getElementById("row").disabled = this.disabled;
-            }
-        },
-    };
+    },
+    methods: {
+        open(){
+            document.getElementById("row").disabled = this.disabled;
+        }
+    },
+};
 </script>
 
 <style scoped>

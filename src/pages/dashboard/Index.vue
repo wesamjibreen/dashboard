@@ -105,6 +105,7 @@ export default {
             this.homeEndPoint,
             { params: { ...query } },
             ({ data }) => {
+                this.$bus.emit('dashboard-fetched',data.data),
               this.data = data.data;
             },
             null,

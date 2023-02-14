@@ -1,19 +1,22 @@
 // import {createApp, h} from 'vue';
-import {components, EndPoints, initHead, initI18n, initRouter, initStore, mixins} from "./modules";
+import { components, EndPoints, initHead, initI18n, initRouter, initStore, mixins } from "./modules";
 // import RootApp from "./src/RootApp.vue";
 import initRequests from "./src/axios";
 import VueGoogleMaps from '@fawmi/vue-google-maps'
-import {Datepicker, Inputitems, Pagination, Sidebar, Timepicker} from '@oruga-ui/oruga-next'
+import { Datepicker, Inputitems, Pagination, Sidebar, Timepicker, Modal, Upload, Field, Icon } from '@oruga-ui/oruga-next'
 import VueViewer from 'v-viewer'
-import {createApp} from "./app";
+import { createApp } from "./app";
+import VTooltip from 'v-tooltip'
 
+import { Select , Spin} from 'ant-design-vue';
+import 'ant-design-vue/dist/antd.css';
 
 export default class App {
     mixins = mixins;
     components = components;
     modules = [];
 
-    constructor({base, routes, endPoints, config, i18n = {}, components = {}, mixins = []}, callbacks = {}, ...options) {
+    constructor({ base, routes, endPoints, config, i18n = {}, components = {}, mixins = [] }, callbacks = {}, options) {
         this.routes = routes;
         this.config = config;
         this.endPoints = endPoints;
@@ -87,7 +90,7 @@ export default class App {
                 // app.directive('background', background)
                 // app.directive('tooltip', tooltip)
             },
-        }).then(async ({app, router}) => {
+        }).then(async ({ app, router }) => {
             // alert('then')
             this.app = app;
             this.boot();
@@ -242,7 +245,7 @@ export default class App {
     bindGlobalProperties() {
         let global = this.getGlobalProperties();
         Object.entries(global).forEach(([key, value]) => this.app.provide(key, value));
-        this.app.config.globalProperties = {...this.app.config.globalProperties, ...global};
+        this.app.config.globalProperties = { ...this.app.config.globalProperties, ...global };
     }
 
     getGlobalProperties() {
@@ -271,6 +274,14 @@ export default class App {
         this.app.use(Timepicker);
         this.app.use(Pagination);
         this.app.use(Sidebar);
+        this.app.use(Modal);
+        this.app.use(Upload);
+        this.app.use(Field);
+        this.app.use(Icon);
+        this.app.use(VTooltip);
+        this.app.use(VTooltip);
+        this.app.use(Select);
+        this.app.use(Spin);
     }
 
     resolveComponents() {
@@ -299,8 +310,8 @@ export default class App {
     }
 
     initStore() {
-        this.modules.push(initStore({}, {base: this.base}));
-    }
+        this.modules.push(initStore({}, { base: this.base }));
+    } 18
 
     initEndPoints() {
         this.endPointsInstance = (new EndPoints(this.base));
@@ -311,7 +322,7 @@ export default class App {
     }
 
     initI18n() {
-        this.$i18n = initI18n(this.i18n, {...this.config.app, base: this.base});
+        this.$i18n = initI18n(this.i18n, { ...this.config.app, base: this.base });
         this.modules.push(this.$i18n);
     }
 

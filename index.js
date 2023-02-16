@@ -8,7 +8,7 @@ import VueViewer from 'v-viewer'
 import { createApp } from "./app";
 import VTooltip from 'v-tooltip'
 
-import { Select , Spin} from 'ant-design-vue';
+import {DatePicker, Select , Spin} from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
 
 export default class App {
@@ -282,6 +282,7 @@ export default class App {
         this.app.use(VTooltip);
         this.app.use(Select);
         this.app.use(Spin);
+        this.app.use(DatePicker);
     }
 
     resolveComponents() {

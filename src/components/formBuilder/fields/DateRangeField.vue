@@ -11,45 +11,41 @@
         <!--trap-focus>-->
         <!--</o-datepicker>-->
         <!--<h1>fddffddf </h1>-->
-        <o-datepicker placeholder="Click to select..." icon="calendar" @update:modelValue="onDateChange"     :modelValue="computedInput" range></o-datepicker>
+        <a-range-picker   class="input"  format="YYYY-MM-DD" :placeholder="placeholder$" :value="computedInput"  @change="onDateChange" />
     </div>
 </template>
 
 <script>
 import input from "../mixins/input";
+import dayjs from "dayjs";
 export default {
     mixins: [input],
 
     methods: {
-        onDateChange(value) {
-
-            this.$commit(_.map(value ?? [], (date) => {
-                return this.dateParser(date);
-            }));
-
-
+        onDateChange(value,date) {
+                this.$commit(_.map(date ?? [], (date) => {
+                    return date ? date :null;
+                }));
         },
-        dateCreator() {
-            return new Date();
-        },
-        dateFormatter(date) {
-            date = date || new Date(date);
-            return date && date.hasOwnProperty('toLocaleDateString') ? date.toLocaleDateString('en-GB').split('/').reverse().join('-') : null;
-        },
-        dateParser(date) {
-            // return date;
-            date = new Date(date);
-            return date ? date.toLocaleDateString('en-GB').split('/').reverse().join('-') : null;
-        }
+        // dateCreator() {
+        //     return new Date();
+        // },
+        // dateFormatter(date) {
+        //     date = date || new Date(date);
+        //     return date && date.hasOwnProperty('toLocaleDateString') ? date.toLocaleDateString('en-GB').split('/').reverse().join('-') : null;
+        // },
+        // dateParser(date) {
+        //     // return date;
+        //     date = new Date(date);
+        //     return date ? date.toLocaleDateString('en-GB').split('/').reverse().join('-') : null;
+        // }
     },
     computed: {
 
         computedInput() {
-
             return _.map(this.input ?? [], (date) => {
-                return new Date(date);
+                return date? dayjs(date, 'YYYY-MM-DD'):null;
             });
-
         },
 
     }

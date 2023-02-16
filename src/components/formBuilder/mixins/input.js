@@ -53,6 +53,7 @@ export default {
         currentRow: {
             default: {}
         },
+        currentIndex: Number,
         onInputChange: Function,
         multiLang: Boolean,
         type: String,
@@ -117,7 +118,7 @@ export default {
             let model = this.model;
             let locale = this.locale$;
             let value = this.passingInput(newVal);
-            this.onChange(value, model, locale, this.formModule);
+            this.onChange(value, model, locale, this.formModule , this);
             if (this.fromModule)
                 this.$store.commit(`${this.formModule}/${SET_INPUT}`, {
                     model,

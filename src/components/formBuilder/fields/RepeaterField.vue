@@ -25,7 +25,7 @@
                                                        :current-row="element"
                                                        :current-index="index"
                                                        @update:modelValue="setModel(index, computedInput , $event)"
-                                                       :modelValue="rows$[index] && rows$[index][computedInput.model] ? rows$[index][computedInput.model] : undefined"
+                                                       :modelValue="rows$[index] && typeof rows$[index][computedInput.model] !== 'undefined'? rows$[index][computedInput.model] : undefined"
                                                        v-bind="computedInput"/>
 
                                         </div>
@@ -64,66 +64,66 @@
 </template>
 
 <script>
-    import input from "../mixins/input"
-    import Draggable from 'vuedraggable'
+import input from "../mixins/input"
+import Draggable from 'vuedraggable'
 
-    export default {
-        name: "RepeaterField",
-        props: {
-            inputs: {
-                default: []
-            }
+export default {
+    name: "RepeaterField",
+    props: {
+        inputs: {
+            default: []
+        }
+    },
+    components: {
+        Draggable
+    },
+    mixins: [input],
+    methods: {
+        addRow() {
+            if (!this.rows$)
+                this.rows$ = [];
+
+            let column = {};
+            _.forEach(this.inputs$, (input) => column[input.model] = undefined);
+
+            this.rows$.push(column);
         },
-        components: {
-            Draggable
+        setModel(index, input, $event) {
+            _.set(this.rows$, `${index}.${input.model}`, $event)
         },
-        mixins: [input],
-        methods: {
-            addRow() {
-                if (!this.rows$)
-                    this.rows$ = [];
-
-                let column = {};
-                _.forEach(this.inputs$, (input) => column[input.model] = undefined);
-
-                this.rows$.push(column);
-            },
-            setModel(index, input, $event) {
-                _.set(this.rows$, `${index}.${input.model}`, $event)
-            },
-            removeRow(row, index) {
-                this.rows$.splice(index, 1);
-            },
+        removeRow(row, index) {
+            this.rows$.splice(index, 1);
         },
-        computed: {
-            inputs$() {
-                return this.inputs;
+    },
+    computed: {
+        inputs$() {
+            return this.inputs;
+        },
+        rows$: {
+            set(newVal) {
+                this.$commit(newVal ?? []);
             },
-            rows$: {
-                set(newVal) {
-                    this.$commit(newVal ?? []);
-                },
 
 
-                get() {
-                    return this.inputValue;
-                }
+            get() {
+                return this.inputValue;
             }
         }
     }
+}
 </script>
 
 <style>
-    .-repeater {
-        width: 100% !important;
-    }
+.-repeater {
+    width: 100% !important;
+}
 
-    span.repeater-cell {
-        font-family: 'Cairo', serif;
-        font-weight: 700 !important;
-    }
+span.repeater-cell {
+    font-family: 'Cairo', serif;
+    font-weight: 700 !important;
+}
 
-    .field-container {
-        width: 100%;
-    }
+.field-container {
+    width: 100%;
+}
 </style>

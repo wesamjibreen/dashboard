@@ -147,9 +147,7 @@ export default {
   mixins: [dashboard, base],
   methods: {
     $$getRowValue(column, row, defaultVal = "") {
-      console.log("sssda", column, row, column.name);
       if (column.value instanceof Function) return column.value(row);
-
       return this.getValueByLocale(_.get(row, column.name, defaultVal ?? ""));
     },
   },

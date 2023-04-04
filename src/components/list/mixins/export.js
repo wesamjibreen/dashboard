@@ -1,5 +1,5 @@
 import html2pdf from "html2pdf.js";
-import { saveExcel } from "@progress/kendo-vue-excel-export";
+import {saveExcel} from "@progress/kendo-vue-excel-export";
 
 const FRONT_SOURCE = 'frontend';
 const BACK_SOURCE = 'backend';
@@ -19,7 +19,6 @@ export default {
                 return this.defaultEndPoint;
 
             const typeExportingEndpoint = _.get(this, `exporting.${type}.endPoint`, {});
-            console.log("test typeExportingEndpoint" , typeExportingEndpoint)
             return Object.keys(typeExportingEndpoint).length ? typeExportingEndpoint : this.defaultEndPoint;
         },
         exportTo(type = "Excel") {
@@ -47,7 +46,6 @@ export default {
         },
         rowValue(column, row) {
             let field = column.value ?? column.field;
-            console.log('rowValue', field, column)
             return (field instanceof Function) ? field(row, column) : row[field];
         },
         getResourceColumns(rows, originalCols = []) {
@@ -78,9 +76,6 @@ export default {
             this.fetchExporting('excel', (data) => {
                 if (columns.length === 0)
                     columns = this.getResourceColumns(data.data);
-                console.log('this.parseToExport(data.data,columns) columns', columns);
-                console.log('this.parseToExport(data.data,columns) data', data.data);
-                console.log('this.parseToExport(data.data,columns)', this.parseToExport(data.data, 'excel', columns));
                 saveExcel({
                     data: this.parseToExport(data.data, 'excel', columns),
                     fileName: `${this.resource}-excel.xlsx`,
@@ -93,11 +88,11 @@ export default {
             // var element = document.getElementById('body');
             this.loadingPdf = true;
             var opt = {
-                pagebreak: { mode: ['avoid-all'] },
+                pagebreak: {mode: ['avoid-all']},
                 margin: 0.5,
                 filename: `${this.resource}-${new Date().getTime()}.pdf`,
-                image: { type: 'jpeg', quality: 0.9 },
-                html2canvas: { scale: 3 },
+                image: {type: 'jpeg', quality: 0.9},
+                html2canvas: {scale: 3},
                 jsPDF: {
                     orientation: 'landscape',
                     unit: 'in',
@@ -110,17 +105,11 @@ export default {
             this.fetchExporting('pdf', (data) => {
                 this.exportedData = [...data.data];
                 this.$nextTick(() => {
-                    console.log('fetchExporting', this.exportingColumns('pdf'));
-                    console.log('this.$refs.exporting', this.$refs, this.$refs.exporting.$el);
-                    console.log('exportedData ', this.exportedData);
-                    // alert('ok');
-                    html2pdf().set(opt).from(this.$refs.exporting.$el).toPdf().
-                        //     .output().then((...args) => {
-                        //     console.log('html2pdf' ,...args);
-                        // }).
-                        save().then(() => {
-                            this.loadingPdf = false;
-                        });
+                    html2pdf().set(opt)
+                        .from(this.$refs.exporting.$el)
+                        .toPdf().save().then(() => {
+                        this.loadingPdf = false;
+                    });
                 })
 
             });
@@ -136,7 +125,7 @@ export default {
                         ...this.filter
                     }
                 },
-                ({ data }) => {
+                ({data}) => {
                     callback(data);
                 },
                 null,
@@ -164,7 +153,7 @@ export default {
             // prepare columns
             const columns = []
             this.importingColumns.forEach(function (column) {
-                columns.push({ field: column.text });
+                columns.push({field: column.text});
             })
             // create & save excel file
             saveExcel({

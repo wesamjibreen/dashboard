@@ -53,7 +53,6 @@ const actions = [
         color: "danger",
         icon: "fa fa-trash",
         callback: function (resource, row) {
-            console.log('deleteRow', row);
             Bus.emit('confirmation-dialog',
                 true,
                 {

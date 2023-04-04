@@ -108,30 +108,11 @@ export default {
 
     methods: {
         submit() {
-            // this.$emitEvent('form-success', this.form);
-            // if (this.isFormBusy) {
-            //     return;
-            // }
             return new Promise((resolve, reject) => {
-                // alert(this.v$.$invalid);
-                // if (this.v$.$invalid)
-                //     return reject();
-                // this.validateForm().then(
-                //     function (valid) {
-                //         if (valid && checkMultiLang && this.hasEmptyMultiLangFields) {
-                //             this.multiLangDialog = true;
-                //             return;
-                //         }
-
-                // if (valid) {
-                // Bus.emit(
-                //     `before-form-submit-${this.formModule$}`,
-                //     this.formModule$
-                // );
                 this.loading = true;
                 this.$emitEvent('before-submit', this.form);
                 this.$store.dispatch(`${this.formModule$}/${SUBMIT_FORM}`, {
-                    data: this.form,
+                    data: this.sanitizeFormData(),
                     formContext: this,
                     endPoint: this.submitEndPoint(),
                 }).then((data) => {
@@ -362,6 +343,12 @@ export default {
              * @author WeSSaM
              */
             this.onFormSet();
+        },
+
+        sanitizeFormData() {
+            let callback = this.getConfig("sanitizeFormData", null);
+            if (callback instanceof Function) return callback.bind(this)() ?? this.form;
+            return this.form;
         }
     },
     computed: {

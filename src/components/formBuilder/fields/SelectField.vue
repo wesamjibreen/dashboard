@@ -60,10 +60,17 @@
             :auto-load-root-options="false"
         ></treeselect>
 
-
-        <span class="invalid" v-if="hasError">
-      {{ trans($error?.$message) }}
-    </span>
+        <div class="related-form" v-if="hasRelatedForm">
+            <a href="javascript:;" @click.prevent="dialog = true">
+                <Icon icon="material-symbols:add-circle-rounded"/>
+            </a>
+            <GDialog v-model="dialog" fullscreen>
+                <FormLayout v-if="dialog" v-bind="computedRelatedForm"
+                            @cancel="onCancel"
+                            @form-success="onSuccess"/>
+            </GDialog>
+        </div>
+        <span class="invalid" v-if="hasError">{{ trans($error?.$message) }}</span>
     </div>
 </template>
 
@@ -83,7 +90,7 @@ export default {
     },
     props: {
         asyncOptionsKey: String,
-        asyncOptions:{
+        asyncOptions: {
             required: false,
             default: []
         },
@@ -111,11 +118,9 @@ export default {
             );
         },
         asyncOptions$() {
-            console.log('asdadad',this.asyncOptions,this.currentRow,this.form)
-            if (this.asyncOptions.length >0)
-                return  this.asyncOptions;
+            if (this.asyncOptions.length > 0)
+                return this.asyncOptions;
 
-            console.log('asdasd0',this.currentRow?.[this.asyncOptionsKey$])
             return this.currentRow?.[this.asyncOptionsKey$] ?? (this.form?.[this.asyncOptionsKey$] ?? []);
         }
     },
@@ -123,7 +128,6 @@ export default {
         selectAll() {
             this.$refs.multiselect.selectAll();
             return;
-            console.log("yooo", this.input, this.optionsData);
             this.input = [];
             const input$ = [];
             this.optionsData.forEach(
@@ -291,20 +295,30 @@ span.invalid {
     font-size: 15px !important;
 }
 
-.vue-treeselect{
-    width:100%;
+.vue-treeselect {
+    width: 100%;
 }
 
 .vue-treeselect__control,
 .vue-treeselect__x-container,
 .vue-treeselect__control-arrow-container,
-.vue-treeselect{
+.vue-treeselect {
     display: inline-flex;
 
 }
 
 .vue-treeselect__control-arrow-container,
-.vue-treeselect__x-container{
+.vue-treeselect__x-container {
     align-items: center;
+}
+
+.related-form {
+    position: absolute;
+    top: 9%;
+    right: 12%;
+}
+
+.related-form a {
+    font-size: 25px
 }
 </style>

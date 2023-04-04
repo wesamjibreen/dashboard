@@ -1,9 +1,4 @@
 <script>
-    // export interface VPlaceholderPageProps {
-    //   title: string
-    //   subtitle?: string
-    //   larger?: boolean
-    // }
     export default {
         props: {
             title: String,
@@ -11,18 +6,11 @@
             larger: Boolean,
         },
         setup(props) {
-            console.log('VPlaceholderPageProps', props);
             return {
                 props
             }
         }
     }
-    // alert('withDefaults')
-    // const props = withDefaults(defineProps(), {
-    //     title: "",
-    //     subtitle: undefined,
-    //     larger: false
-    // })
 </script>
 
 <template>

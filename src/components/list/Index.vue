@@ -220,7 +220,6 @@
 <script>
 import base from "./mixins/base";
 import {permissions} from "../../mixins";
-
 import ImportDialog from "./partials/ImportDialog.vue";
 
 export default {
@@ -240,7 +239,7 @@ export default {
     computed: {
         listAddKey() {
             return _.get(this, "$config.app.ui_config.list_add_key", "add_new");
-        },
+        }
     },
     methods: {
         onChangePerPage() {
@@ -270,7 +269,7 @@ button.btn-list {
 }
 
 label.filter-label {
-    font-family: "Cairo";
+    font-family: "Cairo", serif;
     font-size: 12px;
     color: #9b9a9a;
     font-weight: 700;

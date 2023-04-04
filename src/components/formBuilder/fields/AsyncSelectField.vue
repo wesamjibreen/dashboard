@@ -27,12 +27,13 @@ import input from "../mixins/input";
 import options from "../mixins/options";
 import {LoadingOutlined} from '@ant-design/icons-vue';
 import {h} from 'vue';
+import {useRoute} from "vue-router";
 
 export default {
     name: "AsyncSelectField",
     props: {
         asyncOptionsKey: String,
-        asyncOptions:{
+        asyncOptions: {
             required: false,
             default: []
         },
@@ -71,23 +72,22 @@ export default {
 
         asyncOptions$() {
             if (this.asyncOptions.length > 0)
-                return  this.asyncOptions;
+                return this.asyncOptions;
             return this.currentRow?.[this.asyncOptionsKey$] ?? (this.form?.[this.asyncOptionsKey$] ?? []);
         },
         optionsArr() {
-            let filteredAsyncOptions=[];
-                if (this.input instanceof Array )
-                    filteredAsyncOptions= this.asyncOptions$.filter((el) => {
-                        return this?.input.includes(el?.id)
-                    });
-                 else
-                    filteredAsyncOptions= this.asyncOptions$.filter((el) => {
-                        return this?.input===el?.id;
-                    });
+            let filteredAsyncOptions = [];
+            if (this.input instanceof Array)
+                filteredAsyncOptions = this.asyncOptions$.filter((el) => {
+                    return this?.input.includes(el?.id)
+                });
+            else
+                filteredAsyncOptions = this.asyncOptions$.filter((el) => {
+                    return this?.input === el?.id;
+                });
 
 
-
-        return  _.concat(this.optionsData, filteredAsyncOptions.filter((el) => {
+            return _.concat(this.optionsData, filteredAsyncOptions.filter((el) => {
                 return !this.optionsData.find((innerEl) => innerEl.id === el.id)?.id
             }));
 
@@ -102,7 +102,7 @@ export default {
             this.loading = true;
             this.request(
                 this.$endPoint(this.endPoint.name),
-                {params: {q: searchQuery, ...this.endPoint?.params}},
+                {params: {q: searchQuery, ...this.endPoint?.params, ...this.route.query}},
                 ({data}) => {
                     this.loading = false;
 
@@ -115,7 +115,7 @@ export default {
                     this.options = [];
                 }
             );
-        }, 500),
+        }, 200),
     },
     setup() {
         const indicator = h(LoadingOutlined, {
@@ -124,7 +124,9 @@ export default {
             },
             spin: true,
         });
+        const route = useRoute();
         return {
+            route,
             indicator,
         };
     },

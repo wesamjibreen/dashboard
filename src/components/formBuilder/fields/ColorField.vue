@@ -31,7 +31,6 @@
         },
         methods: {
             changeColor(color) {
-                console.log('changeColor', color);
                 const {r, g, b, a} = color.rgba;
                 this.input = color.hex;
 // this.input = "#" + this.rgba2hex(`rgba(${r}, ${g}, ${b}, ${a})`).toUpperCase();

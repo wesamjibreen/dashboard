@@ -90,7 +90,6 @@ export default {
         },
         onSubmit() {
             this.isSubmitted = true;
-
             if (this.v$.$silentErrors.length > 0)
                 return this.errorNotify(this.trans('enter_valid_data'));
             else

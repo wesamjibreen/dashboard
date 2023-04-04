@@ -129,8 +129,6 @@ export default {
     onPickFile() {
       const file = event.target.files[0];
       this.pickedFile = file;
-
-      console.log(file);
     },
     // upload file
     uploadFile() {
@@ -174,7 +172,6 @@ export default {
           }.bind(this)
         );
       });
-      console.log(data);
     },
   },
 };

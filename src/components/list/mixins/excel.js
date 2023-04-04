@@ -16,8 +16,6 @@ export default {
                     }
                 },
                 ({data}) => {
-                    console.log('parseToExcel', this.parseToExcel(data.data))
-
                     saveExcel({
                         data: this.parseToExcel(data.data),
                         fileName: `${this.resource}-excel`,

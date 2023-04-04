@@ -89,6 +89,8 @@ export default {
 
         onSelect(selectedValues) {
             this.selected = selectedValues;
+            this.$emit("update:selected", selectedValues);
+
         },
 
         init() {
@@ -209,7 +211,7 @@ export default {
         fetch(page = null) {
             page = page || this.queryPage;
             this.loading = true;
-            let params = {...this.filter, page, perPage: this.perPage};
+            let params = {...this.filter, page:page??this.queryPage, perPage: this.perPage};
             if (this.isSortable)
                 params = {...params, no_pagination: true, order_by: "ordered", sort_by: "asc"};
 
@@ -327,7 +329,6 @@ export default {
                 query[this.pageKey] = 1;
                 this.$router.push({query});
                 this.fetch();
-                console.log('filters', newVal);
             }, 500)
         }
     }

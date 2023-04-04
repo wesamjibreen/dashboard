@@ -1,6 +1,6 @@
 import JwtService from "../../utils/jwt";
-import { useStorage } from "@vueuse/core";
-import { computed } from 'vue';
+import {useStorage} from "@vueuse/core";
+import {computed} from 'vue';
 import useNotyf from "../../composable/useNotyf";
 
 // action types
@@ -53,13 +53,13 @@ export default function (base) {
         }
     };
     const actions = {
-        [LOGIN]({ commit }, { credentials, ref }) {
+        [LOGIN]({commit}, {credentials, ref}) {
             return ref.request(
                 ref.$endPoint('auth.login'),
                 credentials,
-                ({ data }) => {
+                ({data}) => {
                     notify.success(data.message);
-                    ref.$router.replace({ name: "dashboard" }).then(() => {
+                    ref.$router.replace({name: "dashboard"}).then(() => {
                         commit(SET_AUTH, data);
                         ref.$bus.emit('authenticated', data);
                         // ref.$router.go();
@@ -77,11 +77,11 @@ export default function (base) {
         [REGISTER](context, credentials) {
             return new Promise(resolve => {
                 ApiService.post("login", credentials)
-                    .then(({ data }) => {
+                    .then(({data}) => {
                         context.commit(SET_AUTH, data);
                         resolve(data);
                     })
-                    .catch(({ response }) => {
+                    .catch(({response}) => {
                         context.commit(SET_ERROR, response.data.errors);
                     });
             });
@@ -90,10 +90,10 @@ export default function (base) {
             if (JwtService.getToken()) {
                 ApiService.setHeader();
                 ApiService.get("verify")
-                    .then(({ data }) => {
+                    .then(({data}) => {
                         context.commit(SET_AUTH, data);
                     })
-                    .catch(({ response }) => {
+                    .catch(({response}) => {
                         // context.commit(SET_ERROR, response.data.errors);
                     });
             } else {
@@ -103,7 +103,7 @@ export default function (base) {
         [UPDATE_PASSWORD](context, payload) {
             const password = payload;
 
-            return ApiService.put("password", password).then(({ data }) => {
+            return ApiService.put("password", password).then(({data}) => {
                 context.commit(SET_PASSWORD, data);
                 return data;
             });
@@ -117,7 +117,8 @@ export default function (base) {
         [SET_AUTH](state, response) {
             let data = response.data;
             state.user = user.value = data.auth;
-            state.token = token.value = data.access_token;
+            if (data.access_token)
+                state.token = token.value = data.access_token;
             state.errors = {};
             state.isAuthenticated = true;
         },

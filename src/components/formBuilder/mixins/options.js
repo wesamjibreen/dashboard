@@ -1,5 +1,6 @@
 import {mapState} from "vuex";
 // import { FETCH_OPTIONS, UPDATE_OPTIONS } from "../../../store/setting.module";
+import {GDialog} from 'gitart-vue-dialog'
 
 export default {
     props: {
@@ -23,6 +24,7 @@ export default {
             required: false,
             default: false
         },
+        relatedForm: Object,
         normalizer: Function,
         filter: Function,
         multiple: Boolean,
@@ -30,10 +32,12 @@ export default {
         showSelectAll: Boolean
     },
     data: () => ({
+        dialog: false,
         loading: false,
         options: [],
         q: null,
     }),
+    components: {GDialog},
     created() {
         // this.onInputCreated();
         // this.onInputChanges();
@@ -201,6 +205,15 @@ export default {
                 this.fetchOptions();
         }, 1000),
 
+        onCancel() {
+            this.dialog = false;
+        },
+        onSuccess({data}) {
+            this.fetchOptions();
+            if (data.id)
+                this.$commit(data.id)
+            this.dialog = false;
+        },
     },
 
     computed: {
@@ -280,14 +293,18 @@ export default {
         optionsKey() {
             return `${
                 this.endPoint ? this.endPoint.name.split(".")[0] : this.model$
-                }Options`;
+            }Options`;
         },
         vuexOptions() {
-            return this.setting && this.setting[this.optionsKey]
-                ? this.setting[this.optionsKey]
-                : [];
-            // console.log('vuexOptions', state.setting[this.optionsKey],this.optionsKey)
-            // return _.get(state, `setting.${this.optionsKey}`, [])
+            return this.setting && this.setting[this.optionsKey] ? this.setting[this.optionsKey] : [];
+        },
+        hasRelatedForm() {
+            return !!this.relatedForm?.config?.resource;
+        },
+        computedRelatedForm() {
+            let form = this.relatedForm ?? {};
+            form.config.isCrud = true;
+            return form;
         },
         ...mapState({
             /**
@@ -306,16 +323,4 @@ export default {
             // options$$: state => state.setting[`${this.endPoint.name.split(".")[0]}Options`],
         }),
     },
-    watch: {
-        // setting: {
-        //     handler: function (newVal, oldVal) {
-        //
-        //         alert('ff');
-        //         if (newVal && newVal[this.optionsKey])
-        //             this.options = newVal[this.optionsKey]
-        //     },
-        //     deep: true,
-        //     immediate: true,
-        // },
-    }
 };

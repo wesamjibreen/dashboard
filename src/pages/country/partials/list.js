@@ -35,7 +35,6 @@ const actions = [
         color: "danger",
         icon: "fa fa-trash",
         callback: function (row, resource) {
-            console.log('deleteRow', row);
             Bus.emit('confirmation-dialog',
                 true,
                 {

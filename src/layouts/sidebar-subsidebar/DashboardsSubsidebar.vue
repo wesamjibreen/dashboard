@@ -8,7 +8,7 @@
                             </div> -->
 
                 <div class="logo">
-                    <AnimatedLogo />
+                    <AnimatedLogo/>
                     <!--<img src="/panel/images/logo-header.png">-->
                     <!--<img :src="logo">-->
                 </div>
@@ -16,31 +16,22 @@
             <perfect-scrollbar>
                 <div data-simplebar>
                     <ul class="menu">
-                        <li
-                            v-for="(item, index) in menu"
-                            class="menu-item"
-                            :class="{ 'is-open': isOpen(index) }"
-                        >
+                        <li v-for="(item, index) in menu" class="menu-item" :class="{ 'is-open': isOpen(index) }">
                             <div class="menu-link" @click="setActive(item, index)">
-                <span class="menu-arrow" v-if="hasChildren(item)">
-                  <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="11.061"
-                      height="6.28"
-                      viewBox="0 0 11.061 6.28"
-                  >
-                    <path
-                        id="Path_2187"
-                        data-name="Path 2187"
-                        d="M1320,150l5,5,5-5"
-                        transform="translate(-1319.47 -149.47)"
-                        fill="none"
-                        stroke="#19324b"
-                        stroke-linejoin="round"
-                        stroke-width="1.5"
-                    />
-                  </svg>
-                </span>
+                                <span class="menu-arrow" v-if="hasChildren(item)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="11.061" height="6.28"
+                                         viewBox="0 0 11.061 6.28">
+                                            <path id="Path_2187"
+                                                  data-name="Path 2187"
+                                                  d="M1320,150l5,5,5-5"
+                                                  transform="translate(-1319.47 -149.47)"
+                                                  fill="none"
+                                                  stroke="#19324b"
+                                                  stroke-linejoin="round"
+                                                  stroke-width="1.5"
+                                            />
+                                    </svg>
+                                </span>
                                 <span class="menu-title">{{ trans(item.label) }}</span>
                                 <span class="menu-icon"
                                 ><Icon aria-hidden="true" :icon="`${item.icon}`"></Icon
@@ -50,18 +41,13 @@
                                 <div class="menu-item" v-for="child in item?.children">
                                     <RouterLink
                                         v-bind="child"
-                                        :class="[
-                      'menu-link',
-                      isActive(child) &&
-                        'router-link-active router-link-exact-active',
-                    ]"
-                                    >
+                                        :class="['menu-link', isActive(child) && 'router-link-active router-link-exact-active']">
                                         <span class="menu-title">{{ trans(child.label) }}</span>
 
                                         <span class="menu-icon">
-                      <Icon aria-hidden="true" :icon="`${child.icon}`"></Icon>
-                      <i aria-hidden="true" :class="`${child.icon}`"></i>
-                    </span>
+                                            <Icon aria-hidden="true" :icon="`${child.icon}`"></Icon>
+                                            <i aria-hidden="true" :class="`${child.icon}`"></i>
+                                        </span>
 
                                         <!--<span class="menu-arrow">-->
                                         <!--<svg xmlns="http://www.w3.org/2000/svg" width="5.28" height="9.061"-->
@@ -82,11 +68,11 @@
     </div>
 </template>
 <script>
-import { sidebar } from "../../mixins";
-import { useRoute } from "vue-router";
-import { useStorage } from "@vueuse/core";
-import { PerfectScrollbar } from "vue3-perfect-scrollbar";
-import { useStore } from "vuex";
+import {sidebar} from "../../mixins";
+import {useRoute} from "vue-router";
+import {useStorage} from "@vueuse/core";
+import {PerfectScrollbar} from "vue3-perfect-scrollbar";
+import {useStore} from "vuex";
 
 export default {
     components: {
@@ -115,7 +101,7 @@ export default {
             let route = this.route?.name ?? "";
             let resourceName = route.split(".")?.[0];
             this.activeIndex = _.findIndex(this.menu, {
-                children: [{ key: resourceName }],
+                children: [{key: resourceName}],
             });
         },
         setActive(item, index) {
@@ -144,7 +130,6 @@ export default {
     },
     computed: {
         menu() {
-            console.log("userPolicies", this.userPolicies);
             let menuItems = _.get(this.$instance, "config.menu", []);
             if (this.appConfig("permissions.enabled", false)) {
                 let filteredMenu = [];
@@ -178,8 +163,7 @@ export default {
         userPolicies() {
             // let $auth = useStorage(`${this.$base}_user`, {});
             // let policies = $auth.value?.policies;
-            let policies = _.get(this.store.getters["currentUser"],'policies');
-            console.log('currentUser', policies,this.store.getters["currentUser"]?.policies)
+            let policies = _.get(this.store.getters["currentUser"], 'policies');
             return policies ? atob(policies).split(",") : [];
         },
     },
@@ -196,12 +180,15 @@ export default {
 
 <style lang="scss">
 @import "../../scss/layout/_sidebar-panel.scss";
+
 .ps {
     height: calc(100vh - 170px);
 }
+
 .sidebar-panel {
     overflow: unset;
 }
+
 /*
  * Container style
  */
@@ -212,6 +199,7 @@ export default {
     touch-action: auto;
     -ms-touch-action: auto;
 }
+
 /*
  * Scrollbar rail styles
  */
@@ -226,6 +214,7 @@ export default {
     /* please don't change 'position' */
     position: absolute;
 }
+
 .ps__rail-y {
     display: none;
     opacity: 0;
@@ -237,11 +226,13 @@ export default {
     /* please don't change 'position' */
     position: absolute;
 }
+
 .ps--active-x > .ps__rail-x,
 .ps--active-y > .ps__rail-y {
     display: block;
     background-color: transparent;
 }
+
 .ps:hover > .ps__rail-x,
 .ps:hover > .ps__rail-y,
 .ps--focus > .ps__rail-x,
@@ -250,6 +241,7 @@ export default {
 .ps--scrolling-y > .ps__rail-y {
     opacity: 0.6;
 }
+
 .ps .ps__rail-x:hover,
 .ps .ps__rail-y:hover,
 .ps .ps__rail-x:focus,
@@ -259,6 +251,7 @@ export default {
     background-color: #eee;
     opacity: 0.9;
 }
+
 /*
  * Scrollbar thumb styles
  */
@@ -273,6 +266,7 @@ export default {
     /* please don't change 'position' */
     position: absolute;
 }
+
 .ps__thumb-y {
     background-color: #aaa;
     border-radius: 6px;
@@ -284,32 +278,38 @@ export default {
     /* please don't change 'position' */
     position: absolute;
 }
+
 .ps__rail-x:hover > .ps__thumb-x,
 .ps__rail-x:focus > .ps__thumb-x,
 .ps__rail-x.ps--clicking .ps__thumb-x {
     background-color: #999;
     height: 11px;
 }
+
 .ps__rail-y:hover > .ps__thumb-y,
 .ps__rail-y:focus > .ps__thumb-y,
 .ps__rail-y.ps--clicking .ps__thumb-y {
     background-color: #999;
     width: 11px;
 }
+
 /* MS supports */
 @supports (-ms-overflow-style: none) {
     .ps {
         overflow: auto !important;
     }
 }
+
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
     .ps {
         overflow: auto !important;
     }
 }
+
 .ps {
     position: relative;
 }
+
 .sidebar-panel.is-generic .subpanel-header {
     justify-content: center;
     padding: 35px 0px;

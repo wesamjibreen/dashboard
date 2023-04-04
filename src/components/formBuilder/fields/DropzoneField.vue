@@ -154,7 +154,6 @@
             // },
             setCropperImageBase64({file}, cropDialogIndex) {
                 var reader = new FileReader();
-                console.log('readAsDataURL', file)
                 reader.readAsDataURL(file);
                 const _this = this;
                 reader.onload = function () {

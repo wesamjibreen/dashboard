@@ -1,6 +1,6 @@
 import Constants from "../utils/constants";
-import instance from "../plugins/axios";
-import useRequest from "../composable/useRequest";
+import {Exception} from "sass";
+
 
 export default {
     data() {
@@ -10,12 +10,12 @@ export default {
             }
         }
     },
-    // methods : useRequest(),
     methods: {
         request: function (end_point, data = {}, success_callback = undefined, error_callback = undefined, finally_callback = undefined, is_loader_displayed = true) {
             let _this = this;
             success_callback = success_callback || _this.onSuccess;
             error_callback = error_callback || _this.onError;
+            if (!end_point.method || !end_point.url) return console.error("EndPoint not found")
             let method = (end_point.method) ? end_point.method.toLowerCase() : 'get';
             let header = this.getRequestHeader();
             if (method === 'get' || method === 'GET') {
@@ -25,8 +25,7 @@ export default {
                     ...data.params,
                 };
             }
-            // this.$axiosInstance
-            return  this.$axiosInstance[method](end_point.url, data, header).then(function (response) {
+            return this.$axiosInstance[method](end_point.url, data, header).then(function (response) {
                 switch (response.data.status) {
                     case Constants.SUCCESS_RESPONSE:
                         return success_callback(response); // success handler

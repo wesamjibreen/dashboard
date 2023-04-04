@@ -48,7 +48,6 @@
                     this.additionalKeyToRequest$.includes(key))
 
 
-                console.log('sssssss',this.__getId)
                 const additionalDataToRequest = Object.fromEntries(filtered);
                 if(additionalDataToRequest)
                     Object.assign( data, additionalDataToRequest);

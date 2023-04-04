@@ -31,8 +31,6 @@
         methods: {
             paginatedLink(page = 1) {
                 // const route = useRoute();
-                console.log('paginatedLink', this.$route.query, this.queryParams);
-
                 const query = this.queryParams ?? {};
                 query[this.pageKey] = page;
                 this.$router.push({query});

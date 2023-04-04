@@ -166,7 +166,6 @@ export default {
       if (this.mode === "marker") this.setPlaceMarker(GEOPoint);
       else this.setAreaPolygon(place.name, GEOPoint);
 
-      console.log("setPlace", place, location);
 
       this.$nextTick(() => {
         this.touch();
@@ -253,7 +252,6 @@ export default {
           lng: searchCoordinates.lng,
         },
       ];
-      console.log("MAP OSM request", searchValue);
       const OSMEndPoint = {
         url: `https://nominatim.openstreetmap.org/search.php?q=${searchValue}&polygon_geojson=1&format=json`,
         method: "GET",
@@ -283,7 +281,6 @@ export default {
           }.bind(this)
         )
         .catch(function (error) {
-          console.log("MAP OSM!! error", error);
           // _this.setPolygonPath(coordinates_points);
           // _this.updatePolygonPoints();
         });
@@ -421,7 +418,6 @@ export default {
       immediate: true,
       handler(newVal) {
         // if (this.updated || !(this.mode === "marker" && this.multiple))
-        console.log("committedInput", newVal, this.updated);
         // if (this.updated)
         //     this.$commit(newVal);
       },

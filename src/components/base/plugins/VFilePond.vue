@@ -77,7 +77,6 @@
         }
     }
 
-    console.log('eventNames', eventNames);
     export default defineComponent({
         name: 'VFilePond',
         props: {
@@ -182,7 +181,6 @@
                     multiple: pondOptions.allowMultiple,
                     capture: pondOptions.captureMethod,
                 })
-                console.log('eventNames', pond.value)
                 const wrapper = h('div', {class: 'filepond--wrapper'}, [input]);
 
                 return h(

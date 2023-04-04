@@ -78,201 +78,210 @@
 </template>
 
 <script>
-    import {GDialog} from 'gitart-vue-dialog'
-    import input from "../mixins/input";
-    import {getValueByLocale} from "../../../utils/helper";
-    import Sortable from "../../basic/Sortable";
-    import Draggable from 'vuedraggable'
+import {GDialog} from 'gitart-vue-dialog'
+import input from "../mixins/input";
+import {getValueByLocale} from "../../../utils/helper";
+import Sortable from "../../basic/Sortable";
+import Draggable from 'vuedraggable'
 
-    export default {
-        name: "CrudField",
-        mixins: [input],
-        components: {
-            Sortable,
-            GDialog,
-            Draggable,
+export default {
+    name: "CrudField",
+    mixins: [input],
+    components: {
+        Sortable,
+        GDialog,
+        Draggable,
+    },
+    props: {
+        slug: {
+            default: "dialog"
         },
-        props: {
-            slug: {
-                default: "dialog"
-            },
-            data: {
-                default: []
-            },
-            config: {
-                default: null
-            },
-            columns: {
-                default: null
-            },
-            inputs: {
-                default: []
-            }
+        data: {
+            default: []
         },
-        data() {
-            return {
-                items: [],
-                dialog: false,
-                item: null
-            }
+        config: {
+            default: null
         },
-        methods: {
-            onFetch(data) {
-                // this.items = data[this.model$] ?? [];
-            },
-            addNew() {
-                this.item = null;
-                this.dialog = true;
-            },
-            editRow(row, index) {
-                this.dialog = true;
-                this.setCrudForm(row);
-            },
-            removeRow(item, index) {
-                this.$bus.emit('confirmation-dialog',
-                    true,
-                    {
-                        title: "sure_to_delete",
-                        message: "",
-                        type: "warning",
-                        callback: () => {
-                            this.loading = true;
-                            this.request(
-                                this.deleteEndPoint(item),
-                                {},
-                                ({data}) => {
-                                    let rows = _.filter(
-                                        JSON.parse(JSON.stringify(this.rows$)),
-                                        function (row) {
-                                            return row.id != item.id;
-                                        }
-                                    );
-                                    this.setRows(rows);
-                                    this.$bus.emit('confirmation-dialog', false);
-                                    this.successNotify(data.message);
-                                },
-                                () => {
-
-                                },
-                                () => {
-
-                                }
-                            )
-                        }
-                    },
-                );
-            },
-
-            deleteEndPoint(item) {
-                return this.$endPoint(`${this.slug}.delete`, item.id);
-            },
-
-            getRowValue(row, column) {
-                if (column.value instanceof Function)
-                    return column.value(row);
-
-                return getValueByLocale(_.get(row, column.value, column.default ?? ""));
-            },
-
-            onBuilderMounted(context) {
-                // this.values = Object.assign({}, this.item);
-                // console.log('onBuilderMounted', context, this.$refs.form);
-                // alert('onBuilderMounted');
-            },
-            onSuccess({data}) {
-                console.log('roooooooows',this.rows$);
-                if (!this.rows$)
-                    this.rows$ = [];
-
-                let index = _.findIndex(this.rows$, function (item) {
-                    return item.id === data.id;
-                });
-
-                if (index >= 0) this.rows$[index] = data;
-                // _.set(this.items, index, data);
-                else this.rows$.push(data);
-
-                this.dialog = false;
-                this.loading = false;
-            },
-            onCancel() {
-                // this.values = {};
-                this.dialog = false;
-                this.item = null;
-            },
-            setRows(items) {
-                _.set(this, "rows$", items);
-            },
-            setCrudForm(form) {
-                _.set(this, 'item', form);
-            },
-            onInputMounted() {
-                // this.items = JSON.parse(JSON.stringify(this.inputValue));
-            }
+        columns: {
+            default: null
         },
-        computed: {
-            computedColumns() {
-                return this.columns;
-                // return _.map(JSON.parse(JSON.stringify(this.columns)), (column) => {
-                //     column.text = this.trans(column.label);
-                //     return column;
-                // });
-            },
-
-            rows$: {
-                set(newVal) {
-                    this.$commit(newVal ?? []);
-                },
-
-
-                get() {
-                    return this.inputValue;
-                }
-            },
-            computedRows() {
-                return this.rows$ ?? [];
-            },
-            hasRows() {
-                return this.computedRows.length > 0;
-            },
-            crudConfig() {
-                return {
-                    isCrud: true,
-                    resource: this.slug
-                }
-            },
+        inputs: {
+            default: []
         },
-        watch: {
-            // items: {
-            //     deep: true,
-            //     // immediate: true,
-            //     handler(newVal) {
-            //         this.$commit(newVal ?? []);
-            //     }
-            // }
+        onCrudMounted: Function,
+        onCrudCancel: Function,
+    },
+    data() {
+        return {
+            items: [],
+            dialog: false,
+            item: null
         }
+    },
+    methods: {
+        onFetch(data) {
+            // this.items = data[this.model$] ?? [];
+        },
+        addNew() {
+            this.item = null;
+            this.dialog = true;
+        },
+        editRow(row, index) {
+            this.dialog = true;
+            this.setCrudForm(row);
+        },
+        removeRow(item, index) {
+            this.$bus.emit('confirmation-dialog',
+                true,
+                {
+                    title: "sure_to_delete",
+                    message: "",
+                    type: "warning",
+                    callback: () => {
+                        this.loading = true;
+                        this.request(
+                            this.deleteEndPoint(item),
+                            {},
+                            ({data}) => {
+                                let rows = _.filter(
+                                    JSON.parse(JSON.stringify(this.rows$)),
+                                    function (row) {
+                                        return row.id != item.id;
+                                    }
+                                );
+                                this.setRows(rows);
+                                this.$bus.emit('confirmation-dialog', false);
+                                this.successNotify(data.message);
+                            },
+                            () => {
+
+                            },
+                            () => {
+
+                            }
+                        )
+                    }
+                },
+            );
+        },
+
+        deleteEndPoint(item) {
+            return this.$endPoint(`${this.slug}.delete`, item.id);
+        },
+
+        getRowValue(row, column) {
+            if (column.value instanceof Function)
+                return column.value(row);
+
+            return getValueByLocale(_.get(row, column.value, column.default ?? ""));
+        },
+
+        onBuilderMounted(context) {
+            if (this.onCrudMounted instanceof Function)
+                this.onCrudMounted.bind(this)(context,this.item);
+            // this.values = Object.assign({}, this.item);
+            // console.log('onBuilderMounted', context, this.$refs.form);
+            // alert('onBuilderMounted');
+        },
+        onSuccess({data}) {
+            if (!this.rows$)
+                this.rows$ = [];
+
+            let index = _.findIndex(this.rows$, function (item) {
+                return item.id === data.id;
+            });
+
+            if (index >= 0) this.rows$[index] = data;
+            // _.set(this.items, index, data);
+            else this.rows$.push(data);
+
+            this.dialog = false;
+            this.loading = false;
+        },
+        onCancel() {
+            // this.values = {};
+            if (this.onCrudCancel instanceof Function)
+                this.onCrudCancel.bind(this)(this.item);
+            // this.$router.push({query: {}})
+            // this.values = {};
+            this.dialog = false;
+            this.item = null;
+            this.dialog = false;
+            this.item = null;
+        },
+        setRows(items) {
+            _.set(this, "rows$", items);
+        },
+        setCrudForm(form) {
+            _.set(this, 'item', form);
+        },
+        onInputMounted() {
+            // this.items = JSON.parse(JSON.stringify(this.inputValue));
+        }
+    },
+    computed: {
+        computedColumns() {
+            return this.columns;
+            // return _.map(JSON.parse(JSON.stringify(this.columns)), (column) => {
+            //     column.text = this.trans(column.label);
+            //     return column;
+            // });
+        },
+
+        rows$: {
+            set(newVal) {
+                this.$commit(newVal ?? []);
+            },
+
+
+            get() {
+                return this.inputValue;
+            }
+        },
+        computedRows() {
+            return this.rows$ ?? [];
+        },
+        hasRows() {
+            return this.computedRows.length > 0;
+        },
+        crudConfig() {
+            return {
+                isCrud: true,
+                resource: this.slug
+            }
+        },
+    },
+    watch: {
+        // items: {
+        //     deep: true,
+        //     // immediate: true,
+        //     handler(newVal) {
+        //         this.$commit(newVal ?? []);
+        //     }
+        // }
     }
+}
 </script>
 
 <style>
-    @import '../../../scss/abstracts/_mixins.scss';
-    @import '../../../scss/pages/generic/_forms-stepper.scss';
+@import '../../../scss/abstracts/_mixins.scss';
+@import '../../../scss/pages/generic/_forms-stepper.scss';
 
 
 
-    .crud-container {
-        padding: 20px 0;
-    }
+.crud-container {
+    padding: 20px 0;
+}
 
 
-    img.onboarding-screen {
-        border-radius: 10px !important;
-        width: 200px !important;
-    }
+img.onboarding-screen {
+    border-radius: 10px !important;
+    width: 200px !important;
+}
 
-    /*.crud-container {*/
-    /*background-color: #f0f0f054;*/
-    /*padding: 20px 25px;*/
-    /*border-radius: 10px;*/
-    /*}*/
+/*.crud-container {*/
+/*background-color: #f0f0f054;*/
+/*padding: 20px 25px;*/
+/*border-radius: 10px;*/
+/*}*/
 </style>

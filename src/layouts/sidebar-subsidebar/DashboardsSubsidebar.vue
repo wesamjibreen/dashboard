@@ -1,40 +1,54 @@
 <template>
     <div>
-        <div class="sidebar-panel is-generic">
-            <div class="subpanel-header">
-                <!-- <h3 class="no-mb">{{ title }}</h3>
-                            <div class="panel-close" @click="$emit('close')">
-                                <i aria-hidden="true" class="iconify" data-icon="feather:x"></i>
-                            </div> -->
 
+        <div class="sidebar-panel is-generic" :class="`${sidebarclass}`">
+            <div class="subpanel-header" v-if="!sidebar">
                 <div class="logo">
                     <AnimatedLogo/>
-                    <!--<img src="/panel/images/logo-header.png">-->
-                    <!--<img :src="logo">-->
                 </div>
             </div>
-            <perfect-scrollbar>
-                <div data-simplebar>
+
+            <div data-simplebar class="aside">
+
+                <Toolbar class="desktop-toolbar" v-if="sidebar">
+                    <UserProfileDropdown up/>
+                    <ToolbarNotification v-if="notifications.config.display"/>
+                    <a
+                        class="toolbar-link right-panel-trigger"
+                        aria-label="View activity panel"
+                        @click="activePanel = 'languages'"
+                    >
+                        <!-- <Icon icon="grommet-icons:language"/> -->
+                        <i class="lnil lnil-world"></i>
+                    </a>
+                    <!-- <NotificationsMobileDropdown /> -->
+                    <div class="logout">
+                        <button @click="logout">
+                            <svg data-v-280b1501="" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-power"><path data-v-280b1501="" d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line data-v-280b1501="" x1="12" y1="2" x2="12" y2="12"></line></svg>
+                        </button>
+                    </div>
+                </Toolbar>
+                <perfect-scrollbar class="menu-scroll">
                     <ul class="menu">
                         <li v-for="(item, index) in menu" class="menu-item" :class="{ 'is-open': isOpen(index) }">
-                            <div class="menu-link" @click="setActive(item, index)">
+                            <div class="menu-link" @click="setActive(item, index)" :class="{ 'menu-link-has-dropdown': hasChildren(item) }">
                                 <span class="menu-arrow" v-if="hasChildren(item)">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="11.061" height="6.28"
-                                         viewBox="0 0 11.061 6.28">
+                                            viewBox="0 0 11.061 6.28">
                                             <path id="Path_2187"
-                                                  data-name="Path 2187"
-                                                  d="M1320,150l5,5,5-5"
-                                                  transform="translate(-1319.47 -149.47)"
-                                                  fill="none"
-                                                  stroke="#19324b"
-                                                  stroke-linejoin="round"
-                                                  stroke-width="1.5"
+                                                    data-name="Path 2187"
+                                                    d="M1320,150l5,5,5-5"
+                                                    transform="translate(-1319.47 -149.47)"
+                                                    fill="none"
+                                                    stroke="#19324b"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="1.5"
                                             />
                                     </svg>
                                 </span>
                                 <span class="menu-title">{{ trans(item.label) }}</span>
                                 <span class="menu-icon"
-                                ><Icon aria-hidden="true" :icon="`${item.icon}`"></Icon
+                                ><i aria-hidden="true" :class="`${item.icon}`"></i
                                 ></span>
                             </div>
                             <div class="menu-sub" v-if="hasChildren(item)">
@@ -62,8 +76,9 @@
                             </div>
                         </li>
                     </ul>
-                </div>
-            </perfect-scrollbar>
+                </perfect-scrollbar>
+
+            </div>
         </div>
     </div>
 </template>
@@ -73,28 +88,38 @@ import {useRoute} from "vue-router";
 import {useStorage} from "@vueuse/core";
 import {PerfectScrollbar} from "vue3-perfect-scrollbar";
 import {useStore} from "vuex";
-
+import {Icon} from "@iconify/vue";
+import {activePanel} from "../../state/activePanelState";
+import useNotifications from "../../composable/useNotifications";
+import { LOGOUT } from "../../store/modules/auth.module";
+import { mapState } from "vuex";
 export default {
     components: {
         PerfectScrollbar,
+        Icon
     },
     mixins: [sidebar],
     setup() {
         const route = useRoute();
         const store = useStore();
-
+        const notifications = useNotifications();
         return {
             route,
             store,
+            notifications,
+            activePanel,
         };
     },
     data() {
         return {
             activeIndex: undefined,
+
+
         };
     },
     created() {
         this.setActiveItem();
+
     },
     methods: {
         setActiveItem() {
@@ -127,8 +152,21 @@ export default {
         isOpen(index) {
             return this.activeIndex === index;
         },
+        logout() {
+        this.$router.push({ name: "login" }).then(() => {
+            this.$store.dispatch(LOGOUT);
+            this.$bus.emit("logout");
+
+            // clear local storage data
+            // localStorage.removeItem(`${this.$base}_determinant`);
+            // localStorage.removeItem(`${this.$base}_determinant_key`);
+        });
+        },
     },
     computed: {
+        ...mapState({
+            user: (state) => state.auth.user,
+        }),
         menu() {
             let menuItems = _.get(this.$instance, "config.menu", []);
             if (this.appConfig("permissions.enabled", false)) {
@@ -159,6 +197,20 @@ export default {
         },
         logo() {
             return this.appConfig("logo.light");
+        },
+        theam(){
+return this.appConfig("theme", 'theam1') ;
+        },
+        header(){
+return this.appConfig("header.show", false) ;
+        },
+        sidebar(){
+return this.appConfig("sidebar.show", false) ;
+
+        },
+         sidebarclass(){
+return this.appConfig("sidebar.class", "") ;
+
         },
         userPolicies() {
             // let $auth = useStorage(`${this.$base}_user`, {});
@@ -308,6 +360,16 @@ export default {
 
 .ps {
     position: relative;
+}
+
+.menu-scroll{
+    flex: 1 0 0%;
+    height: calc(100vh - 30px);
+}
+
+.menu-scroll .ps__rail-y {
+    inset-inline-start: auto !important;
+    inset-inline-end: 0 !important;
 }
 
 .sidebar-panel.is-generic .subpanel-header {
@@ -587,4 +649,7 @@ html[dir="ltr"] {
         background-color: #27272a;
     }
 }
+    .ps__rail-x {
+        display: none !important;
+    }
 </style>

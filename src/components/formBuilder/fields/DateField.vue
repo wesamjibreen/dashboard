@@ -5,8 +5,8 @@
 
   <section>
 <!--    <o-field >-->
-        <a-date-picker v-if="!isMultiple" :value="computedInput"  class="input" :placeholder="placeholder$"   format="YYYY-MM-DD" @change="onDateChange" />
-        <a-range-picker v-if="isMultiple"  class="input"  format="YYYY-MM-DD" :placeholder="placeholder$" :value="computedInput"  @change="onDateChange" />
+        <a-date-picker v-if="!isMultiple" :value="computedInput"  class="input ddd" :placeholder="placeholder$"   format="YYYY-MM-DD" @change="onDateChange" />
+        <a-range-picker v-if="isMultiple"  class="input dqwqwd"  format="YYYY-MM-DD" :placeholder="placeholder$" :value="computedInput"  @change="onDateChange" />
 <!--        <o-datepicker-->
 <!--                    id="delete"-->
 <!--                    class="input"-->

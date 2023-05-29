@@ -4,6 +4,7 @@
             <div :class="[isStuck && 'is-stuck']" class="form-header stuck-header">
                 <div class="form-header-inner">
                     <div class="left">
+                        <i></i>
                         <h3>{{ formTitle }}</h3>
                     </div>
                     <div class="right">

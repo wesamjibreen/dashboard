@@ -124,20 +124,22 @@
                                 <!--{{ pageTitle }}-->
                             </h4>
                         </div>
+                        <div v-if="header" class="ml-auto">
 
-                        <Toolbar class="desktop-toolbar">
-                            <a
-                                class="toolbar-link right-panel-trigger"
-                                aria-label="View activity panel"
-                                @click="activePanel = 'languages'"
-                            >
-                                <Icon icon="grommet-icons:language"/>
-                            </a>
-                            <ToolbarNotification v-if="notifications.config.display"/>
-                            <!-- <NotificationsMobileDropdown /> -->
+                            <Toolbar class="desktop-toolbar">
+                                <a
+                                    class="toolbar-link right-panel-trigger"
+                                    aria-label="View activity panel"
+                                    @click="activePanel = 'languages'"
+                                >
+                                    <Icon icon="grommet-icons:language"/>
+                                </a>
+                                <ToolbarNotification v-if="notifications.config.display"/>
 
-                            <UserProfileDropdown up/>
-                        </Toolbar>
+                                <UserProfileDropdown up/>
+                            </Toolbar>
+                            <NotificationsMobileDropdown />
+                        </div>
                     </div>
 
                     <!--<transition name="fade">-->
@@ -322,6 +324,9 @@ export default {
         ...mapState({
             user: (state) => state.auth.user,
         }),
+        header(){
+            return this.appConfig("header.show", false) ;
+        },
     },
 };
 </script>

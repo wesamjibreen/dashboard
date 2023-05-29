@@ -139,9 +139,9 @@
                     @select="onSelect"
                     @loading="loading = $event"
                 />
-                <div class="columns is-multiline">
+                <div class="columns is-multiline align-items-center">
                     <div class="column is-2">
-                        <div class="block mt-3">
+                        <div class="block mt-5">
                             <div
                                 class="select"
                                 v-show="!!paginator && paginator.total > pageCounts[0]"
@@ -331,5 +331,9 @@ label.filter-label {
             cursor: move;
         }
     }
+}
+
+.align-items-center{
+    align-items: center;
 }
 </style>

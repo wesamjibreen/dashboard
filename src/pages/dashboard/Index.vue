@@ -1,6 +1,23 @@
 <template>
 <div>
 <!-- <KanbanApp /> -->
+<div class="columns is-multiline">
+    <div class="column is-4">
+        <div class="card">
+            <div class="card-body p-5">
+                <div class="mb-8 d-flex align-items-center"><svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="vue-feather text-theme dark-text-theme mr-3 feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg> <!----> <!----> <b class="text-md font-bold dark:text-gray-200 sm:text-lg">
+                    Total Users
+                </b></div>
+                <b class="-mt-3 mb-0.5 block text-2xl font-extrabold sm:text-3xl">
+                    1323
+                </b>
+                <a href="/admin/users" class="mt-6 flex items-center"><span class="mr-2 whitespace-nowrap text-xs font-bold">
+                            Show All Users
+                </span> <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-theme vue-feather feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+            </div>
+        </div>
+    </div>
+</div>
   <div class="finance-dashboard stock-dashboard">
     <div class="columns is-multiline">
       <div

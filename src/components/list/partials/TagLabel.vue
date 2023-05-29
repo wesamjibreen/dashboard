@@ -1,11 +1,14 @@
 <template>
-    <small :class="`tag is-${color$} is-rounded`"> {{ label$ }}</small>
+    <VTag :color="color$" rounded :label="label$"/>
 </template>
 
 
 <script>
+import VTag from "../../base/tags/VTag.vue";
+
 export default {
     name: "StatusLabel",
+    components: {VTag},
     props: {
         row: {
             required: true

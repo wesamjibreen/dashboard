@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 // export type VActionDark = '1' | '2' | '3' | '4' | '5' | '6'
 // export interface VActionProps {
 //   dark?: VActionDark

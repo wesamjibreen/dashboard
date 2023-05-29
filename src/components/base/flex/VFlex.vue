@@ -1,56 +1,56 @@
-<script setup lang="ts">
+<script setup>
 import { computed } from 'vue'
 
-export type VFlexDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse'
-export type VFlexWrap = 'nowrap' | 'wrap' | 'wrap-reverse'
-export type VFlexJustifyContent =
-  | 'flex-start'
-  | 'flex-end'
-  | 'start'
-  | 'end'
-  | 'left'
-  | 'right'
-  | 'center'
-  | 'space-between'
-  | 'space-around'
-  | 'space-evenly'
-  | 'normal'
-export type VFlexAlignItems =
-  | 'flex-start'
-  | 'flex-end'
-  | 'start'
-  | 'end'
-  | 'left'
-  | 'right'
-  | 'center'
-  | 'baseline'
-  | 'stretch'
-  | 'normal'
-export type VFlexAlignContent =
-  | 'flex-start'
-  | 'flex-end'
-  | 'start'
-  | 'end'
-  | 'left'
-  | 'right'
-  | 'center'
-  | 'space-between'
-  | 'space-around'
-  | 'space-evenly'
-  | 'normal'
+// export type VFlexDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse'
+// export type VFlexWrap = 'nowrap' | 'wrap' | 'wrap-reverse'
+// export type VFlexJustifyContent =
+//   | 'flex-start'
+//   | 'flex-end'
+//   | 'start'
+//   | 'end'
+//   | 'left'
+//   | 'right'
+//   | 'center'
+//   | 'space-between'
+//   | 'space-around'
+//   | 'space-evenly'
+//   | 'normal'
+// export type VFlexAlignItems =
+//   | 'flex-start'
+//   | 'flex-end'
+//   | 'start'
+//   | 'end'
+//   | 'left'
+//   | 'right'
+//   | 'center'
+//   | 'baseline'
+//   | 'stretch'
+//   | 'normal'
+// export type VFlexAlignContent =
+//   | 'flex-start'
+//   | 'flex-end'
+//   | 'start'
+//   | 'end'
+//   | 'left'
+//   | 'right'
+//   | 'center'
+//   | 'space-between'
+//   | 'space-around'
+//   | 'space-evenly'
+//   | 'normal'
+//
+// export interface VFlexProps {
+//   inline?: boolean
+//   flexDirection?: VFlexDirection
+//   flexWrap?: VFlexWrap
+//   justifyContent?: VFlexJustifyContent
+//   alignItems?: VFlexAlignItems
+//   alignContent?: VFlexAlignContent
+//   rowGap?: string
+//   columnGap?: string
+// }
 
-export interface VFlexProps {
-  inline?: boolean
-  flexDirection?: VFlexDirection
-  flexWrap?: VFlexWrap
-  justifyContent?: VFlexJustifyContent
-  alignItems?: VFlexAlignItems
-  alignContent?: VFlexAlignContent
-  rowGap?: string
-  columnGap?: string
-}
-
-const props = withDefaults(defineProps<VFlexProps>(), {
+const props = withDefaults(defineProps(), {
   flexDirection: 'row',
   flexWrap: 'nowrap',
   justifyContent: 'normal',

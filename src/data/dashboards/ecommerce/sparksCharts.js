@@ -1,5 +1,5 @@
-import { themeColors } from '/@src/utils/themeColors'
-import * as formatters from '/@src/utils/apex-formatters'
+// import { themeColors } from '../../../utils/themeColors'
+// import * as formatters from '/@src/utils/apex-formatters'
 
 export const spark1 = {
   chart: {
@@ -39,7 +39,7 @@ export const spark1 = {
       show: false,
     },
   },
-  colors: [themeColors.info],
+  // colors: [themeColors.info],
 }
 
 export const spark2 = {
@@ -79,11 +79,11 @@ export const spark2 = {
     x: {
       show: false,
     },
-    y: {
-      formatter: formatters.asKDollar,
-    },
+    // y: {
+    //   formatter: formatters.asKDollar,
+    // },
   },
-  colors: [themeColors.purple],
+  // colors: [themeColors.purple],
 }
 
 export const spark3 = {
@@ -118,7 +118,7 @@ export const spark3 = {
       show: false,
     },
   },
-  colors: [themeColors.green],
+  // colors: [themeColors.green],
   xaxis: {
     crosshairs: {
       width: 1,
@@ -164,7 +164,7 @@ export const spark4 = {
       show: false,
     },
   },
-  colors: [themeColors.orange],
+  // colors: [themeColors.orange],
   xaxis: {
     crosshairs: {
       width: 1,

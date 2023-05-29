@@ -1,19 +1,19 @@
-<script setup lang="ts">
-export type VProgressSize = 'tiny' | 'smaller' | 'small'
-export type VProgressColor =
-  | 'primary'
-  | 'success'
-  | 'info'
-  | 'warning'
-  | 'danger'
-export interface VProgressProps {
-  value?: number
-  max?: number
-  size?: VProgressSize
-  color?: VProgressColor
-}
+<script setup >
+// export type VProgressSize = 'tiny' | 'smaller' | 'small'
+// export type VProgressColor =
+//   | 'primary'
+//   | 'success'
+//   | 'info'
+//   | 'warning'
+//   | 'danger'
+// export interface VProgressProps {
+//   value?: number
+//   max?: number
+//   size?: VProgressSize
+//   color?: VProgressColor
+// }
 
-const props = withDefaults(defineProps<VProgressProps>(), {
+const props = withDefaults(defineProps(), {
   value: undefined,
   max: 100,
   size: undefined,

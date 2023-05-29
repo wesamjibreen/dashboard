@@ -1,4 +1,4 @@
-<script setup >
+<script setup>
 // export type VIconBoxSize = 'small' | 'medium' | 'large' | 'big' | 'xl'
 // export type VIconBoxColor =
 //   | 'primary'
@@ -19,23 +19,22 @@
 //   bordered?: boolean
 // }
 
-const props = withDefaults(defineProps(), {
-  size: undefined,
-  color: undefined,
-})
+const props = defineProps({
+    size: undefined,
+    color: undefined,
+    rounded: false,
+    bordered: false,
+});
 
 </script>
 
 <template>
-  <div
-    class="v-icon"
-    :class="[
-      props.size && 'is-' + props.size,
-      props.color && 'is-' + props.color,
+    <div class="v-icon" :class="[
+      props.size && 'is-' + (props.size ?? 'small'),
+      props.color && 'is-' + (  props.color ?? 'primary'),
       props.rounded && 'is-rounded',
       props.bordered && 'is-bordered',
-    ]"
-  >
-    <slot></slot>
-  </div>
+    ]">
+        <slot></slot>
+    </div>
 </template>

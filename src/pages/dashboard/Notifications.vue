@@ -1,13 +1,15 @@
 <template>
-  <div>
-    <NotificationPage />
-  </div>
+    <!--    <NotificationPage />-->
+    <NotificationsList/>
+
 </template>
 
 <script>
 import NotificationPage from "../../components/pages/layouts/profile/NotificationPage.vue";
+import NotificationsList from "../../components/basic/NotificationsList.vue";
+
 export default {
-  components: { NotificationPage },
+    components: {NotificationsList},
 };
 </script>
 

@@ -1,6 +1,6 @@
 {
   "name": "nawadash",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Vue3 Functional Dashboard",
   "main": "index.js",
   "scripts": {
@@ -60,6 +60,7 @@
     "bulma": "^0.9.3",
     "bulma-css-vars": "^0.7.0",
     "chart.js": "^3.9.1",
+    "defu": "^6.1.2",
     "dropzone-vue": "^0.1.11",
     "element-plus": "^1.3.0-beta.9",
     "emoji-picker-element": "^1.8.2",

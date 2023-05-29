@@ -208,12 +208,13 @@ export default {
         addNew() {
             this.$router.push({name: `${this.resource}.create`});
         },
-        fetch(page = null) {
+        fetch(page = null, queryParams = {}) {
             page = page || this.queryPage;
             this.loading = true;
-            let params = {...this.filter, page:page??this.queryPage, perPage: this.perPage};
+            let params = {...this.filter, page: page ?? this.queryPage, perPage: this.perPage, ...queryParams};
             if (this.isSortable)
                 params = {...params, no_pagination: true, order_by: "ordered", sort_by: "asc"};
+
 
             this.request(
                 this.fetchEndPoint,

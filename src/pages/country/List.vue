@@ -1,25 +1,30 @@
 <template>
-    <VList v-bind="list"></VList>
+    <ExpandableTable/>
+    <!--    <VList v-bind="list"></VList>-->
 </template>
 
 <script>
 import * as list from "./partials/list";
+import ExpandableTable from "../../components/list/ExpandableTable.vue";
 
 export default {
-  name: "List",
-  data() {
-    return {
-      list,
-      endPoint: () => {
+    name: "List",
+    components: {
+        ExpandableTable
+    },
+    data() {
         return {
-          name: "country.list",
+            list,
+            endPoint: () => {
+                return {
+                    name: "country.list",
+                };
+            },
         };
-      },
-    };
-  },
-  created() {
-    // alert('list');
-  },
+    },
+    created() {
+        // alert('list');
+    },
 };
 </script>
 

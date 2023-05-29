@@ -1,21 +1,21 @@
-<script setup lang="ts">
-export type VFlexItemAlignSelf =
-  | 'auto'
-  | 'flex-start'
-  | 'flex-end'
-  | 'center'
-  | 'baseline'
-  | 'stretch'
+<script setup>
+// export type VFlexItemAlignSelf =
+//   | 'auto'
+//   | 'flex-start'
+//   | 'flex-end'
+//   | 'center'
+//   | 'baseline'
+//   | 'stretch'
+//
+// export interface VFlexItemProps {
+//   order?: string | number
+//   flexGrow?: string | number
+//   flexShrink?: number
+//   flexBasis?: string | 'auto'
+//   alignSelf?: VFlexItemAlignSelf
+// }
 
-export interface VFlexItemProps {
-  order?: string | number
-  flexGrow?: string | number
-  flexShrink?: number
-  flexBasis?: string | 'auto'
-  alignSelf?: VFlexItemAlignSelf
-}
-
-const props = withDefaults(defineProps<VFlexItemProps>(), {
+const props = withDefaults(defineProps(), {
   order: 0,
   flexGrow: 0,
   flexShrink: 0,

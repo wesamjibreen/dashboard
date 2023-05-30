@@ -2498,18 +2498,18 @@ html[dir="rtl"] {
     .multiselect-single-label,
     .multiselect-placeholder {
         right: 0;
-        padding-right: 0.7rem;
+        // padding-right: 0.7rem;
         left: auto;
     }
 
-    .control.has-icon .input {
-        padding-right: 38px;
-        padding-left: 8px;
-    }
+    // .control.has-icon .input {
+    //     padding-right: 38px;
+    //     padding-left: 8px;
+    // }
 
     .multiselect-caret {
         position: absolute;
-        left: 10px;
+        left: -6px;
     }
 
     .control.has-icon .form-icon {
@@ -2533,7 +2533,7 @@ html[dir="rtl"] {
 
     .multiselect-clear {
         position: absolute;
-        left: 15px;
+        left: 3px;
     }
 
     .floating-tabs {
@@ -2575,11 +2575,11 @@ html[dir="rtl"] {
         padding: 0 0 10px 10px;
     }
 
-    .filters-form .multiselect .multiselect-placeholder,
-    .filters-form .multiselect .multiselect-multiple-label,
-    .filters-form .multiselect .multiselect-single-label {
-        padding-right: 2.5rem;
-    }
+    // .filters-form .multiselect .multiselect-placeholder,
+    // .filters-form .multiselect .multiselect-multiple-label,
+    // .filters-form .multiselect .multiselect-single-label {
+    //     padding-right: 2.5rem;
+    // }
 
     .breadcrumb ul li:first-child .breadcrumb-item {
         padding-left: 0.75em;
@@ -2645,16 +2645,16 @@ html[dir="ltr"] {
         right: 0;
     }
 
-    .multiselect .multiselect-placeholder,
-    .multiselect .multiselect-multiple-label {
-        padding-left: 0.7rem;
-    }
+    // .multiselect .multiselect-placeholder,
+    // .multiselect .multiselect-multiple-label {
+    //     padding-left: 0.7rem;
+    // }
 
-    .filters-form .multiselect .multiselect-placeholder,
-    .filters-form .multiselect .multiselect-multiple-label,
-    .filters-form .multiselect .multiselect-single-label {
-        padding-left: 2.5rem;
-    }
+    // .filters-form .multiselect .multiselect-placeholder,
+    // .filters-form .multiselect .multiselect-multiple-label,
+    // .filters-form .multiselect .multiselect-single-label {
+    //     padding-left: 2.5rem;
+    // }
 
     .multiselect-clear {
         position: absolute;
@@ -2665,7 +2665,7 @@ html[dir="ltr"] {
     .multiselect-single-label,
     .multiselect-placeholder {
         left: 0;
-        padding-left: 0.7rem;
+        // padding-left: 0.7rem;
         right: auto;
     }
 
@@ -3415,9 +3415,9 @@ html[dir="rtl"] {
     .field-container{
         padding-top: 0;
         padding-bottom: 0;
-        .multiselect-search{
-            padding-inline-start: 40px;
-        }
+        // .multiselect-search{
+        //     padding-inline-start: 40px;
+        // }
     }
 }
 
@@ -3489,7 +3489,7 @@ html[dir="rtl"] {
             }
             .flex-table-action.cell-end{
                 div{
-                    display: table-cell;
+                    display: inline-block;
                     vertical-align: middle;
                     align-items: center;
                     justify-content: center;
@@ -3570,3 +3570,104 @@ html[dir="rtl"]{
         }
     }
 }
+
+
+// New Style
+
+html[dir=ltr] .flex-table.flex-table-custom .flex-table-header .flex-datatable-cell:nth-child(1) {
+    border-radius: 15px 0 0 15px;
+}
+html[dir=ltr] .flex-table.flex-table-custom .flex-table-header .flex-datatable-cell:last-of-type {
+    border-radius: 0px 15px 15px 0px;
+}
+html[dir=rtl] .flex-table.flex-table-custom .flex-table-header .flex-datatable-cell:nth-child(1) {
+    border-radius: 0px 15px 15px 0px;
+}
+html[dir=rtl] .flex-table.flex-table-custom .flex-table-header .flex-datatable-cell:last-of-type {
+    border-radius: 15px 0 0 15px;
+}
+html[dir="rtl"]{
+    body .aside .toolbar-notifications .dropdown-menu::before, body .aside .user-dropdown .dropdown-menu::before {
+        transform: rotate(-45deg) translateY(-100%);
+    }
+}
+html[dir=ltr] .view-wrapper.is-pushed-full {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+}
+html[dir=rtl] .view-wrapper.is-pushed-full {
+    margin-right: 240px;
+    width: calc(100% - 240px);
+}
+html.is-dark{
+    .g-dialog-content {
+        background: #2f2f32;
+    }
+}
+
+.ant-picker:hover, .ant-picker-focused{
+    box-shadow: none !important;
+    transition: all 0.3s;
+    border-color: #dbdbdb !important;
+    &:focus-within{
+        border-radius: 4px !important;
+        outline-offset: 3px !important;
+        outline-width: 1px !important;
+        outline-style: dashed !important;
+        outline-color: hsl(0deg, 0%, 85% )!important
+    }
+}
+.multiselect.input , .textarea {
+    border-color: #dbdbdb;
+    box-shadow: none;
+    transition: all 0.3s;
+    &:focus-within{
+        border-radius: 4px !important;
+        outline-offset: 3px !important;
+        outline-width: 1px !important;
+        outline-style: dashed !important;
+        outline-color: hsl(0deg, 0%, 85% )!important
+    }
+}
+.control .field-container .input:not(.input-tags):focus-visible{
+    border-radius: 4px !important;
+    outline-offset: 3px !important;
+    outline-width: 1px !important;
+    outline-style: dashed !important;
+    outline-color: hsl(0deg, 0%, 85% )!important
+}
+.control .o-inputit .o-inputit__container {
+    transition: all 0.3s;
+    &:focus-within{
+        border-radius: 4px !important;
+        outline-offset: 3px !important;
+        outline-width: 1px !important;
+        outline-style: dashed !important;
+        outline-color: hsl(0deg, 0%, 85% )!important
+    }
+}
+.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector,
+.ant-select-focused.ant-select .ant-select-selector,
+.ant-select:not(.ant-select-disabled):hover .ant-select-selector{
+    transition: all 0.3s;
+    box-shadow: none!important;
+    border-color: #dbdbdb!important;
+    &:focus-within{
+        border-radius: 4px !important;
+        outline-offset: 3px !important;
+        outline-width: 1px !important;
+        outline-style: dashed !important;
+        outline-color: hsl(0deg, 0%, 85% )!important
+    }
+}
+.control.has-icon .input {
+    padding-left: 11px;
+}
+.control.has-icon .form-icon {
+    display: none;
+}
+.ant-picker-clear{
+    z-index: 1;
+}
+@import "theme1.scss";
+// @import url(theme1.scss);

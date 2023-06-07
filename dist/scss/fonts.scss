@@ -1,0 +1,297 @@
+@font-face {
+    font-family: 'icomoon';
+    src:  url('fonts/icomoon.eot?y35mfg');
+    src:  url('fonts/icomoon.eot?y35mfg#iefix') format('embedded-opentype'),
+      url('fonts/icomoon.ttf?y35mfg') format('truetype'),
+      url('fonts/icomoon.woff?y35mfg') format('woff'),
+      url('fonts/icomoon.svg?y35mfg#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+  }
+
+  [class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .icon-person:before {
+    content: "\e900";
+  }
+  .icon-qrcode:before {
+    content: "\e901";
+  }
+  .icon-sittings-cog:before {
+    content: "\e902";
+  }
+  .icon-horizantal:before {
+    content: "\e903";
+  }
+  .icon-shoping-cart:before {
+    content: "\e904";
+  }
+  .icon-stock:before {
+    content: "\e905";
+  }
+  .icon-sun:before {
+    content: "\e906";
+  }
+  .icon-user-cog:before {
+    content: "\e907";
+  }
+  .icon-bell2:before {
+    content: "\e908";
+  }
+  .icon-car2:before {
+    content: "\e909";
+  }
+  .icon-car:before {
+    content: "\e90a";
+  }
+  .icon-chart:before {
+    content: "\e90b";
+  }
+  .icon-data:before {
+    content: "\e90c";
+  }
+  .icon-globe2:before {
+    content: "\e90d";
+  }
+  .icon-globeee:before {
+    content: "\e90e";
+  }
+  .icon-list:before {
+    content: "\e90f";
+  }
+  .icon-pepole:before {
+    content: "\e910";
+  }
+  .icon-percent:before {
+    content: "\e911";
+  }
+  .icon-homeee:before {
+    content: "\e912";
+  }
+  .icon-repier:before {
+    content: "\e913";
+  }
+  .icon-link-2:before {
+    content: "\e914";
+  }
+  .icon-calender:before {
+    content: "\e915";
+  }
+  .icon-text:before {
+    content: "\e916";
+  }
+  .icon-credit-card:before {
+    content: "\e917";
+  }
+  .icon-edit:before {
+    content: "\e918";
+  }
+  .icon-box:before {
+    content: "\e919";
+  }
+  .icon-mintor:before {
+    content: "\e91a";
+  }
+  .icon-globe:before {
+    content: "\e91b";
+  }
+  .icon-chevron:before {
+    content: "\e91c";
+  }
+  .icon-eye-off:before {
+    content: "\e91d";
+  }
+  .icon-eye:before {
+    content: "\e91e";
+  }
+  .icon-star:before {
+    content: "\e91f";
+  }
+  .icon-sheld:before {
+    content: "\e920";
+  }
+  .icon-trash-1:before {
+    content: "\e921";
+  }
+  .icon-download:before {
+    content: "\e922";
+  }
+  .icon-grid-view:before {
+    content: "\e923";
+  }
+  .icon-home:before {
+    content: "\e924";
+  }
+  .icon-view:before {
+    content: "\e925";
+  }
+  .icon-info:before {
+    content: "\e926";
+  }
+  .icon-down-right:before {
+    content: "\e927";
+  }
+  .icon-search:before {
+    content: "\e928";
+  }
+  .icon-add-user:before {
+    content: "\e929";
+  }
+  .icon-create-cloud:before {
+    content: "\e92a";
+  }
+  .icon-upload-folder:before {
+    content: "\e92b";
+  }
+  .icon-hard:before {
+    content: "\e92c";
+  }
+  .icon-moon:before {
+    content: "\e92d";
+  }
+  .icon-settings:before {
+    content: "\e92e";
+  }
+  .icon-check-usre:before {
+    content: "\e92f";
+  }
+  .icon-user:before {
+    content: "\e930";
+  }
+  .icon-usres:before {
+    content: "\e931";
+  }
+  .icon-bell:before {
+    content: "\e932";
+  }
+  .icon-create-folder:before {
+    content: "\e933";
+  }
+  .icon-power:before {
+    content: "\e934";
+  }
+  .icon-folder:before {
+    content: "\e935";
+  }
+  .icon-trash:before {
+    content: "\e936";
+  }
+  .icon-link:before {
+    content: "\e937";
+  }
+  .icon-upload-cloud:before {
+    content: "\e938";
+  }
+  .icon-account:before {
+    content: "\e939";
+  }
+  .icon-arrow:before {
+    content: "\e93a";
+  }
+  .icon-arrow-between:before {
+    content: "\e93b";
+  }
+  .icon-baseline-inventory:before {
+    content: "\e93c";
+  }
+  .icon-cart-plus:before {
+    content: "\e93d";
+  }
+  .icon-excel:before {
+    content: "\e93e";
+  }
+  .icon-factory:before {
+    content: "\e93f";
+  }
+  .icon-file-invoice:before {
+    content: "\e940";
+  }
+  .icon-interface-setting:before {
+    content: "\e941";
+  }
+  .icon-invoice-dollor:before {
+    content: "\e942";
+  }
+  .icon-invoice:before {
+    content: "\e943";
+  }
+  .icon-oil-fill:before {
+    content: "\e944";
+  }
+  .icon-person-support:before {
+    content: "\e945";
+  }
+  .icon-postcard-1:before {
+    content: "\e946";
+  }
+  .icon-printer-pos:before {
+    content: "\e947";
+  }
+  .icon-printer-pos-outline:before {
+    content: "\e948";
+  }
+  .icon-printer-pos-star:before {
+    content: "\e949";
+  }
+  .icon-receipt:before {
+    content: "\e94a";
+  }
+  .icon-request:before {
+    content: "\e94b";
+  }
+  .icon-services:before {
+    content: "\e94c";
+  }
+  .icon-shipping-fast:before {
+    content: "\e94d";
+  }
+  .icon-ticket:before {
+    content: "\e94e";
+  }
+  .icon-trademark:before {
+    content: "\e94f";
+  }
+  .icon-transfer:before {
+    content: "\e950";
+  }
+  .icon-truck-driver:before {
+    content: "\e951";
+  }
+  .icon-uesr-edit:before {
+    content: "\e952";
+  }
+  .icon-user-plus:before {
+    content: "\e953";
+  }
+  .icon-users-four:before {
+    content: "\e954";
+  }
+  .icon-users-3:before {
+    content: "\e955";
+  }
+  .icon-user-tie:before {
+    content: "\e956";
+  }
+  .icon-vactory-outline:before {
+    content: "\e957";
+  }
+  .icon-weight:before {
+    content: "\e958";
+  }
+  .icon-wrench:before {
+    content: "\e959";
+  }

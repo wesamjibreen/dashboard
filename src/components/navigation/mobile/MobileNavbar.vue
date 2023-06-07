@@ -13,7 +13,7 @@
             <div class="navbar-brand">
                 <!-- Mobile menu toggler icon -->
                 <div class="brand-start">
-                    <div class="navbar-burger"
+                    <div class="navbar-burger menu-mobile"
                          :class="[props.isOpen && 'is-active']"
                          @click="emit('toggle')">
                         <span></span>

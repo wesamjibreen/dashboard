@@ -14,8 +14,18 @@
                 </RouterLink>
 
                 <div class="brand-end">
+                    <a
+                        class="toolbar-link right-panel-trigger"
+                        aria-label="View activity panel"
+                        @click="activePanel = 'languages'"
+                    >
+                        <!-- <Icon icon="grommet-icons:language"/> -->
+                        <i class="lnil lnil-world"></i>
+                    </a>
+                    <Toolbar class="desktop-toolbar" v-if="sidebarclass === 'theme1'"></Toolbar>
                     <!-- <NotificationsMobileDropdown v-if="showNotifications" /> -->
-                    <UserProfileDropdown/>
+                    <!-- <ToolbarNotification v-if="notifications.config.display"/>
+                    <UserProfileDropdown/> -->
                 </div>
             </template>
         </MobileNavbar>
@@ -47,13 +57,13 @@
             </template>
         </MobileSidebar>
         <!-- Mobile subsidebar links -->
-        <transition name="slide-x">
+        <!-- <transition name="slide-x">
             <DashboardsMobileSubsidebar
                 v-if="isMobileSidebarOpen"
                 :active-sub-sidebar="activeMobileSubsidebar"
                 @close="isDesktopSidebarOpen = false"
             />
-        </transition>
+        </transition> -->
 
         <!-- Desktop navigation -->
         <CircularMenu/>
@@ -61,6 +71,8 @@
         <!-- <transition name="slide-x"> -->
         <DashboardsSubsidebar
             v-if="isDesktopSidebarOpen"
+                        :mobile-open="isMobileSidebarOpen"
+
             :desktop-opened="isDesktopSidebarOpen"
             :active-sub-sidebar="activeMobileSubsidebar"
             @close="isDesktopSidebarOpen = false"
@@ -124,7 +136,7 @@
                                 <!--{{ pageTitle }}-->
                             </h4>
                         </div>
-                        <div v-if="header" class="ml-auto">
+                        <div v-if="sidebarclass != 'theme1'" class="ml-auto">
 
                             <Toolbar class="desktop-toolbar">
                                 <a
@@ -326,6 +338,9 @@ export default {
         }),
         header(){
             return this.appConfig("header.show", false) ;
+        },
+        sidebarclass(){
+            return this.appConfig("sidebar.class", "") ;
         },
     },
 };

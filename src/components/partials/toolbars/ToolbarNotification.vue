@@ -99,12 +99,16 @@ onMounted(() => {
 
             <div class="dropdown-menu" role="menu">
                 <div class="dropdown-content">
+
                     <div class="heading">
                         <div class="heading-left">
                             <h6 class="heading-title"> {{ trans('notifications') }}</h6>
                         </div>
                         <div class="heading-right">
-                            <p class="notification-link" @click="seeAllClick">{{ trans('see_all') }}</p>
+                            <div class="heading-right-inner">
+                                <p class="notification-link" @click="seeAllClick">{{ trans('see_all') }}</p>
+                                <div class="btn-close-notification mb-3 d-lg-none" @click="dropdown.toggle"><i aria-hidden="true" class="lnil lnil-close"></i></div>
+                            </div>
                         </div>
                     </div>
 

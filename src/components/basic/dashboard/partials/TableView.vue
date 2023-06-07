@@ -130,7 +130,7 @@ export default {
     return {};
   },
   computed: {
-   
+
   },
   methods: {
     open(){

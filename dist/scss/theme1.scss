@@ -9,6 +9,7 @@ body {
     .sidebar-panel.theme1 {
         padding-top: 28px;
         overflow-y: unset;
+        width: 303px;
         &.is-generic .subpanel-header {
             padding: 17px 0px 40px;
             height: auto;
@@ -18,12 +19,13 @@ body {
             }
         }
         .menu {
-            margin-inline-start: 16px;
-            overflow-y: auto;
+            margin-inline-start: 17px;
+            // overflow-y: auto;
             scrollbar-width: none;
+            margin-top: -7px;
             .menu-item {
                 padding: 0;
-                margin: 0;
+                margin: 0 0 6px;
                 .menu-link {
                     border-radius: 12px;
                     margin-bottom: 0px;
@@ -43,9 +45,11 @@ body {
                     }
                     .menu-arrow {
                         order: 2;
-                        display: none;
                         svg {
-                            width: 10px;
+                            width: 9px;
+                            path{
+                                stroke: rgb(209 213 219);
+                            }
                         }
                     }
                     i {
@@ -59,7 +63,6 @@ body {
                         }
                     }
                     &.menu-link-has-dropdown {
-                        margin-top: 20px;
                         margin-bottom: 0 !important;
                         color: rgb(156 163 175);
                         .menu-icon {
@@ -70,13 +73,15 @@ body {
                 .menu-sub {
                     padding: 0 !important;
                     margin: 0 !important;
-                    max-height: unset !important;
-                    opacity: 1;
+                    transition: none;
                     &::before {
                         content: unset;
                     }
                     .menu-item {
                         margin: 0 !important;
+                        &:last-of-type {
+                            margin-bottom: 15px !important;
+                        }
                         .menu-link {
                             i {
                                 font-size: 15px;
@@ -90,10 +95,15 @@ body {
                         }
                     }
                 }
-                &.is-open{
-                    .menu-title,
-                    .menu-icon{
-                        color: var(--primary);
+                &.is-open {
+                    .router-link-active {
+                        .menu-title,
+                        .menu-icon {
+                            color: var(--primary);
+                        }
+                    }
+                    .menu-arrow{
+                        transform: rotate(180deg);
                     }
                 }
             }
@@ -114,6 +124,8 @@ body {
                 svg,
                 .dropdown.is-dots .is-trigger svg {
                     color: #1b2539;
+                    width: 18px;
+                    height: 18px;
                 }
                 .toolbar-notifications .dropdown:hover .is-trigger {
                     box-shadow: none;
@@ -266,16 +278,36 @@ body {
                 }
             }
         }
-        .profile-dropdown{
+        .profile-dropdown {
             text-align: center;
-            .meta{
+            .meta {
                 margin-top: 10px;
-                span{
+                span {
                     display: block;
                 }
             }
         }
+        @media (max-width: 767px) {
+            display: block !important;
+            width: 280px;
+            left: -280px !important;
+            transition: all 0.3s;
+            top: 60px;
+            height: calc(100% - 60px);
+            &.active {
+                left: 0px !important;
+            }
+        }
     }
+}
+body{
+
+
+.sidebar-panel.theme1 .menu .menu-item.is-open > .menu-link .menu-arrow,
+.sidebar-panel.theme1 .menu .menu-item.is-open > .menu-link .menu-icon,
+.sidebar-panel.theme1 .menu .menu-item.is-open > .menu-link .menu-title {
+    color: inherit;
+}
 }
 html[dir="ltr"] {
     .aside .toolbar .dropdown.user-dropdown.profile-dropdown .dropdown-menu {
@@ -287,29 +319,56 @@ html[dir="ltr"] {
         }
     }
 }
-html.is-dark{
-    body  {
+html.is-dark {
+    body {
         .sidebar-panel.theme1 {
-            .menu .menu-item .menu-link{
+            .menu .menu-item .menu-link {
                 color: #dfdfdf;
             }
-            .aside .toolbar svg, body .sidebar-panel.theme1 .aside .toolbar .dropdown.is-dots .is-trigger svg {
+            .aside .toolbar svg,
+            body
+                .sidebar-panel.theme1
+                .aside
+                .toolbar
+                .dropdown.is-dots
+                .is-trigger
+                svg {
                 color: #dfdfdf;
             }
-            .aside .toolbar .toolbar-link i{
+            .aside .toolbar .toolbar-link i {
                 color: #dfdfdf;
             }
-            .toolbar-link:hover{
+            .toolbar-link:hover {
                 background-color: transparent !important;
             }
-            .aside .toolbar .dropdown.is-dots .is-trigger svg path{
-                fill: #FFF;
+            .aside .toolbar .dropdown.is-dots .is-trigger svg path {
+                fill: #fff;
             }
         }
-         .sidebar-panel.theme1 .aside .toolbar-notifications .dropdown-menu .heading .heading-title, body .sidebar-panel.theme1 .aside .user-dropdown .dropdown-menu .heading .heading-title {
+        .sidebar-panel.theme1
+            .aside
+            .toolbar-notifications
+            .dropdown-menu
+            .heading
+            .heading-title,
+        body
+            .sidebar-panel.theme1
+            .aside
+            .user-dropdown
+            .dropdown-menu
+            .heading
+            .heading-title {
             color: #d4d4d4 !important;
         }
-        .sidebar-panel.theme1 .aside .toolbar-notifications .dropdown-menu::before, body .sidebar-panel.theme1 .aside .user-dropdown .dropdown-menu::before {
+        .sidebar-panel.theme1
+            .aside
+            .toolbar-notifications
+            .dropdown-menu::before,
+        body
+            .sidebar-panel.theme1
+            .aside
+            .user-dropdown
+            .dropdown-menu::before {
             background-color: #000;
             box-shadow: 0 0 10px #101010;
         }

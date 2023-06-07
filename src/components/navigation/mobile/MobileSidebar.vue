@@ -1,5 +1,6 @@
 <template>
-    <div :class="[isOpen && 'is-active']" class="mobile-main-sidebar">
+    <!-- <div :class="[isOpen && 'is-active']" class="mobile-main-sidebar"> -->
+    <div class="mobile-main-sidebar">
         <div class="inner">
             <ul class="icon-side-menu">
                 <slot name="links">
@@ -15,14 +16,15 @@
             </ul>
         </div>
     </div>
-
-    <div v-if="isOpen" class="mobile-overlay" @click="$emit('toggle')"></div>
+    <div>
+        <div v-if="isOpen" class="mobile-overlay" @click="$emit('toggle')"></div>
+    </div>
 </template>
 <script>
     export default {
         props: {
             isOpen: false,
-        }
+        },
     }
 </script>
 <style lang="scss">

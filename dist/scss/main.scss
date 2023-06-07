@@ -3312,8 +3312,14 @@ form.form-layout.--loading {
     color: #000 !important;
 }
 
-.flex-table.flex-table-custom .flex-list-inner .flex-table-item:nth-child(odd){
-    background-color: #f9f9f9;
+@media(max-width:769px){
+    .flex-table.flex-table-custom .flex-list-inner .flex-table-item:nth-child(odd){
+        background-color: #f9f9f9;
+    }
+    .is-dark .flex-table.flex-table-custom .flex-list-inner .flex-table-item {
+        background-color: #222225;
+        margin-bottom: 20px;
+    }
 }
 
 .flex-table.flex-table-custom .flex-table-action .table-action{
@@ -3324,9 +3330,7 @@ form.form-layout.--loading {
 .flex-table.flex-table-custom .flex-table-header span:nth-of-type(1){
     max-width:100px
 }
-.is-dark .flex-table.flex-table-custom .flex-list-inner .flex-table-item:nth-child(odd) {
-    background-color: #222225;
-}
+
 .is-dark .flex-table.flex-table-custom .flex-table-header .flex-datatable-cell,
 .is-dark .flex-table.flex-table-custom .flex-list-inner .flex-table-item .flex-table-cell .light-text{
     color: #fff !important;
@@ -3431,26 +3435,45 @@ html[dir="rtl"] {
     }
 }
 
+
+
+
+
 @media(min-width:769px){
+    .scroll-table{
+        overflow-x: scroll;
+        overflow-y: hidden;
+        &::-webkit-scrollbar {
+            height: 8px !important;
+        }
+
+        /* Track */
+        &::-webkit-scrollbar-track {
+            background: #fff;
+        }
+
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+            background: var(--primary) ;
+        }
+    }
     .flex-table:not(.table-sort){
         display: table;
         width: 100%;
         text-align: center;
+        /* Handle on hover */
+        // &::-webkit-scrollbar-thumb:hover {
+        // background: #555;
+        // }
         .flex-table-header{
             display: table-header-group;
             padding: 10px 10px !important;
             .flex-datatable-cell{
                 display: table-cell;
                 vertical-align: middle;
-                padding: 14px 5px !important;
-                border: solid #c7c7c7;
-                border-width: 1px 0px 1px 0px ;
-                &:nth-of-type(1){
-                    border-left: 1px solid #c7c7c7;
-                }
-                &:last-of-type{
-                    border-right: 1px solid #c7c7c7;
-                }
+                padding: 10px 5px !important;
+                background-color: hsla(0,0%,39%,.15);
+                color: #000!important;
             }
             span{
                 display: table-cell;
@@ -3483,6 +3506,7 @@ html[dir="rtl"] {
                 display: table-cell;
                 vertical-align: middle;
                 padding: 15px 5px !important;
+                border-bottom: 1px solid #c8c8c8;
                 .file-icon{
                     margin: 0px auto;
                 }
@@ -3592,12 +3616,12 @@ html[dir="rtl"]{
     }
 }
 html[dir=ltr] .view-wrapper.is-pushed-full {
-    margin-left: 240px;
-    width: calc(100% - 240px);
+    margin-left: 302px;
+    width: calc(100% - 302px);
 }
 html[dir=rtl] .view-wrapper.is-pushed-full {
-    margin-right: 240px;
-    width: calc(100% - 240px);
+    margin-right: 302px;
+    width: calc(100% - 302px);
 }
 html.is-dark{
     .g-dialog-content {
@@ -3669,5 +3693,50 @@ html.is-dark{
 .ant-picker-clear{
     z-index: 1;
 }
+@media(max-width:769px){
+    .flex-table.flex-table-custom .flex-table-item .flex-table-cell:nth-of-type(1),
+    .flex-table.flex-table-custom .flex-table-header span:nth-of-type(1) {
+        max-width: unset;
+        .ant-image{
+            width: 30px !important;
+            height: 30px !important;
+        }
+    }
+    .flex-table.flex-table-custom .flex-table-item .flex-table-cell:not(:last-of-type){
+        border-bottom: 1px solid #e5e5e5 !important;
+        padding-bottom: 7px;
+    }
+}
+
+html.is-dark{
+    .flex-table.flex-table-custom .flex-table-item .flex-table-cell{
+        background-color: #222225;
+    }
+    .sidebar-panel.theme1 .aside .toolbar-notifications .dropdown .dropdown-menu .dropdown-content .notification-list .notification-item .user-content {
+        color: #fff !important;
+    }
+    .aside .toolbar-notifications .dropdown-menu::before, body .sidebar-panel.theme1 .aside .user-dropdown .dropdown-menu::before {
+        background-color: #222225;
+        box-shadow: 0 0 10px #222225;
+    }
+    .ant-picker-suffix {
+        color: rgb(255 255 255 / 38%);
+    }
+    .scroll-table{
+        &::-webkit-scrollbar-track {
+            background: rgb(49, 49, 53);
+        }
+    }
+}
+
+.page-content-wrapper{
+    max-width: 100%;
+}
+
+
+@import "menu-mobile.scss";
 @import "theme1.scss";
+@import "fonts.scss";
+
+
 // @import url(theme1.scss);

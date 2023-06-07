@@ -1,8 +1,8 @@
 <template>
     <div>
-
-        <div class="sidebar-panel is-generic" :class="`${sidebarclass}`">
-            <div class="subpanel-header" v-if="!sidebar">
+ <!-- class="sidebar-panel is-generic" :class="`${sidebarclass}`" -->
+        <div :class="['sidebar-panel is-generic',sidebarclass , mobileOpen && 'is-active' ]">
+            <div class="subpanel-header mb-0" v-if="sidebarclass != 'theme1'">
                 <div class="logo">
                     <AnimatedLogo/>
                 </div>
@@ -10,7 +10,7 @@
 
             <div data-simplebar class="aside">
 
-                <Toolbar class="desktop-toolbar" v-if="sidebar">
+                <Toolbar class="desktop-toolbar" v-if="sidebarclass === 'theme1'">
                     <UserProfileDropdown up/>
                     <ToolbarNotification v-if="notifications.config.display"/>
                     <a
@@ -28,9 +28,25 @@
                         </button>
                     </div>
                 </Toolbar>
+                <div class="head-menu-mobile d-lg-none">
+                    <div class="dropdown-head py-2">
+                        <VAvatar
+                        size="medium"
+                        picture="/panel/images/avatars/svg/vuero-1.svg"
+                        />
+
+                        <div class="meta">
+                            <span>
+                                {{ user?.name }}
+                            </span>
+                            <span>{{ user?.email }}</span>
+                        </div>
+                    </div>
+                    <ToolbarNotification v-if="notifications.config.display"/>
+                </div>
                 <perfect-scrollbar class="menu-scroll">
-                    <ul class="menu">
-                        <li v-for="(item, index) in menu" class="menu-item" :class="{ 'is-open': isOpen(index) }">
+                    <ul class="menu" >
+                        <li v-for="(item, index) in menu" class="menu-item" :class="{ 'is-open': isOpen(index) }" @click="nextMenu()">
                             <div class="menu-link" @click="setActive(item, index)" :class="{ 'menu-link-has-dropdown': hasChildren(item) }">
                                 <span class="menu-arrow" v-if="hasChildren(item)">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="11.061" height="6.28"
@@ -52,7 +68,8 @@
                                 ></span>
                             </div>
                             <div class="menu-sub" v-if="hasChildren(item)">
-                                <div class="menu-item" v-for="child in item?.children">
+                                <div class="menu-back mb-5 pb-2 mt-5" @click="backMenu"><i class="lnil lnil-chevron-left"></i> Go back from Settings</div>
+                                <div class="menu-item" v-for="child in item?.children" @click="$emit('toggle')">
                                     <RouterLink
                                         v-bind="child"
                                         :class="['menu-link', isActive(child) && 'router-link-active router-link-exact-active']">
@@ -77,6 +94,20 @@
                         </li>
                     </ul>
                 </perfect-scrollbar>
+                <div class="dropdown-item is-button d-lg-none btn-logout">
+                    <VButton
+                    class="logout-button"
+                    icon="feather:log-out"
+                    color="primary"
+                    role="menuitem"
+                    raised
+                    @click="logout"
+                    fullwidth
+                    >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="17px" height="17px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="vue-feather group-hover-text-theme feather feather-power"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg>
+                    {{ trans("logout") }}
+                    </VButton>
+                </div>
 
             </div>
         </div>
@@ -99,6 +130,9 @@ export default {
         Icon
     },
     mixins: [sidebar],
+    props : {
+      mobileOpen : Boolean
+    },
     setup() {
         const route = useRoute();
         const store = useStore();
@@ -134,6 +168,7 @@ export default {
             else this.activeIndex = index;
 
             if (item.to) this.$router.push(item.to);
+
         },
         closeMenu() {
             this.activeIndex = -1;
@@ -162,6 +197,34 @@ export default {
             // localStorage.removeItem(`${this.$base}_determinant_key`);
         });
         },
+        nextMenu(){
+            // document.querySelectorAll(".menu-scroll > .menu > .menu-item").forEach((element) => {
+            //     for (let i = 0; i < element.length; i++) {
+            //         var c = 0;
+            //         while (c < element.length) {
+            //         element[c++].classList.add('d-block')
+            //         }
+            //         element[i].classList.add('d-b3333lock')
+            //     }
+            // })
+            // this.setActiveItem();
+            // document.querySelectorAll(".menu-scroll > .menu > .menu-item").forEach((element) => {
+            //     document.querySelectorAll(".menu-scroll > .menu > .menu-item").forEach((element) => {
+            //      element.classList.add('d-none')
+            //     })
+            //     element.classList.add('d-block')
+            //     element.classList.remove('d-none')
+            // })
+        },
+        backMenu() {
+            // console.log('asdasdsa')
+            this.setActiveItem();
+            // document.querySelectorAll(".menu-scroll > .menu > .menu-item").forEach((element) => {
+            //     console.log("🚀 ~ file: DashboardsSubsidebar.vue:183 ~ document.querySelectorAll ~ element:", element)
+            //     element.classList.remove('d-block')
+            //     element.classList.remove('d-none')
+            // })
+        }
     },
     computed: {
         ...mapState({

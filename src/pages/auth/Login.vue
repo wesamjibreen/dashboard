@@ -9,7 +9,7 @@
                         <div class="container">
                             <div class="columns">
                                 <div class="column">
-                                    <img class="hero-image" src="/panel/images/illustrations/login/station.svg" alt=""/>
+                                    <img class="hero-image" :src="Illustrations?.src" alt=""/>
                                 </div>
                             </div>
                         </div>
@@ -166,7 +166,7 @@
     </div>
 </template>
 <script>
-    import {ref} from 'vue'
+    import {ref,inject} from 'vue'
     import {useRoute, useRouter} from 'vue-router'
     import {isDark, toggleDarkModeHandler} from '../../state/darkModeState';
     import {useHead} from '@vueuse/head'
@@ -180,7 +180,10 @@
 
             const token = useStorage(getTokenKey('admin'), null);
             const isLoading = ref(false)
-
+            const appConfig = inject('$config');
+            const Illustrations = _.get(appConfig,'app.loginIllustrations',{
+                src : '/panel/images/illustrations/login/station.svg'
+            });
 
             let {endPoint, request} = useRequest();
 
@@ -271,7 +274,8 @@
                 toggleDarkModeHandler,
                 isDark,
                 useHead,
-                step
+                step,
+                Illustrations
             }
         },
         data() {

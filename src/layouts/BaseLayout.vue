@@ -1,7 +1,7 @@
 <template>
   <component :is="layout">
     <RouterView v-slot="{ Component }">
-      <transition name="fade">
+      <transition name="translate-page-y">
         <component :is="Component" />
       </transition>
     </RouterView>

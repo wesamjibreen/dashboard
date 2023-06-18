@@ -1,6 +1,6 @@
 <template>
     <div>
- <!-- class="sidebar-panel is-generic" :class="`${sidebarclass}`" -->
+        <!-- class="sidebar-panel is-generic" :class="`${sidebarclass}`" -->
         <div :class="['sidebar-panel is-generic',sidebarclass , mobileOpen && 'is-active' ]">
             <div class="subpanel-header mb-0" v-if="sidebarclass != 'theme1'">
                 <div class="logo">
@@ -24,15 +24,20 @@
                     <!-- <NotificationsMobileDropdown /> -->
                     <div class="logout">
                         <button @click="logout">
-                            <svg data-v-280b1501="" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-power"><path data-v-280b1501="" d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line data-v-280b1501="" x1="12" y1="2" x2="12" y2="12"></line></svg>
+                            <svg data-v-280b1501="" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
+                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" class="feather feather-power">
+                                <path data-v-280b1501="" d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+                                <line data-v-280b1501="" x1="12" y1="2" x2="12" y2="12"></line>
+                            </svg>
                         </button>
                     </div>
                 </Toolbar>
                 <div class="head-menu-mobile d-lg-none">
                     <div class="dropdown-head py-2">
                         <VAvatar
-                        size="medium"
-                        picture="/panel/images/avatars/svg/vuero-1.svg"
+                            size="medium"
+                            picture="/panel/images/avatars/svg/vuero-1.svg"
                         />
 
                         <div class="meta">
@@ -42,23 +47,66 @@
                             <span>{{ user?.email }}</span>
                         </div>
                     </div>
-                    <ToolbarNotification v-if="notifications.config.display"/>
+                    <div class="head-menu-mobile-end">
+                        <VDropdown icon="feather:more-vertical">
+                            <template #content>
+                                <div v-for="(item, index) in profileQuickMenu">
+                                    <div style="cursor: pointer" @click="action(item, index)" role="menuitem"
+                                         class="dropdown-item is-media">
+                                        <div class="icon">
+                                            <i aria-hidden="true" :class="`${item.icon}`"></i>
+                                        </div>
+                                        <div class="meta">
+                                            <span>{{ trans(item?.label) }}</span>
+                                            <span>{{ trans(item?.description) }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                    <!--                                    <hr class="dropdown-divider"/>-->
+                                    <!--                                <a href="#" role="menuitem" class="dropdown-item is-media">-->
+                                    <!--                                    <div class="icon">-->
+                                    <!--                                    <i aria-hidden="true" class="lnil lnil-users-alt"></i>-->
+                                    <!--                                    </div>-->
+                                    <!--                                    <div class="meta">-->
+                                    <!--                                    <span>Team</span>-->
+                                    <!--                                    <span>Manage your team</span>-->
+                                    <!--                                    </div>-->
+                                    <!--                                </a>-->
+
+                                    <!--                                <hr class="dropdown-divider"/>-->
+
+                                    <!--                                <a href="#" role="menuitem" class="dropdown-item is-media">-->
+                                    <!--                                    <div class="icon">-->
+                                    <!--                                    <i aria-hidden="true" class="lnil lnil-cog"></i>-->
+                                    <!--                                    </div>-->
+                                    <!--                                    <div class="meta">-->
+                                    <!--                                    <span>Settings</span>-->
+                                    <!--                                    <span>Account settings</span>-->
+                                    <!--                                    </div>-->
+                                    <!--                                </a>-->
+                            </template>
+                        </VDropdown>
+                        <ToolbarNotification v-if="notifications.config.display"/>
+                    </div>
                 </div>
                 <perfect-scrollbar class="menu-scroll">
-                    <ul class="menu" >
-                        <li v-for="(item, index) in menu" class="menu-item" :class="{ 'is-open': isOpen(index) }" @click="nextMenu()">
-                            <div class="menu-link" @click="setActive(item, index)" :class="{ 'menu-link-has-dropdown': hasChildren(item) }">
+                    <ul class="menu">
+                        <li v-for="(item, index) in menu" class="menu-item" :class="{ 'is-open': isOpen(index) }"
+                            @click="nextMenu()">
+                            <div class="menu-link" @click="setActive(item, index)"
+                                 :class="{ 'menu-link-has-dropdown': hasChildren(item) ,  'router-link-active': isOpen(index) && !hasChildren(item) }">
                                 <span class="menu-arrow" v-if="hasChildren(item)">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="11.061" height="6.28"
-                                            viewBox="0 0 11.061 6.28">
+                                         viewBox="0 0 11.061 6.28">
                                             <path id="Path_2187"
-                                                    data-name="Path 2187"
-                                                    d="M1320,150l5,5,5-5"
-                                                    transform="translate(-1319.47 -149.47)"
-                                                    fill="none"
-                                                    stroke="#19324b"
-                                                    stroke-linejoin="round"
-                                                    stroke-width="1.5"
+                                                  data-name="Path 2187"
+                                                  d="M1320,150l5,5,5-5"
+                                                  transform="translate(-1319.47 -149.47)"
+                                                  fill="none"
+                                                  stroke="#19324b"
+                                                  stroke-linejoin="round"
+                                                  stroke-width="1.5"
                                             />
                                     </svg>
                                 </span>
@@ -68,7 +116,9 @@
                                 ></span>
                             </div>
                             <div class="menu-sub" v-if="hasChildren(item)">
-                                <div class="menu-back mb-5 pb-2 mt-5" @click="backMenu"><i class="lnil lnil-chevron-left"></i> Go back from Settings</div>
+                                <div class="menu-back mb-5 pb-2 mt-5" @click="backMenu"><i
+                                    class="lnil lnil-chevron-left"></i> Go back from Settings
+                                </div>
                                 <div class="menu-item" v-for="child in item?.children" @click="$emit('toggle')">
                                     <RouterLink
                                         v-bind="child"
@@ -96,16 +146,21 @@
                 </perfect-scrollbar>
                 <div class="dropdown-item is-button d-lg-none btn-logout">
                     <VButton
-                    class="logout-button"
-                    icon="feather:log-out"
-                    color="primary"
-                    role="menuitem"
-                    raised
-                    @click="logout"
-                    fullwidth
+                        class="logout-button"
+                        icon="feather:log-out"
+                        color="primary"
+                        role="menuitem"
+                        raised
+                        @click="logout"
+                        fullwidth
                     >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="17px" height="17px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="vue-feather group-hover-text-theme feather feather-power"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg>
-                    {{ trans("logout") }}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="17px" height="17px" viewBox="0 0 24 24"
+                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                             stroke-linejoin="round" class="vue-feather group-hover-text-theme feather feather-power">
+                            <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+                            <line x1="12" y1="2" x2="12" y2="12"></line>
+                        </svg>
+                        {{ trans("logout") }}
                     </VButton>
                 </div>
 
@@ -122,16 +177,17 @@ import {useStore} from "vuex";
 import {Icon} from "@iconify/vue";
 import {activePanel} from "../../state/activePanelState";
 import useNotifications from "../../composable/useNotifications";
-import { LOGOUT } from "../../store/modules/auth.module";
-import { mapState } from "vuex";
+import {LOGOUT} from "../../store/modules/auth.module";
+import {mapState} from "vuex";
+
 export default {
     components: {
         PerfectScrollbar,
         Icon
     },
     mixins: [sidebar],
-    props : {
-      mobileOpen : Boolean
+    props: {
+        mobileOpen: Boolean
     },
     setup() {
         const route = useRoute();
@@ -156,6 +212,10 @@ export default {
 
     },
     methods: {
+        action(item, index) {
+
+            this.$router.push(item.to);
+        },
         setActiveItem() {
             let route = this.route?.name ?? "";
             let resourceName = route.split(".")?.[0];
@@ -188,16 +248,16 @@ export default {
             return this.activeIndex === index;
         },
         logout() {
-        this.$router.push({ name: "login" }).then(() => {
-            this.$store.dispatch(LOGOUT);
-            this.$bus.emit("logout");
+            this.$router.push({name: "login"}).then(() => {
+                this.$store.dispatch(LOGOUT);
+                this.$bus.emit("logout");
 
-            // clear local storage data
-            // localStorage.removeItem(`${this.$base}_determinant`);
-            // localStorage.removeItem(`${this.$base}_determinant_key`);
-        });
+                // clear local storage data
+                // localStorage.removeItem(`${this.$base}_determinant`);
+                // localStorage.removeItem(`${this.$base}_determinant_key`);
+            });
         },
-        nextMenu(){
+        nextMenu() {
             // document.querySelectorAll(".menu-scroll > .menu > .menu-item").forEach((element) => {
             //     for (let i = 0; i < element.length; i++) {
             //         var c = 0;
@@ -217,8 +277,7 @@ export default {
             // })
         },
         backMenu() {
-            // console.log('asdasdsa')
-            this.setActiveItem();
+            this.activeIndex = -1;
             // document.querySelectorAll(".menu-scroll > .menu > .menu-item").forEach((element) => {
             //     console.log("🚀 ~ file: DashboardsSubsidebar.vue:183 ~ document.querySelectorAll ~ element:", element)
             //     element.classList.remove('d-block')
@@ -261,18 +320,22 @@ export default {
         logo() {
             return this.appConfig("logo.light");
         },
-        theam(){
-return this.appConfig("theme", 'theam1') ;
+        theam() {
+            return this.appConfig("theme", 'theam1');
         },
-        header(){
-return this.appConfig("header.show", false) ;
+        header() {
+            return this.appConfig("header.show", false);
         },
-        sidebar(){
-return this.appConfig("sidebar.show", false) ;
+        sidebar() {
+            return this.appConfig("sidebar.show", false);
 
         },
-         sidebarclass(){
-return this.appConfig("sidebar.class", "") ;
+        sidebarclass() {
+            return this.appConfig("sidebar.class", "");
+
+        },
+        profileQuickMenu() {
+            return this.appConfig("profile_quick_menu", []);
 
         },
         userPolicies() {
@@ -425,7 +488,7 @@ return this.appConfig("sidebar.class", "") ;
     position: relative;
 }
 
-.menu-scroll{
+.menu-scroll {
     flex: 1 0 0%;
     height: calc(100vh - 30px);
 }
@@ -712,7 +775,8 @@ html[dir="ltr"] {
         background-color: #27272a;
     }
 }
-    .ps__rail-x {
-        display: none !important;
-    }
+
+.ps__rail-x {
+    display: none !important;
+}
 </style>

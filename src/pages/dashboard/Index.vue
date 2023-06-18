@@ -42,23 +42,23 @@
                 </div>
             </div>
         </div>
-        <div class="columns is-multiline">
-            <div class="column is-12">
-                <StraightforwardTable title="Recent Orders."
-                                      :columns="recentOrdersColumns"
-                                      :rows="recentOrders">
-                    <template #column:actions :props="{ row }">
-                        <VButton class="is-pushed-mobile" dark-outlined>View Order</VButton>
-                    </template>
-                </StraightforwardTable>
-            </div>
-            <div class="column is-12">
-                <ProgressBarList
-                    title="All services are online."
-                    description="As of September 20, 2020 at 11:08 PM PST."
-                    :data="progressBarItems"/>
-            </div>
-        </div>
+<!--        <div class="columns is-multiline">-->
+<!--            <div class="column is-12">-->
+<!--                <StraightforwardTable title="Recent Orders."-->
+<!--                                      :columns="recentOrdersColumns"-->
+<!--                                      :rows="recentOrders">-->
+<!--                    <template #column:actions :props="{ row }">-->
+<!--                        <VButton class="is-pushed-mobile" dark-outlined>View Order</VButton>-->
+<!--                    </template>-->
+<!--                </StraightforwardTable>-->
+<!--            </div>-->
+<!--            <div class="column is-12">-->
+<!--                <ProgressBarList-->
+<!--                    title="All services are online."-->
+<!--                    description="As of September 20, 2020 at 11:08 PM PST."-->
+<!--                    :data="progressBarItems"/>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 </template>
 
@@ -71,6 +71,7 @@ import Chart from "../../components/basic/dashboard/Chart";
 import ApexChart from "../../components/basic/dashboard/ApexChart";
 import DashboardCard from "../../components/basic/dashboard/DashboardCard";
 import StockCard from "../../components/basic/dashboard/StockCard";
+import notificationList from "../../components/basic/dashboard/notificationList";
 import KanbanBoard from "../../components/basic/dashboard/KanbanBoard/KanbanBoard";
 import DateField from "../../components/formBuilder/fields/DateField";
 import {getMessaging, getToken, onMessage} from "firebase/messaging";
@@ -84,6 +85,7 @@ import StatisticChart from "../../components/basic/dashboard/StatisticChart.vue"
 import ProgressBarList from "../../components/basic/ProgressBarList.vue";
 import MultiLineStatisticChart from "../../components/basic/dashboard/MultiLineStatisticChart.vue";
 import StraightforwardTable from "../../components/list/StraightforwardTable.vue";
+import FlexTable from "../../components/basic/dashboard/FlexTable.vue";
 // {
 //     picture: {
 //         label: 'Customer',
@@ -115,145 +117,147 @@ export default {
         ProgressBarList,
         KanbanBoard,
         DashboardCard,
-        StockCard
+        StockCard,
+        notificationList,
+        FlexTable
     },
     data: () => ({
-        recentOrdersColumns: [
-            {
-                text: "Customer",
-                value: "picture",
-                component: "avatar-text",
-                model: {
-                    avatar: "picture",
-                    title: "username",
-                    text: "orderId"
-                },
-                media: true,
-                grow: true,
-            },
-            {
-                text: "Date",
-                value: "date",
-            },
-            {
-                text: "Status",
-                value: "status",
-                component: 'tag-label'
-            },
-            {
-                text: "Amount",
-                value: "amount",
-            },
-            {
-                text: "Actions",
-                value: "actions",
-                align: 'end',
-            },
-        ],
-        progressBarItems: [
-            {
-                title: "REST API",
-                text: "Including replicated servers",
-                class: "primary",
-                percent: 99,
-                image_url: "https://images.wondershare.com/filmora/article-images/what-is-gif.gif"
-            },
-            {
-                title: "CDN Assets",
-                text: "Assets delivered from our CDN",
-                class: "success",
-                percent: 100,
-                image_url: "https://media3.giphy.com/media/10FHR5A4cXqVrO/giphy.gif"
-            },
-            {
-                title: "Search Indexes",
-                text: "Including replicated search",
-                class: "primary",
-                percent: 99,
-                image_url: "https://media.tenor.com/zJsxZAOYNzMAAAAC/%D9%8A%D8%B9-%D9%88%D8%AD%D8%B4.gif"
-            },
-            {
-                title: "Integrations",
-                text: "We are experiencing some issues",
-                class: "warning",
-                percent: 72,
-                image_url: "https://images.wondershare.com/filmora/article-images/what-is-gif.gif"
-            },
-            {
-                title: "Security",
-                text: "Everything is working fine",
-                class: "purple",
-                percent: 88,
-                image_url: "https://images.wondershare.com/filmora/article-images/what-is-gif.gif"
-            },
-        ],
-        recentOrders: [
-            {
-                id: 0,
-                picture: '/panel/images/avatars/svg/vuero-1.svg',
-                username: 'Erik K.',
-                orderId: '#158456',
-                date: 'Oct 31, 2020',
-                amount: 863.42,
-                status: {
-                    name: "Paid",
-                    value: {class: 'green'}
-                },
-                tracking: 'TR-7295',
-            },
-            {
-                id: 1,
-                picture: '/panel/images/avatars/svg/vuero-2.svg',
-                username: 'Jimmy H.',
-                orderId: '#15893',
-                date: 'Oct 31, 2020',
-                amount: 128.0,
-                status: {
-                    name: "Paid",
-                    value: {class: 'green'}
-                },
-                tracking: 'TR-6259',
-            },
-            {
-                id: 2,
-                picture: '/panel/images/avatars/svg/vuero-3.svg',
-                username: 'Melany W.',
-                orderId: '#155848',
-                date: 'Oct 31, 2020',
-                amount: 236.79,
-                status: {
-                    name: "Pending",
-                    value: {class: 'orange'}
-                },
-                tracking: undefined,
-            },
-            {
-                id: 3,
-                picture: '/panel/images/avatars/svg/vuero-4.svg',
-                username: 'Joshua S.',
-                orderId: '#154736',
-                date: 'Oct 30, 2020',
-                amount: 98.31,
-                status: {
-                    name: "Pending",
-                    value: {class: 'orange'}
-                },
-                tracking: 'TR-48951',
-            },
-            {
-                id: 4,
-                picture: '/panel/images/avatars/svg/vuero-5.svg',
-                username: 'Tara S.',
-                orderId: '#158315',
-                date: 'Oct 30, 2020',
-                amount: 112.0,
-                status: {
-                    name: "Paid",
-                    value: {class: 'green'}
-                },
-                tracking: 'TR-48555',
-            },
-        ],
+        // recentOrdersColumns: [
+        //     {
+        //         text: "Customer",
+        //         value: "picture",
+        //         component: "avatar-text",
+        //         model: {
+        //             avatar: "picture",
+        //             title: "username",
+        //             text: "orderId"
+        //         },
+        //         media: true,
+        //         grow: true,
+        //     },
+        //     {
+        //         text: "Date",
+        //         value: "date",
+        //     },
+        //     {
+        //         text: "Status",
+        //         value: "status",
+        //         component: 'tag-label'
+        //     },
+        //     {
+        //         text: "Amount",
+        //         value: "amount",
+        //     },
+        //     {
+        //         text: "Actions",
+        //         value: "actions",
+        //         align: 'end',
+        //     },
+        // ],
+        // progressBarItems: [
+        //     {
+        //         title: "REST API",
+        //         text: "Including replicated servers",
+        //         class: "primary",
+        //         percent: 99,
+        //         image_url: "https://images.wondershare.com/filmora/article-images/what-is-gif.gif"
+        //     },
+        //     {
+        //         title: "CDN Assets",
+        //         text: "Assets delivered from our CDN",
+        //         class: "success",
+        //         percent: 100,
+        //         image_url: "https://media3.giphy.com/media/10FHR5A4cXqVrO/giphy.gif"
+        //     },
+        //     {
+        //         title: "Search Indexes",
+        //         text: "Including replicated search",
+        //         class: "primary",
+        //         percent: 99,
+        //         image_url: "https://media.tenor.com/zJsxZAOYNzMAAAAC/%D9%8A%D8%B9-%D9%88%D8%AD%D8%B4.gif"
+        //     },
+        //     {
+        //         title: "Integrations",
+        //         text: "We are experiencing some issues",
+        //         class: "warning",
+        //         percent: 72,
+        //         image_url: "https://images.wondershare.com/filmora/article-images/what-is-gif.gif"
+        //     },
+        //     {
+        //         title: "Security",
+        //         text: "Everything is working fine",
+        //         class: "purple",
+        //         percent: 88,
+        //         image_url: "https://images.wondershare.com/filmora/article-images/what-is-gif.gif"
+        //     },
+        // ],
+        // recentOrders: [
+        //     {
+        //         id: 0,
+        //         picture: '/panel/images/avatars/svg/vuero-1.svg',
+        //         username: 'Erik K.',
+        //         orderId: '#158456',
+        //         date: 'Oct 31, 2020',
+        //         amount: 863.42,
+        //         status: {
+        //             name: "Paid",
+        //             value: {class: 'green'}
+        //         },
+        //         tracking: 'TR-7295',
+        //     },
+        //     {
+        //         id: 1,
+        //         picture: '/panel/images/avatars/svg/vuero-2.svg',
+        //         username: 'Jimmy H.',
+        //         orderId: '#15893',
+        //         date: 'Oct 31, 2020',
+        //         amount: 128.0,
+        //         status: {
+        //             name: "Paid",
+        //             value: {class: 'green'}
+        //         },
+        //         tracking: 'TR-6259',
+        //     },
+        //     {
+        //         id: 2,
+        //         picture: '/panel/images/avatars/svg/vuero-3.svg',
+        //         username: 'Melany W.',
+        //         orderId: '#155848',
+        //         date: 'Oct 31, 2020',
+        //         amount: 236.79,
+        //         status: {
+        //             name: "Pending",
+        //             value: {class: 'orange'}
+        //         },
+        //         tracking: undefined,
+        //     },
+        //     {
+        //         id: 3,
+        //         picture: '/panel/images/avatars/svg/vuero-4.svg',
+        //         username: 'Joshua S.',
+        //         orderId: '#154736',
+        //         date: 'Oct 30, 2020',
+        //         amount: 98.31,
+        //         status: {
+        //             name: "Pending",
+        //             value: {class: 'orange'}
+        //         },
+        //         tracking: 'TR-48951',
+        //     },
+        //     {
+        //         id: 4,
+        //         picture: '/panel/images/avatars/svg/vuero-5.svg',
+        //         username: 'Tara S.',
+        //         orderId: '#158315',
+        //         date: 'Oct 30, 2020',
+        //         amount: 112.0,
+        //         status: {
+        //             name: "Paid",
+        //             value: {class: 'green'}
+        //         },
+        //         tracking: 'TR-48555',
+        //     },
+        // ],
         loading: true,
         data: {},
         form: {

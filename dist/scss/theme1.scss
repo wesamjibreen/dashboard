@@ -69,6 +69,11 @@ body {
                             display: none;
                         }
                     }
+                    &.router-link-active{
+                        .menu-title,.menu-icon{
+                            color: var(--primary) !important;
+                        }
+                    }
                 }
                 .menu-sub {
                     padding: 0 !important;
@@ -227,8 +232,9 @@ body {
                     .dropdown-menu {
                         top: 0;
                         transform: translateY(0%);
+                        margin-top: 0px;
                         &::before {
-                            top: 20%;
+                            top: 2%;
                         }
                     }
                 }
@@ -279,9 +285,12 @@ body {
             }
         }
         .profile-dropdown {
-            text-align: center;
+            .dropdown-head{
+                margin-bottom: 15px;
+                display: flex;
+            }
             .meta {
-                margin-top: 10px;
+                margin-inline-start: 10px;
                 span {
                     display: block;
                 }

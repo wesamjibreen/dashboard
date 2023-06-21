@@ -224,8 +224,8 @@ export default {
                 ({data}) => {
                     [this.rows, this.paginator] = [data.data, data.paginator];
                 },
-                () => {
-
+                (xhr) => {
+                    this.errorNotify(xhr.data.message ?? "")
                 },
                 () => {
                     this.mounted = true;

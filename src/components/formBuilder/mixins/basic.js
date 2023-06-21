@@ -70,7 +70,9 @@ export default {
                     Bus.emit(`form-data-fetched-${this.formModule$}`, data.data);
                     this.afterFetch(data);
                 }.bind(this),
-                null,
+                (xhr) => {
+                    this.errorNotify(xhr.data.message ?? "")
+                },
                 () => {
                     this.$emitLoading(false);
                 }

@@ -3810,6 +3810,32 @@ html.is-dark{
 }
 
 
+body.hidden{
+    overflow: hidden;
+}
+
+html[dir=ltr],html[dir=rtl]{
+    body .aside .toolbar .dropdown.user-dropdown.profile-dropdown {
+        .dropdown-menu  {
+            min-width: 260px !important;
+            .dropdown-content{
+                padding: 0;
+            }
+            .dropdown-head{
+                padding: 20px 16px !important;
+                background-color: #fafafa;
+            }
+        }
+    }
+}
+.control{
+    .multiselect.input {
+        padding: 0;
+        .multiselect-wrapper{
+            justify-content: flex-start
+        }
+    }
+}
 @import "menu-mobile.scss";
 @import "theme1.scss";
 @import "fonts.scss";

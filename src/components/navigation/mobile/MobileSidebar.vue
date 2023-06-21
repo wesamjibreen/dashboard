@@ -21,10 +21,16 @@
     </div>
 </template>
 <script>
+import { watch } from 'fs';
     export default {
         props: {
             isOpen: false,
         },
+        watch:{
+            isOpen(){
+                document.body.classList.toggle('hidden')
+            }
+        }
     }
 </script>
 <style lang="scss">

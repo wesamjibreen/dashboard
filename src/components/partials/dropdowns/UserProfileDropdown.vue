@@ -11,7 +11,7 @@
         </template>
 
         <template #content>
-            <div class="dropdown-head py-2">
+            <div class="dropdown-head">
                 <VAvatar
                     size="medium"
                     picture="/panel/images/avatars/svg/vuero-1.svg"

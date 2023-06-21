@@ -17,9 +17,9 @@
                 </div>
             </div>
             <div class="column is-4 is-relative">
-                <RouterLink :to="{ path: '/' }" class="top-logo">
+                <div  class="top-logo">
                     <AnimatedLogo width="38px" height="38px"/>
-                </RouterLink>
+                </div>
 
                 <label class="dark-mode ml-auto">
                     <input type="checkbox" :checked="!isDark" @change="toggleDarkModeHandler"/>

@@ -314,7 +314,9 @@ export default {
                             this.$bus.emit('dashboard-fetched', data.data),
                                 this.data = data.data;
                         },
-                        null,
+                        (xhr) => {
+                            this.errorNotify(xhr.data.message ?? "")
+                        },
                         () => {
                             this.loading = false;
                         }

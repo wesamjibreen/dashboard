@@ -115,7 +115,7 @@
                                 ><i aria-hidden="true" :class="`${item.icon}`"></i
                                 ></span>
                             </div>
-                            <div class="menu-sub" v-if="hasChildren(item)">
+                            <div class="menu-sub" v-if="hasChildren(item)" ref="panel">
                                 <div class="menu-back mb-5 pb-2 mt-5" @click="backMenu"><i
                                     class="lnil lnil-chevron-left"></i> Go back from Settings
                                 </div>
@@ -224,6 +224,13 @@ export default {
             });
         },
         setActive(item, index) {
+            if(window.screen.width > 769){
+                this.$refs.panel.forEach((panel) => {
+                    panel.style.maxHeight = '0';
+                });
+                const panel = this.$refs.panel[index - 1];
+                panel.style.maxHeight = panel.scrollHeight + "px"
+            }
             if (index === this.activeIndex) this.activeIndex = -1;
             else this.activeIndex = index;
 

@@ -1,7 +1,7 @@
 {
   "name": "nawadash",
-  "version": "1.6.5",
-  "description": "Vue3 Functional Dashboard",
+  "version": "1.6.6",
+  "description": "NAWA Functional Dashboard",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,7 +18,7 @@
     "Builder",
     "List"
   ],
-  "author": "WeSSaM",
+  "author": "NAWAGROW",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/wesamjibreen/dashboard/issues"

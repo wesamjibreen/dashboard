@@ -171,7 +171,7 @@ import { activePanel } from '/@src/state/activePanelState'
                     aria-hidden="true"
                     class="iconify"
                     data-icon="feather:paperclip"
-                  ></i>
+                  ></i>s
                 </a>
                 <a class="button v-button is-primary is-bold is-raised">Send</a>
               </div>

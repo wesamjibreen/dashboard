@@ -78,7 +78,10 @@ body {
                 .menu-sub {
                     padding: 0 !important;
                     margin: 0 !important;
-                    transition: none;
+                    transition: all .2s ease-in-out;
+                    @media(min-width:769px){
+                        transform: scaleY(0);
+                    }
                     &::before {
                         content: unset;
                     }
@@ -109,6 +112,16 @@ body {
                     }
                     .menu-arrow{
                         transform: rotate(180deg);
+                    }
+                    @media(min-width:769px){
+                        .menu-sub{
+                            transform: scaleY(1);
+                        }
+                    }
+                }
+                &:not(.is-open){
+                    .menu-sub{
+                        max-height: 0 !important;
                     }
                 }
             }
@@ -207,7 +220,7 @@ body {
                         top: 31%;
                         transform: rotate(45deg);
                         background-color: #fff;
-                        box-shadow: 0 0 10px #eee;
+                        box-shadow: 0 0 10px #fafafa;
                         z-index: -1;
                         border: 0;
                     }
@@ -234,7 +247,7 @@ body {
                         transform: translateY(0%);
                         margin-top: 0px;
                         &::before {
-                            top: 2%;
+                            top: 3%;
                         }
                     }
                 }

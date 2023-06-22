@@ -224,13 +224,6 @@ export default {
             });
         },
         setActive(item, index) {
-            if(window.screen.width > 769){
-                this.$refs.panel.forEach((panel) => {
-                    panel.style.maxHeight = '0';
-                });
-                const panel = this.$refs.panel[index - 1];
-                panel.style.maxHeight = panel.scrollHeight + "px"
-            }
             if (index === this.activeIndex) this.activeIndex = -1;
             else this.activeIndex = index;
 

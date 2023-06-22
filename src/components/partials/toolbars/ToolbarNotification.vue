@@ -106,7 +106,7 @@ onMounted(() => {
                         </div>
                         <div class="heading-right">
                             <div class="heading-right-inner">
-                                <p class="notification-link" @click="seeAllClick">{{ trans('see_all') }}</p>
+                                <p class="notification-link pointer" @click="seeAllClick">{{ trans('see_all') }}</p>
                                 <div class="btn-close-notification mb-3 d-lg-none" @click="dropdown.toggle"><i aria-hidden="true" class="lnil lnil-close"></i></div>
                             </div>
                         </div>

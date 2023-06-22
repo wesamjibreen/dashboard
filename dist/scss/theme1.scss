@@ -116,6 +116,7 @@ body {
                     @media(min-width:769px){
                         .menu-sub{
                             transform: scaleY(1);
+                            max-height:100%
                         }
                     }
                 }
@@ -205,8 +206,8 @@ body {
             .toolbar-notifications,
             .user-dropdown {
                 .dropdown-menu {
-                    left: unset !important;
-                    right: unset !important;
+                    // left: unset !important;
+                    // right: unset !important;
                     top: 50%;
                     inset-inline-start: 160% !important;
                     transform: translateY(-50%);

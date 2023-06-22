@@ -3567,33 +3567,33 @@ body, button, input, optgroup, select, textarea {
 }
 
 
-html[dir="rtl"]{
-    @media (min-width: 769px){
-        .flex-table .flex-table-header .flex-datatable-cell:nth-of-type(1) {
-            border-right: 1px solid #c7c7c7;
-            border-left: 0;
-        }
-        .flex-table .flex-table-header .flex-datatable-cell:last-of-type {
-            border-left: 1px solid #c7c7c7;
-            border-right: 0;
-        }
-    }
-}
+// html[dir="rtl"]{
+//     @media (min-width: 769px){
+//         .flex-table .flex-table-header .flex-datatable-cell:nth-of-type(1) {
+//             border-right: 1px solid #c7c7c7;
+//             border-left: 0;
+//         }
+//         .flex-table .flex-table-header .flex-datatable-cell:last-of-type {
+//             border-left: 1px solid #c7c7c7;
+//             border-right: 0;
+//         }
+//     }
+// }
 
-html[dir="rtl"]{
-    .flex-table.table-separate{
-        .flex-table-item .flex-table-cell {
-            &:nth-of-type(1) {
-                border-right: 1px solid #e8e8e8;
-                border-left: 0;
-            }
-            &:last-of-type {
-                border-left: 1px solid #e8e8e8;
-                border-right: 0;
-            }
-        }
-    }
-}
+// html[dir="rtl"]{
+//     .flex-table.table-separate{
+//         .flex-table-item .flex-table-cell {
+//             &:nth-of-type(1) {
+//                 border-right: 1px solid #e8e8e8;
+//                 border-left: 0;
+//             }
+//             &:last-of-type {
+//                 border-left: 1px solid #e8e8e8;
+//                 border-right: 0;
+//             }
+//         }
+//     }
+// }
 
 
 // New Style
@@ -3835,6 +3835,19 @@ html[dir=ltr],html[dir=rtl]{
             justify-content: flex-start
         }
     }
+}
+html.is-dark{
+    body .aside .toolbar .dropdown.user-dropdown.profile-dropdown .dropdown-menu .dropdown-head{
+        background-color: #1c1c1c !important;
+    }
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+        background-color: #27272a;
+        border: 1px solid #27272a;
+    }
+}
+
+.pointer{
+    cursor: pointer;
 }
 @import "menu-mobile.scss";
 @import "theme1.scss";

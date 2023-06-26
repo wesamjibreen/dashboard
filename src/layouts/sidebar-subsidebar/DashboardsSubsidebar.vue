@@ -41,10 +41,13 @@
                         />
 
                         <div class="meta">
-                            <span>
-                                {{ user?.name }}
-                            </span>
-                            <span>{{ user?.email }}</span>
+                    <span>
+                        {{ userData$?.name }}
+                           <strong v-if="userData$?.hasOwnProperty('status')"
+                                   :class="` ${ statusStyle$ }`">{{ userData$?.status?.name }}</strong>
+                    </span>
+                            <span>{{ userData$?.email }}</span>
+                            <span v-if="userData$?.hasOwnProperty('wallet_balance')">{{ trans('wallet') }} : {{ userData$?.wallet_balance }}</span>
                         </div>
                     </div>
                     <div class="head-menu-mobile-end">
@@ -179,7 +182,7 @@ import {activePanel} from "../../state/activePanelState";
 import useNotifications from "../../composable/useNotifications";
 import {LOGOUT} from "../../store/modules/auth.module";
 import {mapState} from "vuex";
-
+import {SET_AUTH} from "../../store/modules/auth.module";
 export default {
     components: {
         PerfectScrollbar,
@@ -203,12 +206,19 @@ export default {
     data() {
         return {
             activeIndex: undefined,
+            user_data:null
 
 
         };
     },
     created() {
         this.setActiveItem();
+        // this.fetchUserData();
+        let _this=this;
+        window.Bus.off('nav-bar-mobile-opened')
+        window.Bus.on('nav-bar-mobile-opened',function (){
+            _this.fetchUserData();
+        })
 
     },
     methods: {
@@ -229,6 +239,26 @@ export default {
 
             if (item.to) this.$router.push(item.to);
 
+        },
+        fetchUserData() {
+            if (this.userEndPoint)
+                this.request(
+                    this.$endPoint(this.userEndPoint),
+                    {},
+                    ({data}) => {
+                        if (data.data.auth){
+                            this.$store.commit(SET_AUTH, data);
+                        }
+                        // this.user_data = data.data;
+
+                    },
+                    (xhr) => {
+
+                    },
+                    () => {
+                        // this.loading = false;
+                    }
+                )
         },
         closeMenu() {
             this.activeIndex = -1;
@@ -289,6 +319,19 @@ export default {
         ...mapState({
             user: (state) => state.auth.user,
         }),
+        userEndPoint() {
+            return this.appConfig("user.endPoint", null);
+
+        },
+        userData$() {
+            return  this.user;
+        },
+        statusClass$() {
+            return _.get(this?.userData$, 'status.class', null);
+        },
+        statusStyle$() {
+            return this.statusClass$ ? `status-user ${this.statusClass$}` : '';
+        },
         menu() {
             let menuItems = _.get(this.$instance, "config.menu", []);
             if (this.appConfig("permissions.enabled", false)) {

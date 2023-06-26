@@ -2962,7 +2962,7 @@ button.v-button.small {
 }
 
 .flex-table-action .table-action {
-    margin: 0px 5px;
+    margin: 2px 5px;
     background-color: #f3f6f9;
     border-radius: 4px;
     width: 28px;
@@ -3598,18 +3598,18 @@ body, button, input, optgroup, select, textarea {
 
 // New Style
 
-html[dir=ltr] .flex-table.flex-table-custom .flex-table-header .flex-datatable-cell:nth-child(1) {
-    border-radius: 15px 0 0 15px;
-}
-html[dir=ltr] .flex-table.flex-table-custom .flex-table-header .flex-datatable-cell:last-of-type {
-    border-radius: 0px 15px 15px 0px;
-}
-html[dir=rtl] .flex-table.flex-table-custom .flex-table-header .flex-datatable-cell:nth-child(1) {
-    border-radius: 0px 15px 15px 0px;
-}
-html[dir=rtl] .flex-table.flex-table-custom .flex-table-header .flex-datatable-cell:last-of-type {
-    border-radius: 15px 0 0 15px;
-}
+// html[dir=ltr] .flex-table.flex-table-custom .flex-table-header .flex-datatable-cell:nth-child(1) {
+//     border-radius: 15px 0 0 15px;
+// }
+// html[dir=ltr] .flex-table.flex-table-custom .flex-table-header .flex-datatable-cell:last-of-type {
+//     border-radius: 0px 15px 15px 0px;
+// }
+// html[dir=rtl] .flex-table.flex-table-custom .flex-table-header .flex-datatable-cell:nth-child(1) {
+//     border-radius: 0px 15px 15px 0px;
+// }
+// html[dir=rtl] .flex-table.flex-table-custom .flex-table-header .flex-datatable-cell:last-of-type {
+//     border-radius: 15px 0 0 15px;
+// }
 html[dir="rtl"]{
     body .aside .toolbar-notifications .dropdown-menu::before, body .aside .user-dropdown .dropdown-menu::before {
         transform: rotate(-45deg) translateY(-100%);
@@ -3836,6 +3836,7 @@ html[dir=ltr],html[dir=rtl]{
         }
     }
 }
+
 html.is-dark{
     body .aside .toolbar .dropdown.user-dropdown.profile-dropdown .dropdown-menu .dropdown-head{
         background-color: #1c1c1c !important;
@@ -3848,6 +3849,21 @@ html.is-dark{
 
 .pointer{
     cursor: pointer;
+}
+
+.status-user{
+    padding: 1px 5px;
+    border-radius: 17px;
+    color: #FFF;
+    font-size: 11px;
+    margin-inline-start: 7px;
+        font-weight: normal;
+    &.success{
+        background-color: var(--primary);
+    }
+    &.danger{
+        background-color: red;
+    }
 }
 @import "menu-mobile.scss";
 @import "theme1.scss";

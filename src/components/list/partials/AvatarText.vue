@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import {useI18n} from "vue-i18n";
+
 export default {
     name: "AvatarText",
     props: {
@@ -26,12 +28,20 @@ export default {
         },
     },
     setup(props) {
+        const { locale } = useI18n();
+
+        const valueByLocale = (value) => {
+            return _.get(value, locale.value ?? "ar", value);
+        }
+
+
         const getValue = function (attribute) {
             let model = props.column?.model ?? {};
-            return _.get(props.row, model[attribute] ?? attribute, "");
+            return valueByLocale(_.get(props.row, model[attribute] ?? attribute, ""));
         };
         return {
-            getValue
+            getValue,
+            valueByLocale
         }
     }
 }

@@ -3,8 +3,8 @@
         <div class="status-block">
             <div class="status-header">
                 <div class="indicator"></div>
-                <div class="title is-4">{{ title }}</div>
-                <div class="subtitle is-6">{{ description }}</div>
+                <div class="title is-4">{{ getValueByLocale(title) }}</div>
+                <div class="subtitle is-6">{{ getValueByLocale(description) }}</div>
             </div>
 
             <!--            <div class="status-uptime">-->
@@ -18,22 +18,22 @@
                 <template v-for="item in data">
                     <div class="list-block api">
                         <div class="icon-wrap">
-                            <img :src="getValue(item,'image')" alt=""/>
+                            <img :src="$get(item,'image')" alt=""/>
                         </div>
                         <div class="progress-wrap">
                             <div class="progress-wrap-inner">
                                 <div>
-                                    <div class="label">{{ getValue(item, 'title') }}</div>
-                                    <p>{{ getValue(item, 'text') }}</p>
+                                    <div class="label">{{ getValueByLocale($get(item, 'title')) }}</div>
+                                    <p>{{ getValueByLocale($get(item, 'text')) }}</p>
                                 </div>
                                 <div class="amount has-text-centered">
-                                    <span>{{ getValue(item, 'percent') }}%</span>
+                                    <span>{{ $get(item, 'percent') }}%</span>
                                 </div>
                             </div>
-                            <progress :class="`progress is-${getValue(item,'class')} is-smaller`"
-                                      :value="getValue(item, 'percent')"
+                            <progress :class="`progress is-${$get(item,'class')} is-smaller`"
+                                      :value="$get(item, 'percent')"
                                       max="100">
-                                {{ getValue(item, 'percent') }}%
+                                {{ $get(item, 'percent') }}%
                             </progress>
                         </div>
                     </div>
@@ -45,47 +45,48 @@
 </template>
 
 <script>
-import {getValueByLocale} from "../../utils/helper";
+import dashboard from "./dashboard";
 
 export default {
     name: "ProgressBarList",
+    mixins: [dashboard],
     props: {
         title: String,
         description: String,
-        titleKey: {
-            type: String,
-            default: "title"
-        },
-        textKey: {
-            type: String,
-            default: "text"
-        },
-        imageKey: {
-            type: String,
-            default: "image_url"
-        },
-        classKey: {
-            type: String,
-            default: 'class'
-        },
-        percentKey: {
-            default: 'percent'
-        },
-        data: {
-            type: Array,
-            default: []
-        }
+        // titleKey: {
+        //     type: String,
+        //     default: "title"
+        // },
+        // textKey: {
+        //     type: String,
+        //     default: "text"
+        // },
+        // imageKey: {
+        //     type: String,
+        //     default: "image_url"
+        // },
+        // classKey: {
+        //     type: String,
+        //     default: 'class'
+        // },
+        // percentKey: {
+        //     default: 'percent'
+        // },
+        // data: {
+        //     type: Array,
+        //     default: []
+        // }
     },
-    setup(props) {
-        const getValue = function (item, attribute = "title") {
-            return getValueByLocale(_.get(item, props[`${attribute}Key`], ""));
-        }
-
-        return {
-            getValueByLocale,
-            getValue
-        }
-    }
+    // setup(props) {
+    //     const getValue = function (item, attribute = "title") {
+    //         return getValueByLocale(_.get(item, props[`${attribute}Key`], ""));
+    //     }
+    //
+    //     return {
+    //         getValueByLocale,
+    //         getValue
+    //     }
+    // }
 }
 </script>
 

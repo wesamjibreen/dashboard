@@ -82,7 +82,7 @@ import {
     getMessagingToken,
 } from "../../plugins/firebase";
 import StatisticChart from "../../components/basic/dashboard/StatisticChart.vue";
-import ProgressBarList from "../../components/basic/ProgressBarList.vue";
+import ProgressBarList from "../../components/basic/dashboard/ProgressBarList.vue";
 import MultiLineStatisticChart from "../../components/basic/dashboard/MultiLineStatisticChart.vue";
 import StraightforwardTable from "../../components/list/StraightforwardTable.vue";
 import FlexTable from "../../components/basic/dashboard/FlexTable.vue";

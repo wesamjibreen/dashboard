@@ -134,11 +134,6 @@ const form = {
                             }
                         },
                         // {
-                        //     component: "switch",
-                        //     model: "shown_text",
-                        //     label: "shown_text",
-                        //     value:0
-                        // },
 
                     ],
 

@@ -33,6 +33,7 @@ export default function useDropdown(container) {
     }
 
     if (isOpen.value) {
+        window.Bus.emit('dropdown-shown')
       container.value.classList.add('is-active')
     } else {
       container.value.classList.remove('is-active')

@@ -2,7 +2,7 @@
     <div class="ecommerce-dashboard ecommerce-dashboard-v1">
         <div class="columns is-multiline">
             <div v-for="(item, index) in data$" :class="`column is-${cols}`">
-                <LineStatWidget :title="getValueByLocale(item.name)"
+                <LineStatWidget :title="valueByLocale(item.name)"
                                 :stats="item.stats" straight>
                     <ApexChart :id="`line-stats-widget-chart-${index}`"
                                :height="getSparkConfig(item)?.chart.height"
@@ -21,6 +21,7 @@ import dashboard from "./dashboard";
 import {getValueByLocale} from "../../../utils/helper";
 import LineStatWidget from "./LineStatWidget.vue";
 import {useThemeColors} from '../../../composable/useThemeColors'
+import {useI18n} from "vue-i18n";
 
 export default {
     name: "MultiLineStatisticChart",
@@ -31,6 +32,11 @@ export default {
     },
     setup(props) {
         const themeColors = useThemeColors();
+        const { locale } = useI18n();
+
+        const valueByLocale = (value) => {
+            return _.get(value, locale.value ?? "ar", value);
+        }
 
         const getSparkConfig = function (item, index) {
             return {
@@ -68,10 +74,13 @@ export default {
                     },
                 },
             };
-        }
+        };
+
+
         return {
             getSparkConfig,
             getValueByLocale,
+            valueByLocale,
         }
     }
 }

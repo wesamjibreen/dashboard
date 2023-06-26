@@ -1,7 +1,7 @@
 <template>
     <div class="ecommerce-dashboard ecommerce-dashboard-v1">
         <div class="table-header">
-            <h3 class="dark-inverted">{{ title }}</h3>
+            <h3 class="dark-inverted">{{ valueByLocale(title) }}</h3>
         </div>
         <VFlexTable rounded :data="rows" :columns="flexTableColumns">
             <template #body-cell="{index, row, column, value }">
@@ -15,11 +15,11 @@
                     />
                     <template v-else-if="column.key === 'actions'">
                         <VButton @click="clickAction(row?.btn_route ?? null)" class="is-pushed-mobile" dark-outlined>
-                            {{ column?.btn_text ?? '' }}
+                            {{ valueByLocale(column?.btn_text ?? '') }}
                         </VButton>
                     </template>
 
-                    <span v-else class="light-text">{{ value }}</span>
+                    <span v-else class="light-text">{{ valueByLocale(value) }}</span>
 
                     <!--                    <template v-if="column.key === 'picture'">-->
                     <!--                        <AvatarText :column="column" :row="row"/>-->
@@ -57,6 +57,7 @@ import VFlexTable from "../../base/table/VFlexTable.vue";
 import {computed} from "vue";
 import {getValueByLocale} from "../../../utils/helper";
 import {useRouter} from "vue-router";
+import {useI18n} from "vue-i18n";
 
 export default {
     name: "FlexTable",
@@ -70,11 +71,17 @@ export default {
 
         const router = useRouter();
 
+        const { locale } = useI18n();
+
+        const valueByLocale = (value) => {
+            return _.get(value, locale.value ?? "ar", value);
+        }
+
         const flexTableColumns = computed(() => {
             let columns = {};
             (props.columns).forEach((column) => {
                 columns[column.value] = {
-                    label: getValueByLocale(column.text),
+                    label: valueByLocale(column.text),
                     ...column
                 }
             });
@@ -87,7 +94,8 @@ export default {
         }
         return {
             flexTableColumns,
-            clickAction
+            clickAction,
+            valueByLocale
         }
     }
 }

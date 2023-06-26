@@ -172,6 +172,7 @@ import {
     ref,
     watch,
     onMounted,
+    watchEffect,
     watchPostEffect,
 } from "vue";
 import {useRoute, useRouter} from "vue-router";
@@ -214,6 +215,12 @@ export default {
             return route.name;
         });
 
+        watchEffect(() => {
+          if (isMobileSidebarOpen.value)
+            window.Bus.emit('nav-bar-mobile-opened')
+
+        });
+
         const breadcrumb = reactive([
             {
                 // label: 'Vuero',
@@ -233,6 +240,7 @@ export default {
             if (id === activeMobileSubsidebar.value)
                 isDesktopSidebarOpen.value = !isDesktopSidebarOpen.value;
             else {
+               srerv
                 isDesktopSidebarOpen.value = true;
                 activeMobileSubsidebar.value = id;
             }
@@ -249,6 +257,7 @@ export default {
                 if (isOpen === false) {
                     wrapper.classList.remove("is-pushed-full");
                 } else if (!wrapper.classList.contains("is-pushed-full")) {
+
                     wrapper.classList.add("is-pushed-full");
                 }
             });
@@ -284,6 +293,7 @@ export default {
                     },
                     ...array,
                 ];
+
                 isMobileSidebarOpen.value = false;
 
                 if (props.closeOnChange && isDesktopSidebarOpen.value) {

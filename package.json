@@ -1,6 +1,6 @@
 {
   "name": "nawadash",
-  "version": "1.6.7",
+  "version": "1.6.8",
   "description": "NAWA Functional Dashboard",
   "main": "index.js",
   "scripts": {

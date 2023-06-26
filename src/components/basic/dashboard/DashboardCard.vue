@@ -5,15 +5,15 @@
         <!--Card-->
         <div class="column is-12">
           <div class="dashboard-card">
-            <h4 class="dark-inverted">{{title}}</h4>
+            <h4 class="dark-inverted">{{getValueByLocale(title)}}</h4>
 
             <div class="quick-stats">
               <div class="quick-stats-inner">
                 <!--Stat-->
                 <div class="quick-stat" v-for="(item , index) in items" :key="index" >
                     <VBlock
-                        :title="item.titles"
-                        :subtitle="item.subtitle"
+                        :title="getValueByLocale(item.titles)"
+                        :subtitle="getValueByLocale(item.subtitle)"
                         center
                         m-responsive
                         t-responsive

@@ -329,6 +329,7 @@ export default {
                         this.$store.commit(SET_AUTH, data);
                     let callback = this.appConfig("setting.onInit");
                     if (callback instanceof Function) callback.bind(this)();
+                    this.$bus.emit("app-init", data);
                 }
             );
         }

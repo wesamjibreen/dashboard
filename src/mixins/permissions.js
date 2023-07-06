@@ -1,15 +1,27 @@
 export default {
+    data: () => ({
+        hashedPolicies: "",
+    }),
+    mounted() {
+        this.$bus.off("app-init");
+        this.$bus.on("app-init", (data) => {
+            this.hashedPolicies = data?.data?.auth?.policies;
+        });
+    },
     computed: {
         permissionsEnabled() {
             return _.get(this, "$config.app.permissions.enabled", false);
         },
         policies() {
-            let $auth = JSON.parse(localStorage.getItem(`${this.$base}_user`, {}));
-            let policies = $auth?.policies;
-            return policies ? atob(policies).split(",") : [];
+            return this.getAuthPermissions();
         },
     },
     methods: {
+        getAuthPermissions() {
+            let $auth = JSON.parse(localStorage.getItem(`${this.$base}_user`, {}));
+            let policies = this.hashedPolicies ? this.hashedPolicies : $auth?.policies;
+            return policies ? atob(policies).split(",") : [];
+        },
         hasPermission(policy) {
             let policyKey = policy.replaceAll("_", "-");
             return this.permissionsEnabled ? this.policies.includes(policyKey) : true;

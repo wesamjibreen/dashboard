@@ -1,18 +1,12 @@
-<script setup lang="ts">
-const props = withDefaults(
-  defineProps<{
-    logo?: string
-    name?: string
-    description?: string
-    openingCount?: string
-  }>(),
-  {
+<script setup>
+import VBlock from "../../base/block/VBlock.vue";
+
+const props = defineProps({
     logo: undefined,
     name: undefined,
     description: undefined,
     openingCount: undefined,
-  }
-)
+})
 </script>
 
 <template>

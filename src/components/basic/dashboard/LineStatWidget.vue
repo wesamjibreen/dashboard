@@ -1,8 +1,16 @@
+
 <script setup>
+import {useI18n} from "vue-i18n";
+
+const { locale } = useI18n();
+
+const valueByLocale = (value) => {
+    return _.get(value, locale.value ?? "ar", value);
+}
+
 const props = defineProps({
     title: "",
     stats: [],
-
 });
 </script>
 
@@ -13,7 +21,7 @@ const props = defineProps({
         </div>
         <div class="line-stats">
             <div class="line-stat" v-for="stat in stats">
-                <span>{{ stat.name }}</span>
+                <span>{{ valueByLocale(stat.name) }}</span>
                 <span :class="stat.class">{{ stat.value }}</span>
             </div>
         </div>

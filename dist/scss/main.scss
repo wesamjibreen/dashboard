@@ -3865,6 +3865,33 @@ html.is-dark{
         background-color: red;
     }
 }
+
+
+.card-permission {
+    border: 1px solid #e2e2e2;
+    position: relative;
+    padding-top: 20px;
+    margin-top: 20px;
+    .header-permission {
+        position: absolute;
+        top: -27px;
+        inset-inline-start: 0;
+    }
+    .body-permission {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.flex-table-custom .flex-table-action .table-action{
+    width: auto;
+    min-width: 28px;
+}
+.flex-table-custom .flex-table-action .table-action .icon {
+    width: auto;
+    padding: 2px 5px;
+    min-width: 1.5rem;
+}
 @import "menu-mobile.scss";
 @import "theme1.scss";
 @import "fonts.scss";

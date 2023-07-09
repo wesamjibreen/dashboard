@@ -72,6 +72,7 @@ import ApexChart from "../../components/basic/dashboard/ApexChart";
 import DashboardCard from "../../components/basic/dashboard/DashboardCard";
 import StockCard from "../../components/basic/dashboard/StockCard";
 import notificationList from "../../components/basic/dashboard/notificationList";
+import TaskList from "../../components/basic/dashboard/TaskList";
 import KanbanBoard from "../../components/basic/dashboard/KanbanBoard/KanbanBoard";
 import DateField from "../../components/formBuilder/fields/DateField";
 import {getMessaging, getToken, onMessage} from "firebase/messaging";
@@ -119,7 +120,8 @@ export default {
         DashboardCard,
         StockCard,
         notificationList,
-        FlexTable
+        FlexTable,
+        TaskList
     },
     data: () => ({
         // recentOrdersColumns: [

@@ -47,6 +47,7 @@
             <!--<button @click.prevent="setImageToCrop"> Browse</button>-->
             <div class="row">
                 <VFilePond class="profile-filepond"
+                           :model="model$"
                            ref="pond"
                            name="profile_filepond"
                            :chunk-retry-delays="[500, 1000, 3000]"
@@ -113,7 +114,7 @@
         }),
         methods: {
             saveCropperImage() {
-                window.Bus.emit('addFile', this.dialog.cropImage);
+                window.Bus.emit(`addFile${this.model$}`, this.dialog.cropImage);
                 this.closeCropperDialog();
 
                 // _.set(this,'image',["http://wieelz.io:8080/image/image_1642496724819497135.png"])
@@ -157,32 +158,6 @@
                 this.fileToBase64(fileInfo.file).then((encodedFile) => {
                     return this.$commit(encodedFile);
                 });
-
-                // if (error) {
-                //     console.error(error)
-                //     return
-                // }
-                //
-                //
-                // const _file = fileInfo.file
-                // console.log('onAddFile', _file);
-                //
-                // var reader = new FileReader();
-                // reader.readAsDataURL(_file);
-                // reader.onload = () => {
-                //     this.dialog = {
-                //         show: true,
-                //         image: reader.result,
-                //     };
-                //
-                //     // this.$commit(reader.result);
-                // };
-                // reader.onerror = function (error) {
-                //     console.log('Error: ', error);
-                // };
-                // if (_file) {
-                //     wizardData.logo = _file
-                // }
             },
             onCrop({coordinates, canvas}) {
                 this.dialog.cropImage = canvas.toDataURL();
@@ -193,8 +168,7 @@
                     return
                 }
                 this.dialog.cropImage = null;
-
-
+                this.$commit(null);
                 // wizardData.logo = null
             },
             async url2blob(url, callback) {
@@ -238,7 +212,7 @@
                 return null;
             },
             imageUrlOption() {
-                return this.preview_option || `${this.model$}_url`;
+                return this.preview_option ?? `${this.model$}_url`;
             },
             stencilProps() {
                 return {
@@ -267,7 +241,7 @@
                     this.url2blob(newVal, (blob) => {
                         this.fileToBase64(blob).then((encodedFile) => {
                             this.dialog.cropImage = encodedFile;
-                            window.Bus.emit('addFile', encodedFile);
+                            window.Bus.emit(`addFile${this.model$}`, encodedFile);
                         });
                     });
                 }

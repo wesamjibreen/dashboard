@@ -3598,9 +3598,9 @@ body, button, input, optgroup, select, textarea {
 
 // New Style
 
-// html[dir=ltr] .flex-table.flex-table-custom .flex-table-header .flex-datatable-cell:nth-child(1) {
-//     border-radius: 15px 0 0 15px;
-// }
+.flex-table.flex-table-custom .flex-table-header .flex-datatable-cell {
+    border-radius: 0 !important;
+}
 // html[dir=ltr] .flex-table.flex-table-custom .flex-table-header .flex-datatable-cell:last-of-type {
 //     border-radius: 0px 15px 15px 0px;
 // }
@@ -3610,6 +3610,8 @@ body, button, input, optgroup, select, textarea {
 // html[dir=rtl] .flex-table.flex-table-custom .flex-table-header .flex-datatable-cell:last-of-type {
 //     border-radius: 15px 0 0 15px;
 // }
+
+
 html[dir="rtl"]{
     body .aside .toolbar-notifications .dropdown-menu::before, body .aside .user-dropdown .dropdown-menu::before {
         transform: rotate(-45deg) translateY(-100%);
@@ -3891,6 +3893,41 @@ html.is-dark{
     width: auto;
     padding: 2px 5px;
     min-width: 1.5rem;
+}
+
+.personal-dashboard.personal-dashboard-v1{
+    background-color: var(--white);
+    border-radius: var(--radius-large);
+    border: 1px solid var(--fade-grey-dark-3);
+    .dashboard-card{
+        border: 0px solid var(--fade-grey-dark-3);
+    }
+}
+.card,.status-page-wrapper,.personal-dashboard.personal-dashboard-v1{
+    height: 100%;
+}
+.status-page-wrapper .status-block{
+    margin-bottom: 0;
+    border: 1px solid var(--fade-grey-dark-3);
+    border-radius: var(--radius-large);
+}
+html[dir=ltr] .filters-form .multiselect .multiselect-multiple-label,
+html[dir=ltr] .filters-form .multiselect .multiselect-placeholder,
+html[dir=ltr] .filters-form .multiselect .multiselect-single-label {
+    padding-left: 1rem;
+    padding-right: 0;
+}
+html[dir=rtl] .filters-form .multiselect .multiselect-multiple-label,
+html[dir=rtl] .filters-form .multiselect .multiselect-placeholder,
+html[dir=rtl] .filters-form .multiselect .multiselect-single-label {
+    padding-right: 1rem;
+    padding-left: 0
+}
+
+html.is-dark{
+    .ant-picker-input > input {
+        color: #bbbbbbd9;
+    }
 }
 @import "menu-mobile.scss";
 @import "theme1.scss";

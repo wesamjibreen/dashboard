@@ -5,7 +5,8 @@ export default {
                 let reader = new FileReader();
                 reader.readAsDataURL(file);
                 reader.onload = () => {
-                    resolve(reader.result);
+                    if (!reader.result.includes("data:text/html"))
+                        resolve(reader.result);
                 };
                 reader.onerror = function (error) {
                     reject(error);

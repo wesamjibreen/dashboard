@@ -96,6 +96,10 @@
                     return true
                 },
             },
+            model: {
+                type: String,
+                default: "default"
+            },
         },
         emits: ['input', ...eventNames],
         setup(props, {emit}) {
@@ -132,9 +136,9 @@
                         }
                     }
 
-                    window.Bus.on('addFile', (...args) => {
+                    window.Bus.on(`addFile${props.model}`, (...args) => {
                         return pond.value.addFile(...args)
-                    })
+                    });
                 }
             })
             onUnmounted(() => {

@@ -1,5 +1,5 @@
 <template>
-    <VMessage  v-for="(row, key) in data$" :key="key" :class="`message is-${row.class ?? 'primary'}`" @click="onClick(row)">{{ getValueByLocale($get(row,'value')) }}</VMessage>
+    <VMessage  v-for="(row, key) in data$" :key="key" :class="`message is-${row.class ?? 'primary'}`" @click="onClick(row)" style="cursor: pointer;">{{ getValueByLocale($get(row,'value')) }}</VMessage>
 </template>
 
 <script>

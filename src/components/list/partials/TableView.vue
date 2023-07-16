@@ -104,8 +104,17 @@
                                             v-bind="action"
                                             :resource="resource"
                                             :row="row"
-                                            v-if="hasPermission(`${resource}.${action.slug}`)&&(action.slug!=='cancel')"
+                                            v-if="hasPermission(`${resource}.${action.slug}`)&&(action.slug!=='cancel')&&(action.slug!=='action-button')"
                                         />
+
+                                        <ActionButton
+                                            v-bind="action"
+                                            :resource="resource"
+                                            :row="row"
+                                            class="mx-1"
+                                            v-if="hasPermission(`${resource}.${action.slug}`) && (action?.slug === 'action-button') &&(action.slug!=='cancel')"
+                                        />
+
                                         <Cancel
                                             v-bind="action"
                                             :resource="resource"
@@ -113,8 +122,8 @@
                                             v-if="hasPermission(`${resource}.${action.slug}`)&&action.slug==='cancel'"
                                             :disabled="row.cancel_operation"
                                             :color="action.color"
-
                                         />
+
 
                                     </div>
 
@@ -129,14 +138,16 @@
 </template>
 
 <script>
-import { view } from "../mixins";
-import { permissions } from "../../../mixins";
+import {view} from "../mixins";
+import {permissions} from "../../../mixins";
 import Cancel from "./Cancel.vue";
+import ActionButton from "./ActionButton.vue";
 
 export default {
     name: "TableView",
-    components : {
-        Cancel
+    components: {
+        Cancel,
+        ActionButton
     },
     mixins: [view, permissions],
     data() {
@@ -148,7 +159,7 @@ export default {
         },
     },
     methods: {
-        open(){
+        open() {
             document.getElementById("row").disabled = this.disabled;
         }
     },

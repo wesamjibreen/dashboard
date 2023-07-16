@@ -61,6 +61,7 @@ export default {
     margin-bottom: 1rem;
     padding: 0;
     border: none;
+    cursor: pointer;
 }
 
 .animated-checkbox {

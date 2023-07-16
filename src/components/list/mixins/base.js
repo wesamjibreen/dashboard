@@ -136,6 +136,37 @@ export default {
                     },
                 );
             });
+
+
+            this.initActionEvent("action-button", (row, endPoint = {}) => {
+                this.$bus.emit('confirmation-dialog',
+                    true,
+                    {
+                        title: this.trans(`sure_to_${endPoint}`),
+                        type: "warning",
+                        callback: () => {
+                            this.loading = true;
+                            this.request(
+                                this.$endPoint(`${this.resource}.${endPoint}`, row.id),
+                                {},
+                                ({data}) => {
+                                    this.value = false;
+                                    window.Bus.emit('confirmation-dialog', false);
+                                    window.Bus.emit(`reload-table-${this.resource}`);
+                                    this.successNotify(data.message);
+                                },
+                                (data) => {
+                                    this.successNotify(data.message);
+                                },
+                                () => {
+                                    this.loading = false;
+                                }
+                            )
+                        },
+                    },
+                );
+            });
+
             this.initActionEvent("cancel", (row, data = {}) => {
                 this.$bus.emit('Popconfirmation-dialog',
                     true,
@@ -164,6 +195,9 @@ export default {
                     },
                 );
             });
+
+
+
             this.initActionEvent('show', (row, data = {}) => {
                 this.$router.push({name: `${this.resource}.show`, params: {id: row.id}});
             });

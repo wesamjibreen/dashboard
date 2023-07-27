@@ -139,6 +139,7 @@ export default {
 
 
             this.initActionEvent("action-button", (row, endPoint = {}) => {
+                console.log('initActionEvent',row,endPoint)
                 this.$bus.emit('confirmation-dialog',
                     true,
                     {
@@ -156,7 +157,8 @@ export default {
                                     this.successNotify(data.message);
                                 },
                                 (data) => {
-                                    this.successNotify(data.message);
+                                    window.Bus.emit('confirmation-dialog', false);
+                                    this.errorNotify(data?.message ?? "")
                                 },
                                 () => {
                                     this.loading = false;

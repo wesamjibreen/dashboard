@@ -8,7 +8,7 @@
     import svg from "../../../data/icons/svg";
 
     export default {
-        name: "Cancel",
+        name: "ActionButton",
         data: () => ({
             disabled : false
         }),
@@ -29,6 +29,9 @@
                 default: null
             },
             label: {
+                default: null,
+            },
+            disabledKey : {
                 default: null,
             },
             // disabled: {
@@ -66,7 +69,7 @@
             },
 
             disabled() {
-                return _.get(this.row,`disabled_${this.endPoint}`,false);
+                return _.get(this.row,`disabled_${this.disabledKey ?? this.endPoint}`,false);
             },
             args() {
                 return [

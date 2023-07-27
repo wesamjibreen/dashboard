@@ -112,7 +112,7 @@
                                             :resource="resource"
                                             :row="row"
                                             class="mx-1"
-                                            v-if="hasPermission(`${resource}.${action.slug}`) && (action?.slug === 'action-button') &&(action.slug!=='cancel')"
+                                            v-if="hasPermission(`${resource}.${action?.permission ?? action.slug}`) && (action.slug === 'action-button') &&(action.slug!=='cancel')"
                                         />
 
                                         <Cancel

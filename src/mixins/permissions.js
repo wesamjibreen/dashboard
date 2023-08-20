@@ -33,7 +33,8 @@ export default {
             let hasPermissions = false;
             actions.forEach(
                 function (action) {
-                    if (this.hasPermission(`${resource}.${action.slug}`)) {
+                    let key = _.get(action, 'permission', action.slug);
+                    if (this.hasPermission(`${resource}.${key}`)) {
                         hasPermissions = true;
                     }
                 }.bind(this)

@@ -342,6 +342,7 @@ export default {
                     // if (item.key == "dashboard")
                     //     filteredMenu.push(item);
 
+                    let itemKey = item.key.replaceAll("_", "-");
                     let children = _.filter(item.children, (child) => {
                         let childKey = child.key.replaceAll("_", "-");
                         return (
@@ -350,8 +351,11 @@ export default {
                             policies.includes(`others.${childKey}`)
                         );
                     });
-                    if (children.length > 0 || policies.includes(`others.${item.key}`)) {
-                        item.children = children;
+                    if (policies.includes(`${itemKey}.show`) ||
+                        children.length > 0 ||
+                        policies.includes(`others.${item.key}`)) {
+                        if (children.length > 0)
+                            item.children = children;
                         filteredMenu.push(item);
                     }
                 });

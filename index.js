@@ -1,11 +1,11 @@
 import {components, EndPoints, initHead, initI18n, initRouter, initStore, mixins} from "./modules";
 import initRequests from "./src/axios";
 import VueGoogleMaps from '@fawmi/vue-google-maps'
-import {Datepicker, Inputitems, Pagination, Sidebar, Timepicker, Modal, Upload, Field, Icon} from '@oruga-ui/oruga-next'
+import {Datepicker, Inputitems, Pagination, Sidebar, Timepicker, Modal, Field, Icon} from '@oruga-ui/oruga-next'
 import {createApp} from "./app";
 import VTooltip from 'v-tooltip'
 
-import {DatePicker, Select, Spin, Image, Menu} from 'ant-design-vue';
+import {DatePicker, Select, Spin, Image, Menu, Upload, Button} from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
 
 export default class App {
@@ -117,11 +117,10 @@ export default class App {
         this.app.use(Pagination);
         this.app.use(Sidebar);
         this.app.use(Modal);
-        this.app.use(Upload);
         this.app.use(Field);
         this.app.use(Icon);
 
-        [VTooltip, Select, Spin, DatePicker, Image, Menu].forEach((component) => this.app.use(component));
+        [VTooltip, Button, Select, Spin, DatePicker, Image, Menu, Upload].forEach((component) => this.app.use(component));
     }
 
     resolveComponents() {

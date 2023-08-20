@@ -1,6 +1,6 @@
 {
   "name": "nawadash",
-  "version": "1.7.4",
+  "version": "1.7.5",
   "description": "NAWA Functional Dashboard",
   "main": "index.js",
   "scripts": {
@@ -104,7 +104,7 @@
     "vue2-dropzone": "^3.6.0",
     "vue2-perfect-scrollbar": "^1.5.5",
     "vue3-apexcharts": "^1.4.1",
-    "vue3-colorpicker": "^2.0.4",
+    "vue3-colorpicker": "2.0.4",
     "vue3-draggable": "^2.0.9",
     "vue3-perfect-scrollbar": "^1.6.0",
     "vue3-treeselect": "^0.1.10",
